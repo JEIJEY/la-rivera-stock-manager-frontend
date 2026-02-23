@@ -1,4 +1,7 @@
 |-- [docs]
+    |-- ESTRUCTURA.MD
+|-- [public]
+    |-- vite.svg
 |-- [src]
     |-- [assets]
         |-- [fonts]
@@ -8,6 +11,9 @@
         |-- [core]
         |-- [modules]
             |-- [auth]
+                |-- [controllers]
+                |-- [services]
+                |-- [validations]
             |-- [dashboard]
             |-- [website]
         |-- [shared]
@@ -23,5 +29,12 @@
             |-- [organisms]
         |-- [tokens]
         |-- index.css
+    |-- counter.js
+    |-- javascript.svg
+    |-- main.js
+    |-- style.css
+|-- .gitignore
 |-- estructura.txt
+|-- index.html
+|-- package-lock.json
 |-- package.json
