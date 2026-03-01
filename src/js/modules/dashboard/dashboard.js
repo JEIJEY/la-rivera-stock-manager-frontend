@@ -33,14 +33,20 @@ viewManager.register("categorias", {
 
 viewManager.register("usuarios", {
   html: "usuarios.html",
-  module: "./usuarios.js",
+  module: "./usuarios/usuarios.entry.js",
   initExport: "inicializarUsuarios",
 });
 
 viewManager.register("reportes", {
   html: "reportes.html",
-  module: "./reportes.js",
+  module: "./reportes/reportes.entry.js",
   initExport: "inicializarReportes",
+});
+
+viewManager.register("movimientos", {
+  html: "movimientos.html",
+  module: "./movimientos/movimientos.entry.js",
+  initExport: "inicializarMovimientos",
 });
 
 viewManager.register("configuracion", {

@@ -176,17 +176,24 @@
                     |-- categorias.entry.js
                     |-- categorias.service.js
                     |-- categorias.view.js
+                |-- [configuracion]
+                    |-- configuracion.entry.js
                 |-- [inventario]
                     |-- inventario.api.js
                     |-- inventario.entry.js
                     |-- inventario.service.js
                     |-- inventario.view.js
+                |-- [movimientos]
+                    |-- movimientos.entry.js
                 |-- [productos]
                     |-- productos.api.js
                     |-- productos.entry.js
                     |-- productos.service.js
                     |-- productos.view.js
-                |-- configuracion.js
+                |-- [reportes]
+                    |-- reportes.entry.js
+                |-- [usuarios]
+                    |-- usuarios.entry.js
                 |-- dashboard.entry.js
                 |-- dashboard.js
                 |-- SPAViewManager.js
@@ -201,9 +208,13 @@
     |-- [pages]
         |-- [dashboard]
             |-- categorias.html
+            |-- configuracion.html
             |-- inventario_dashboard.html
             |-- modal-producto.html
+            |-- movimientos.html
             |-- productos.html
+            |-- reportes.html
+            |-- usuarios.html
         |-- dashboard-layout.html
     |-- [styles]
         |-- [auth]
