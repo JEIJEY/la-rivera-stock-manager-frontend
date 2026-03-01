@@ -1,3 +1,129 @@
+|-- [.claude]
+    |-- [worktrees]
+        |-- [priceless-engelbart]
+            |-- [.claude]
+                |-- settings.local.json
+            |-- [docs]
+                |-- ESTRUCTURA.MD
+            |-- [src]
+                |-- [assets]
+                    |-- [images]
+                        |-- add-product.png
+                        |-- AVATAR.png
+                        |-- categories.jpg
+                        |-- coca.png
+                        |-- default-product.png
+                        |-- facebook copy.png
+                        |-- facebook.png
+                        |-- fondo_coca.jpg
+                        |-- fondo-mym.jpg
+                        |-- gmail.png
+                        |-- google.png
+                        |-- icons8-whatsapp-48.png
+                        |-- inventory.png
+                        |-- La_Rivera.png
+                        |-- linkedin copy.png
+                        |-- linkedin.png
+                        |-- logo copy.png
+                        |-- logo.png
+                        |-- m&m-rojo.png
+                        |-- m&m.png
+                        |-- nutella-fondo.jpg
+                        |-- nutella.png
+                        |-- stock-control.jpg
+                        |-- whatsapp.png
+                |-- [js]
+                    |-- [core]
+                        |-- apiClient.js
+                        |-- EventBus.js
+                        |-- logger.js
+                        |-- router.js
+                    |-- [modules]
+                        |-- [auth]
+                            |-- login.js
+                            |-- register.js
+                        |-- [dashboard]
+                            |-- abc.js
+                            |-- categorias.js
+                            |-- configuracion.js
+                            |-- dashboard.entry.js
+                            |-- dashboard.js
+                            |-- inventario.js
+                            |-- navegacion-categorias.js
+                            |-- productos-vista.js
+                            |-- SPAViewManager.js
+                        |-- [website]
+                            |-- landing.controller.js
+                            |-- splash.controller.js
+                    |-- [shared]
+                        |-- [components]
+                            |-- logout-button.js
+                        |-- [utils]
+                            |-- debugGrid.js
+                |-- [pages]
+                    |-- [dashboard]
+                        |-- inventario_dashboard.html
+                    |-- dashboard-layout.html
+                |-- [styles]
+                    |-- [base]
+                        |-- _base.css
+                        |-- _reset.css
+                        |-- _typography.css
+                        |-- _variables.css
+                    |-- [shared]
+                        |-- [atoms]
+                            |-- _buttons.css
+                            |-- _headings.css
+                            |-- _icons.css
+                            |-- _images.css
+                            |-- _inputs.css
+                            |-- _labels.css
+                            |-- _links.css
+                            |-- _logout-button.css
+                        |-- [molecules]
+                            |-- _cards.css
+                            |-- _forms.css
+                            |-- _list-items.css
+                            |-- _login-footer.css
+                            |-- _logo.css
+                            |-- _navigation.css
+                            |-- _product-cards.css
+                            |-- _separator.css
+                            |-- _social-links.css
+                            |-- _social-login.css
+                        |-- [organisms]
+                            |-- _alerts.css
+                            |-- _categorias.css
+                            |-- _dashboard-header.css
+                            |-- _dashboard-main.css
+                            |-- _dashboard-sidebar.css
+                            |-- _dashboard.css
+                            |-- _footer.css
+                            |-- _header.css
+                            |-- _hero.css
+                            |-- _inventario.css
+                            |-- _login-card.css
+                            |-- _login-form.css
+                            |-- _modal-producto.css
+                            |-- _products-grid.css
+                            |-- _promo-section.css
+                            |-- _redirect-screen.css
+                            |-- inventario_dashboard.css
+                    |-- [utilities]
+                        |-- _animations.css
+                        |-- _debug-grid.css
+                        |-- _grid.css
+                        |-- _loader.css
+                        |-- _responsive.css
+                        |-- _spacing.css
+                    |-- index.css
+                |-- main.js
+            |-- .gitignore
+            |-- estructura.txt
+            |-- index.html
+            |-- package-lock.json
+            |-- package.json
+            |-- vite.config.js
 |-- [docs]
     |-- ESTRUCTURA.MD
 |-- [src]
@@ -45,12 +171,20 @@
                     |-- categorias.entry.js
                     |-- categorias.service.js
                     |-- categorias.view.js
+                |-- [inventario]
+                    |-- inventario.api.js
+                    |-- inventario.entry.js
+                    |-- inventario.service.js
+                    |-- inventario.view.js
+                |-- [productos]
+                    |-- productos.api.js
+                    |-- productos.entry.js
+                    |-- productos.service.js
+                    |-- productos.view.js
                 |-- abc.js
-                |-- categorias.js
                 |-- configuracion.js
                 |-- dashboard.entry.js
                 |-- dashboard.js
-                |-- inventario.js
                 |-- navegacion-categorias.js
                 |-- productos-vista.js
                 |-- SPAViewManager.js

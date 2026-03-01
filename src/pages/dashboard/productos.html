@@ -1,0 +1,33 @@
+<section class="inventario">
+  <header class="inventario__header">
+    <h1>📦 Inventario de productos</h1>
+    <div class="inventario__acciones">
+      <button id="btnCrearProducto" class="btn btn-success">➕ Crear producto</button>
+      <button id="btnRecargar" class="btn btn-primary">🔄 Recargar lista</button>
+    </div>
+  </header>
+
+  <table class="inventario__tabla">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Descripción</th>
+        <th>Stock</th>
+        <th>Unidad</th>
+        <th>Precio</th>
+        <th>Categoría</th>
+        <th>Marca</th>
+        <th>Proveedor</th>
+        <th>Estado</th>
+        <th>Creado</th>
+        <th>Actualizado</th>
+      </tr>
+    </thead>
+    <tbody id="tablaProductos"></tbody>
+  </table>
+
+  <p id="estadoCarga" class="inventario__estado"></p>
+</section>
+
+<div id="modalHostProductos"></div>
