@@ -1,0 +1,43 @@
+/* ======================================================
+   ⚛️ .btn - BOTÓN ATÓMICO GENÉRICO CON BORDE NEGRO
+====================================================== */
+
+.btn {
+  /* Base */
+  padding: 0.75rem 1.5rem;
+  border: 2px solid #000;
+  border-radius: 6px;
+  background: transparent;
+  color: #000;
+  
+  /* Tipografía */
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1;
+  text-decoration: none;
+  
+  /* Comportamiento */
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: all 0.2s ease;
+}
+
+/* Estados */
+.btn:hover {
+  background: #000;
+  color: #fff;
+}
+
+.btn:active {
+  transform: scale(0.98);
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none !important;
+}

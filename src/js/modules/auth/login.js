@@ -1,86 +1,104 @@
-document.addEventListener("DOMContentLoaded", function () {
+import { navigate } from "../../core/router.js";
+
+export function renderLogin() {
+  document.body.classList.add("no-header");
+  const app = document.getElementById("app");
+
+  app.innerHTML = `
+    <main class="login-page">
+      <article class="login-card">
+        <header class="login-card__header">
+          <img src="/src/assets/images/logo.png" alt="Logo" class="login-card__logo" />
+          <img src="/src/assets/images/La_Rivera.png" alt="La Rivera" class="login-card__brand" />
+        </header>
+
+        <section class="login-card__form">
+          <h1 class="login-card__title">Ingresa</h1>
+          <form id="loginForm" class="login-form">
+            <div class="login-form__group">
+              <input type="email" name="email" placeholder="Correo" required class="login-form__input" />
+            </div>
+            <div class="login-form__group">
+              <input type="password" name="password" placeholder="Contraseña" required class="login-form__input" />
+            </div>
+            <a href="#" class="login-form__forgot">¿Olvidaste tu contraseña?</a>
+            <button type="submit" class="btn btn--primary btn--full">Ingresa</button>
+          </form>
+        </section>
+
+        <div class="login-card__separator">
+          <span>Ingresa con</span>
+        </div>
+
+        <nav class="login-card__social">
+          <a href="#" class="social-login__link">
+            <img src="/src/assets/images/google.png" alt="Google" class="social-login__icon" />
+          </a>
+          <a href="#" class="social-login__link">
+            <img src="/src/assets/images/facebook.png" alt="Facebook" class="social-login__icon" />
+          </a>
+          <a href="#" class="social-login__link">
+            <img src="/src/assets/images/linkedin.png" alt="LinkedIn" class="social-login__icon" />
+          </a>
+        </nav>
+
+        <footer class="login-card__footer">
+          <p>¿No tienes cuenta? <a href="#" class="link" id="btnRegistro">Regístrate aquí</a></p>
+        </footer>
+      </article>
+    </main>
+  `;
+
+  document.getElementById("btnRegistro").addEventListener("click", (e) => {
+    e.preventDefault();
+    navigate("/register");
+  });
+
   const loginForm = document.getElementById("loginForm");
+  loginForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
 
-  if (!loginForm) {
-    console.error('❌ No se encontró el formulario con id="loginForm"');
-    return;
-  }
-
-  console.log("✅ Formulario de login encontrado");
-
-  loginForm.addEventListener("submit", async function (event) {
-    event.preventDefault();
-
-    // Mostrar loading
     const submitBtn = loginForm.querySelector('button[type="submit"]');
-    const originalText = submitBtn.textContent;
     submitBtn.textContent = "Iniciando sesión...";
     submitBtn.disabled = true;
 
     try {
-      // Preparar datos
       const formData = new FormData(loginForm);
       const datos = {
         email: formData.get("email"),
         password: formData.get("password"),
       };
 
-      console.log("📤 Enviando datos de login:", datos);
-
-      // Enviar petición al backend
       const response = await fetch("http://localhost:3001/api/auth/login", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(datos),
       });
 
-      console.log("📨 Status de respuesta:", response.status);
-
-      // Manejar respuesta
       if (!response.ok) {
         const errorData = await response.json();
-        console.log("🚨 ERROR DEL BACKEND:", errorData);
-
-        // Mostrar errores en alert legible
-        if (errorData.errors && errorData.errors.length > 0) {
-          const erroresTexto = errorData.errors.join("\n• ");
-          alert("❌ Errores:\n• " + erroresTexto);
+        if (errorData.errors?.length) {
+          alert("❌ Errores:\n• " + errorData.errors.join("\n• "));
         } else {
-          alert("❌ Error: " + (errorData.message || "Credenciales inválidas"));
+          alert("❌ " + (errorData.message || "Credenciales inválidas"));
         }
         return;
       }
 
-      // Login exitoso
       const result = await response.json();
-      console.log("🎉 Login exitoso:", result);
 
-      // Guardar token y usuario en localStorage
       if (result.token) {
-        localStorage.setItem("authToken", result.token); // 👈 nombre correcto
+        localStorage.setItem("authToken", result.token);
         localStorage.setItem("user", JSON.stringify(result.user));
-
-        console.log("🔑 Token guardado:", result.token);
       }
 
-      // Esperar un momento para asegurar el guardado antes del redirect
-      setTimeout(() => {
-        alert("✅ " + result.message);
-        window.location.href = "dashboard.html";
-      }, 300);
+      navigate("/dashboard");
 
-      alert("✅ " + result.message);
-      // Redirigir al dashboard
-      window.location.href = "dashboard.html";
     } catch (error) {
-      console.error("💥 Error:", error);
       alert("💥 Error de conexión con el servidor");
     } finally {
-      // Restaurar botón
-      submitBtn.textContent = originalText;
+      submitBtn.textContent = "Ingresa";
       submitBtn.disabled = false;
     }
   });
-});
+}

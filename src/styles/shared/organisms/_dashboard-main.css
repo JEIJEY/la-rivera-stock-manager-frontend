@@ -1,0 +1,57 @@
+.dashboard-main {
+  grid-area: main;
+  background-color: #f5f5f5;
+  border-radius: 10px;
+  padding: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  width: 100%;
+  height: auto;
+  position: relative;
+
+  /* 🔹 Elimina top negativo y corrige márgenes */
+  top: 0;
+  margin-left: 5px; /* ancho real del sidebar */
+  margin-top: -80px; /* altura del header */
+}
+
+.card {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  border-left: 4px solid #1abc9c;
+}
+
+.card h2 {
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 10px;
+}
+
+.card p {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333;
+  margin: 0;
+}
+
+.dashboard-main {
+  position: relative;
+  min-height: 100vh; /* que tenga altura completa visible */
+  background-color: white; /* para que contraste con la grilla */
+  overflow: visible;
+}
+
+/* ==============================================
+   📐 Contenedor principal del área de trabajo
+   ============================================== */
+.dashboard-main {
+  position: relative;
+  width: 100%;
+  height: 100%;          /* 🔹 toma el alto del grid-container */
+  min-height: calc(100vh - 80px); /* 🔹 ajusta si tu header ocupa algo */
+  background-color: #fff;
+  overflow: visible;       /* evita que la grilla se salga del borde */
+}

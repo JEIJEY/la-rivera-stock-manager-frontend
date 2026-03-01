@@ -1,0 +1,17 @@
+/* =========== LOGO MOLECULE =========== */
+.login-card__header {
+  display: flex; 
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 0px;
+  margin-bottom: var(--space-4);
+}
+
+.login-card__logo {
+  max-height: 150px;
+}
+
+.login-card__brand {
+  max-height: 60px;
+}

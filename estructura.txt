@@ -1,11 +1,40 @@
 |-- [docs]
     |-- ESTRUCTURA.MD
 |-- [src]
+    |-- [assets]
+        |-- [fonts]
+        |-- [icons]
+        |-- [images]
+            |-- add-product.png
+            |-- AVATAR.png
+            |-- categories.jpg
+            |-- coca.png
+            |-- default-product.png
+            |-- facebook copy.png
+            |-- facebook.png
+            |-- fondo_coca.jpg
+            |-- fondo-mym.jpg
+            |-- gmail.png
+            |-- google.png
+            |-- icons8-whatsapp-48.png
+            |-- inventory.png
+            |-- La_Rivera.png
+            |-- linkedin copy.png
+            |-- linkedin.png
+            |-- logo copy.png
+            |-- logo.png
+            |-- m&m-rojo.png
+            |-- m&m.png
+            |-- nutella-fondo.jpg
+            |-- nutella.png
+            |-- stock-control.jpg
+            |-- whatsapp.png
     |-- [js]
         |-- [core]
             |-- apiClient.js
             |-- EventBus.js
             |-- logger.js
+            |-- router.js
         |-- [modules]
             |-- [auth]
                 |-- login.js
@@ -14,6 +43,7 @@
                 |-- abc.js
                 |-- categorias.js
                 |-- configuracion.js
+                |-- dashboard.entry.js
                 |-- dashboard.js
                 |-- inventario.js
                 |-- navegacion-categorias.js
@@ -27,7 +57,65 @@
                 |-- logout-button.js
             |-- [utils]
                 |-- debugGrid.js
+    |-- [pages]
+        |-- dashboard-layout.html
     |-- [styles]
+        |-- [auth]
+        |-- [base]
+            |-- _base.css
+            |-- _reset.css
+            |-- _typography.css
+            |-- _variables.css
+        |-- [dashboard]
+        |-- [layouts]
+        |-- [shared]
+            |-- [atoms]
+                |-- _buttons.css
+                |-- _headings.css
+                |-- _icons.css
+                |-- _images.css
+                |-- _inputs.css
+                |-- _labels.css
+                |-- _links.css
+                |-- _logout-button.css
+            |-- [molecules]
+                |-- _cards.css
+                |-- _forms.css
+                |-- _list-items.css
+                |-- _login-footer.css
+                |-- _logo.css
+                |-- _navigation.css
+                |-- _product-cards.css
+                |-- _separator.css
+                |-- _social-links.css
+                |-- _social-login.css
+            |-- [organisms]
+                |-- _alerts.css
+                |-- _categorias.css
+                |-- _dashboard-header.css
+                |-- _dashboard-main.css
+                |-- _dashboard-sidebar.css
+                |-- _dashboard.css
+                |-- _footer.css
+                |-- _header.css
+                |-- _hero.css
+                |-- _inventario.css
+                |-- _login-card.css
+                |-- _login-form.css
+                |-- _modal-producto.css
+                |-- _products-grid.css
+                |-- _promo-section.css
+                |-- _redirect-screen.css
+                |-- inventario_dashboard.css
+        |-- [tokens]
+        |-- [utilities]
+            |-- _animations.css
+            |-- _debug-grid.css
+            |-- _grid.css
+            |-- _loader.css
+            |-- _responsive.css
+            |-- _spacing.css
+        |-- [website]
         |-- index.css
     |-- main.js
 |-- .gitignore
@@ -35,3 +123,4 @@
 |-- index.html
 |-- package-lock.json
 |-- package.json
+|-- vite.config.js

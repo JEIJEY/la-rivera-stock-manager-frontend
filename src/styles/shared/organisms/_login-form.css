@@ -1,0 +1,36 @@
+/* =========== LOGIN PAGE ORGANISM =========== */
+.login-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: var(--gradient-hero);
+  padding: var(--space-8);
+}
+
+.login-card {
+  gap: var(--space-6);
+  background: var(--container-bg);
+  backdrop-filter: blur(20px);
+  padding: var(--space-8);
+  border-radius: var(--border-radius-lg);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  width: 350px;
+  max-width: 100%;
+  box-shadow: var(--shadow-lg);
+}
+
+.login-form__input {
+  width: 100%;
+  padding: 0.8rem;
+  border-radius: 12px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+/* === AGREGA ESTO PARA SEPARACIÓN ENTRE INPUTS === */
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem; /* ← ESPACIO ENTRE EMAIL Y CONTRASEÑA */
+}

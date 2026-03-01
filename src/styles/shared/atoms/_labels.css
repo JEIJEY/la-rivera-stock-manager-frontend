@@ -1,0 +1,9 @@
+/* =========== LABEL ATOMS =========== */
+.label {
+  display: block;
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  color: var(--white-color);
+  margin-bottom: var(--space-2);
+  transition: all var(--transition-normal);
+}

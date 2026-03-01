@@ -1,0 +1,64 @@
+/* === BASE === */
+@import "./base/_reset.css";
+@import "./base/_variables.css";
+@import "./base/_typography.css";
+@import "./base/_base.css";
+
+/* === TOKENS === */
+
+/* === SHARED - ATOMS === */
+@import "./shared/atoms/_buttons.css";
+@import "./shared/atoms/_inputs.css";
+@import "./shared/atoms/_labels.css";
+@import "./shared/atoms/_images.css";
+@import "./shared/atoms/_links.css";
+@import "./shared/atoms/_icons.css";
+@import "./shared/atoms/_logout-button.css";
+@import "./shared/atoms/_headings.css";
+
+/* === SHARED - MOLECULES === */
+@import "./shared/molecules/_cards.css";
+@import "./shared/molecules/_forms.css";
+@import "./shared/molecules/_navigation.css";
+@import "./shared/molecules/_product-cards.css";
+@import "./shared/molecules/_list-items.css";
+@import "./shared/molecules/_social-links.css";
+@import "./shared/molecules/_social-login.css";
+@import "./shared/molecules/_logo.css";
+@import "./shared/molecules/_separator.css";
+@import "./shared/molecules/_login-footer.css";
+
+/* === SHARED - ORGANISMS === */
+@import "./shared/organisms/_header.css";
+@import "./shared/organisms/_footer.css";
+@import "./shared/organisms/_hero.css";
+@import "./shared/organisms/_products-grid.css";
+@import "./shared/organisms/_promo-section.css";
+@import "./shared/organisms/_login-card.css";
+@import "./shared/organisms/_login-form.css";
+@import "./shared/organisms/_redirect-screen.css";
+@import "./shared/organisms/_dashboard.css";
+@import "./shared/organisms/_dashboard-sidebar.css";
+@import "./shared/organisms/_dashboard-header.css";
+@import "./shared/organisms/_dashboard-main.css";
+@import "./shared/organisms/_inventario.css";
+@import "./shared/organisms/_categorias.css";
+@import "./shared/organisms/inventario_dashboard.css";
+@import "./shared/organisms/_modal-producto.css";
+@import "./shared/organisms/_alerts.css";
+
+/* === LAYOUTS === */
+
+/* === WEBSITE === */
+
+/* === AUTH === */
+
+/* === DASHBOARD === */
+
+/* === UTILITIES === */
+@import "./utilities/_grid.css";
+@import "./utilities/_spacing.css";
+@import "./utilities/_animations.css";
+@import "./utilities/_responsive.css";
+@import "./utilities/_debug-grid.css";
+@import "./utilities/_loader.css";

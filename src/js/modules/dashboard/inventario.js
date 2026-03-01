@@ -6,7 +6,7 @@
 console.log("✅ inventario.js cargado correctamente");
 
 // 📦 Importaciones necesarias
-import apiClient from "../utilities/apiClient.js";
+import apiClient from "../../core/apiClient.js";
 
 // ======================================================
 // 🚀 FUNCIÓN PRINCIPAL (punto de entrada para SPAViewManager)
@@ -15,7 +15,6 @@ export async function inicializarInventario() {
   console.log("⏳ Esperando a que cargue la vista del módulo Inventario...");
 
   try {
-    // Esperamos a que los elementos principales se inyecten en el DOM
     await esperarElemento(".invp-dashboard, #tablaProductos");
 
     if (document.querySelector(".invp-dashboard")) {
@@ -93,9 +92,6 @@ function inicializarProductos() {
 
   console.log("✅ Vista de productos lista, cargando datos...");
 
-  // ======================================================
-  // 🔄 CARGAR PRODUCTOS
-  // ======================================================
   async function cargarProductos() {
     tabla.innerHTML = "";
     estado.textContent = "⏳ Cargando productos...";
@@ -145,9 +141,6 @@ function inicializarProductos() {
     }
   }
 
-  // ======================================================
-  // 🎯 EVENTOS DE INTERFAZ
-  // ======================================================
   if (!btnRecargar.dataset.listener) {
     btnRecargar.dataset.listener = "true";
     btnRecargar.addEventListener("click", cargarProductos);
@@ -158,12 +151,8 @@ function inicializarProductos() {
     btnCrear.addEventListener("click", abrirModalCrearProducto);
   }
 
-  // Carga inicial
   cargarProductos();
 
-  // ======================================================
-  // 🧩 MODAL DE CREAR PRODUCTO
-  // ======================================================
   async function abrirModalCrearProducto() {
     if (!document.getElementById("modalProductoInventario")) {
       try {
@@ -203,9 +192,6 @@ function inicializarProductos() {
     }
   }
 
-  // ======================================================
-  // 🧠 FUNCIÓN PARA GUARDAR NUEVO PRODUCTO
-  // ======================================================
   async function guardarNuevoProducto(modal, recargar) {
     const nuevoProducto = {
       nombre: document.getElementById("nombre").value.trim(),
@@ -250,9 +236,6 @@ function inicializarProductos() {
     }
   }
 
-  // ======================================================
-  // 🗂️ CARGAR OPCIONES EN LOS SELECTS
-  // ======================================================
   async function cargarCategoriasEnSelect() {
     const select = document.getElementById("categoria");
     if (!select) return;
@@ -340,9 +323,6 @@ function inicializarProductos() {
     }
   }
 
-  // ======================================================
-  // 🪄 CREACIÓN RÁPIDA DESDE SELECTS
-  // ======================================================
   document.addEventListener("change", async (e) => {
     if (e.target.id === "categoria" && e.target.value === "crear-nueva") {
       await crearDesdeSelect(e, "categoría", "categorias", "id_categoria", cargarCategoriasEnSelect);

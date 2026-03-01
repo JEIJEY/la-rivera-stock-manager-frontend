@@ -1,9 +1,9 @@
 // ======================================================
-// 📦 src/js/dashboard/SPAViewManager.js
+// 📦 src/js/modules/dashboard/SPAViewManager.js
 // Gestor SPA universal para el Dashboard de La Rivera
 // ======================================================
 
-import { appEvents } from "../utilities/EventBus.js";
+import { appEvents } from "../../core/EventBus.js";
 
 /**
  * Gestor de vistas para el Dashboard SPA.
@@ -33,37 +33,37 @@ export default class SPAViewManager {
   initializeDefaults() {
     this.register("inventario", {
       html: "inventario_dashboard.html",
-      module: "/src/js/dashboard/inventario.js",
+      module: "./inventario.js",
       initExport: "inicializarInventario",
     });
 
     this.register("productos", {
       html: "productos.html",
-      module: "/src/js/dashboard/inventario.js",
-      initExport: "inicializarInventario", // reutiliza la misma función
+      module: "./inventario.js",
+      initExport: "inicializarInventario",
     });
 
     this.register("categorias", {
       html: "categorias.html",
-      module: "/src/js/dashboard/categorias.js",
+      module: "./categorias.js",
       initExport: "inicializarCategorias",
     });
 
     this.register("usuarios", {
       html: "usuarios.html",
-      module: "/src/js/dashboard/usuarios.js",
+      module: "./usuarios.js",
       initExport: "inicializarUsuarios",
     });
 
     this.register("reportes", {
       html: "reportes.html",
-      module: "/src/js/dashboard/reportes.js",
+      module: "./reportes.js",
       initExport: "inicializarReportes",
     });
 
     this.register("configuracion", {
       html: "configuracion.html",
-      module: "/src/js/dashboard/configuracion.js",
+      module: "./configuracion.js",
       initExport: "inicializarConfiguracion",
     });
 
@@ -91,7 +91,6 @@ export default class SPAViewManager {
 
       if (entry.beforeLoad) await entry.beforeLoad();
 
-      // 🌀 Fade-out de la vista anterior
       await this.fadeOut(this.container);
 
       // 1️⃣ Cargar HTML de la vista
@@ -113,7 +112,6 @@ export default class SPAViewManager {
       await initFn();
       this.currentView = name;
 
-      // ✨ Fade-in de la nueva vista
       await this.fadeIn(this.container);
 
       if (entry.afterLoad) await entry.afterLoad();

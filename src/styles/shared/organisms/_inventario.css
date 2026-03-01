@@ -1,0 +1,96 @@
+/* =========================================================
+🎨 ESTILOS DEL MÓDULO DE INVENTARIO
+Mantiene la coherencia con el dashboard La Rivera
+========================================================= */
+
+/* 🧱 Contenedor principal del inventario */
+.inventario {
+  padding: 20px;
+  background-color: #ffffff;
+  color: #333;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* 🧭 Cabecera del inventario */
+.inventario__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.inventario__header h2 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #1e293b;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.inventario__header img {
+  width: 32px;
+  height: 32px;
+}
+
+/* 📋 Tabla principal */
+.inventario__tabla {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+  font-size: 0.95rem;
+}
+
+/* Encabezados */
+.inventario__tabla th {
+  background-color: #0ea5e9;
+  color: white;
+  padding: 12px 16px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* Celdas */
+.inventario__tabla td {
+  padding: 12px 16px;
+  border-bottom: 1px solid #e2e2e2;
+  color: #334155;
+  vertical-align: middle;
+}
+
+/* Filas alternadas */
+.inventario__tabla tr:nth-child(even) {
+  background-color: #f8fafc;
+}
+
+/* Hover fila */
+.inventario__tabla tr:hover {
+  background-color: #eaf6ff;
+  transition: 0.3s ease;
+}
+
+/* 📊 Columnas numéricas alineadas */
+.inventario__tabla td:nth-child(1),
+.inventario__tabla td:nth-child(4),
+.inventario__tabla td:nth-child(6) {
+  text-align: center;
+}
+
+/* 🟢 Estado activo/inactivo */
+
+/* 📅 Fechas */
+.inventario__tabla td:nth-last-child(-n+2) {
+  text-align: center;
+  font-size: 0.9rem;
+  color: #475569;
+}
+
+
+
+
+

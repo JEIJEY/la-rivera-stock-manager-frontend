@@ -1,0 +1,22 @@
+.dashboard-header {
+  position: fixed;
+  top: 0;
+  left: 325px;
+  width: calc(100% - 325px);
+  height: 120px; 
+  padding: 0 2rem; 
+  display: flex;
+  align-items: center; 
+  justify-content: space-between;
+  background-color: rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(50px);
+  border-radius: 10px;
+  z-index: 300;
+}
+
+.dashboard-logo img {
+  max-height: 150px;
+  width: auto;
+  display: block;
+}
+

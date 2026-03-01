@@ -1,0 +1,202 @@
+/* ======================================================
+   🧩 MODAL CREAR PRODUCTO - ESTILOS ESPECÍFICOS
+   Solo para las clases del modal, sin afectar otras partes
+====================================================== */
+
+/* Contenedor principal del modal */
+.modal-producto {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+  padding: 20px;
+}
+
+.modal-producto.active {
+  display: flex;
+}
+
+/* Contenido del modal */
+.modal-contenido {
+  background-color: white;
+  width: 100%;
+  max-width: 600px;
+  border-radius: 12px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header del modal */
+.modal-header {
+  background: linear-gradient(135deg, #4361ee, #3a56d4);
+  color: white;
+  padding: 20px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-header h2 {
+  font-weight: 600;
+  font-size: 1.4rem;
+  margin: 0;
+}
+
+.cerrar-modal {
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: white;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.1rem;
+  transition: all 0.15s ease;
+}
+
+.cerrar-modal:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.05);
+}
+
+/* Formulario */
+.form-producto {
+  padding: 24px;
+  overflow-y: auto;
+  flex-grow: 1;
+}
+
+.form-producto label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 500;
+  color: #333;
+  font-size: 0.9rem;
+}
+
+.form-producto input,
+.form-producto select,
+.form-producto textarea {
+  width: 100%;
+  padding: 12px 14px;
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+  background-color: white;
+}
+
+.form-producto input:focus,
+.form-producto select:focus,
+.form-producto textarea:focus {
+  outline: none;
+  border-color: #4361ee;
+  box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.1);
+}
+
+.form-producto input::placeholder,
+.form-producto textarea::placeholder {
+  color: #999;
+}
+
+.form-producto textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+/* Campos requeridos con asterisco */
+.form-producto label[for*="nombre"],
+.form-producto label[for*="categoria"],
+.form-producto label[for*="precio"],
+.form-producto label[for*="stock"],
+.form-producto label[for*="unidad"] {
+  position: relative;
+}
+
+.form-producto label[for*="nombre"]::after,
+.form-producto label[for*="categoria"]::after,
+.form-producto label[for*="precio"]::after,
+.form-producto label[for*="stock"]::after,
+.form-producto label[for*="unidad"]::after {
+  content: "*";
+  color: #f72585;
+  margin-left: 4px;
+}
+
+/* Botones */
+.modal-acciones {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  margin-top: 10px;
+  padding-top: 20px;
+  border-top: 1px solid #eee;
+}
+
+
+/* Estados de validación */
+.form-producto input:invalid:not(:focus):not(:placeholder-shown),
+.form-producto select:invalid:not(:focus) {
+  border-color: #f72585;
+  background-color: rgba(247, 37, 133, 0.02);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .modal-producto {
+    padding: 10px;
+  }
+  
+  .modal-contenido {
+    max-height: 95vh;
+  }
+  
+  .modal-header {
+    padding: 16px 20px;
+  }
+  
+  .modal-header h2 {
+    font-size: 1.2rem;
+  }
+  
+  .form-producto {
+    padding: 20px;
+  }
+  
+  .modal-acciones {
+    flex-direction: column-reverse;
+  }
+  
+  
+}
+
+/* Scroll personalizado para el formulario */
+.form-producto::-webkit-scrollbar {
+  width: 6px;
+}
+
+.form-producto::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.form-producto::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 3px;
+}
+
+.form-producto::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}

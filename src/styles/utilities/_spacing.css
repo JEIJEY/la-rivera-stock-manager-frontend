@@ -1,0 +1,8 @@
+/* =========== SPACING UTILITIES =========== */
+.mb-1 { margin-bottom: var(--space-1); }
+.mb-4 { margin-bottom: var(--space-4); }
+
+/* Padding */
+.p-2 { padding: var(--space-2); }
+.p-6 { padding: var(--space-6); }
+

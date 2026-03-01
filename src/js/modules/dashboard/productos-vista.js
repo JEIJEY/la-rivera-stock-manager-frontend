@@ -1,7 +1,7 @@
 // ✅ VISTA DE PRODUCTOS - VERSIÓN CORREGIDA
 // Este módulo no controla la navegación, solo muestra productos cuando se le indica.
 
-import apiClient from "../utilities/apiClient.js";
+import apiClient from "../../core/apiClient.js";
 
 // Exportamos una función pura que el módulo de navegación invoca
 export async function mostrarProductos(categoriaId, nombreCategoria) {

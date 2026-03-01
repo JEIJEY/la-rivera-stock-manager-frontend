@@ -1,0 +1,189 @@
+/* =========== HEADER ORGANISM =========== */
+
+/* MOBILE FIRST (por defecto) */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 70px;
+  padding: 0 var(--space-4);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--header-bg);
+  backdrop-filter: blur(15px);
+  z-index: var(--z-fixed);
+}
+
+.header__logo {
+  display: flex;
+  align-items: center;
+}
+
+.header__logo-img {
+  max-height: 120px;
+  width: auto;
+  display: block;
+}
+
+/* NAV - Oculta en móvil por defecto, se muestra con hamburger */
+.header__nav {
+  position: fixed;
+  top: 70px;
+  left: 0;
+  width: 100%;
+  background: var(--header-bg);
+  backdrop-filter: blur(20px);
+  flex-direction: column;
+  padding: var(--space-4);
+  transform: translateY(-100%);
+  opacity: 0;
+  visibility: hidden;
+  transition: all var(--transition-normal);
+  display: flex;
+}
+
+.header__nav.active {
+  transform: translateY(0);
+  opacity: 1;
+  visibility: visible;
+}
+
+.header__nav-link {
+  font-size: var(--text-lg);
+  font-weight: var(--font-medium);
+  margin: var(--space-3) 0;
+  padding: var(--space-3);
+  color: var(--white-color);
+  transition: all var(--transition-normal);
+  text-align: center;
+  border-radius: var(--border-radius);
+}
+
+.header__nav-link:hover {
+  background: var(--text-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.header__nav-link:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* LOGIN - Oculta en móvil por defecto */
+.header__login {
+  display: none;
+}
+
+/* HAMBURGER - Visible en móvil */
+.header__hamburger {
+  position: relative;
+  width: 50px;
+  height: 50px;
+  background: #111;
+  border-radius: var(--border-radius-lg);
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 0 5px var(--primary-color), 
+              0 0 10px var(--secondary-color), 
+              0 0 15px var(--accent-color);
+}
+
+.header__hamburger-icon {
+  position: relative;
+  width: 30px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  transition: transform var(--transition-slow);
+}
+
+.header__hamburger.active .header__hamburger-icon { 
+  transform: rotate(315deg); 
+}
+
+.header__hamburger-icon span {
+  position: absolute;
+  display: block;
+  height: 3px;
+  width: 100%;
+  border-radius: 2px;
+  background: var(--gradient-primary);
+  box-shadow: 0 0 5px var(--primary-color), 
+              0 0 10px var(--secondary-color), 
+              0 0 15px var(--accent-color);
+  transition: all var(--transition-normal);
+}
+
+.header__hamburger-icon span:nth-child(1) { top: 0; }
+.header__hamburger.active span:nth-child(1) {
+  transform: translateY(9px) rotate(45deg);
+  background: var(--gradient-secondary);
+}
+
+.header__hamburger-icon span:nth-child(2) {
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 1;
+}
+.header__hamburger.active span:nth-child(2) { 
+  transform: scale(0); 
+  opacity: 0; 
+}
+
+.header__hamburger-icon span:nth-child(3) { bottom: 0; }
+.header__hamburger.active span:nth-child(3) {
+  transform: translateY(-9px) rotate(-45deg);
+  background: var(--gradient-secondary);
+}
+
+/* ESCRITORIO: 768px+ */
+@media (min-width: 768px) {
+  .header {
+    height: 90px;
+    padding: 0 var(--space-8);
+  }
+
+  .header__logo-img {
+    max-height: 150px;
+  }
+
+  /* NAV - Visible en desktop */
+  .header__nav {
+    position: static;
+    flex-direction: row;
+    background: transparent;
+    backdrop-filter: none;
+    transform: none;
+    opacity: 1;
+    visibility: visible;
+    padding: 0;
+    width: auto;
+  }
+
+  .header__nav-link {
+    margin: 0 0 0 var(--space-8);
+    padding: 0;
+    text-align: left;
+  }
+
+  .header__nav-link:hover {
+    background: transparent;
+  }
+
+  /* LOGIN - Visible en desktop */
+  .header__login {
+    display: flex;
+    align-items: center;
+    margin-left: var(--space-4);
+  }
+
+  /* HAMBURGER - Oculta en desktop */
+  .header__hamburger {
+    display: none;
+  }
+}

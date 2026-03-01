@@ -1,0 +1,23 @@
+/* =========== SEPARATOR MOLECULE =========== */
+.login-card__separator {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin: var(--space-6) 0;
+  color: var(--text-color-light);
+}
+
+.login-card__separator::before,
+.login-card__separator::after {
+  content: "";
+  flex: 1;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.login-card__separator:not(:empty)::before {
+  margin-right: var(--space-2);
+}
+
+.login-card__separator:not(:empty)::after {
+  margin-left: var(--space-2);
+}

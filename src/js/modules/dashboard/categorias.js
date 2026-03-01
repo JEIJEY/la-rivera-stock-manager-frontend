@@ -2,8 +2,8 @@
 // ✅ CRUD COMPLETO CATEGORÍAS - VERSIÓN FINAL PARA SPAViewManager
 // ======================================================
 
-import apiClient from "../utilities/apiClient.js";
-import { appEvents } from "../utilities/EventBus.js";
+import apiClient from "../../core/apiClient.js";
+import { appEvents } from "../../core/EventBus.js";
 import { NavegacionCategorias } from "./navegacion-categorias.js";
 
 console.log("🎯 Módulo de categorías (SPA) cargando...");
@@ -14,7 +14,6 @@ console.log("🎯 Módulo de categorías (SPA) cargando...");
 export async function inicializarCategorias() {
   console.log("📂 Inicializando vista de CATEGORÍAS (modo SPA)...");
 
-  // 🔍 Referencias del DOM (ya inyectadas por SPAViewManager)
   const form = document.getElementById("formCategoria");
   const lista = document.getElementById("listaCategorias");
 
@@ -23,16 +22,13 @@ export async function inicializarCategorias() {
     return;
   }
 
-  // Inicializar módulo de navegación solo una vez
   if (!window._navCategoriasInicializado) {
     NavegacionCategorias.init();
     window._navCategoriasInicializado = true;
   }
 
-  // Cargar categorías raíz
   await cargarCategorias();
 
-  // Listener del formulario (evitar duplicados)
   if (form && !form.dataset.listener) {
     form.dataset.listener = "true";
     form.addEventListener("submit", async (e) => {
@@ -117,14 +113,8 @@ async function cargarCategorias() {
   }
 }
 
-// ======================================================
-// 🔒 Helper seguro
-// ======================================================
 const _safe = (s = "") => String(s).replace(/'/g, "\\'");
 
-// ======================================================
-// 🎯 FUNCIONES GLOBALES CRUD
-// ======================================================
 window.cargarCategorias = cargarCategorias;
 
 window.abrirDetalleCategoria = async (id, nombre) => {
@@ -307,7 +297,6 @@ async function cargarMarcasYProveedores() {
   }
 }
 
-// Evitar duplicar listener del formulario
 const formProducto = document.getElementById("formProducto");
 if (formProducto && !formProducto.dataset.listener) {
   formProducto.dataset.listener = "true";

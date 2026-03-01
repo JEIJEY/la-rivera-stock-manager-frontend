@@ -1,0 +1,190 @@
+/* ======================================================
+   🎨 SIDEBAR GENERAL (sin clip-path, diseño moderno)
+====================================================== */
+
+.dashboard-sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  grid-area: sidebar;
+  width: 320px;
+  height: 100vh;
+  background: linear-gradient(
+    180deg,
+    rgba(20, 20, 20, 0.8),
+    rgba(0, 0, 0, 0.6)
+  );
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-right: 2px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 4px 0 25px rgba(0, 0, 0, 0.35);
+  padding: 30px 20px;
+  border-radius: 0 25px 25px 0;
+  color: #ecf0f1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: visible; /* deja ver submenús flotantes */
+  z-index: 200;
+  transition: all 0.3s ease-in-out;
+}
+
+/* ======================================================
+   📸 PERFIL DE USUARIO
+====================================================== */
+.sidebar-profile {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.sidebar-profile__img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+}
+
+.sidebar-profile__info {
+  font-size: 14px;
+  display: flex;
+  flex-direction: column;
+  color: #e0e0e0;
+}
+
+.sidebar-profile__info .sidebar-profile__name {
+  font-weight: 600;
+  color: #fff;
+}
+
+/* ======================================================
+   🧭 MENÚ PRINCIPAL
+====================================================== */
+.sidebar-menu {
+  margin-top: 60px;
+}
+
+.sidebar-menu__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar-menu__item {
+  position: relative;
+  margin-bottom: 12px;
+}
+
+.sidebar-menu__link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.85);
+  border-radius: 10px;
+  font-weight: 500;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.sidebar-menu__item.active .sidebar-menu__link,
+.sidebar-menu__link:hover {
+  background: rgba(26, 188, 156, 0.25);
+  color: #ffffff;
+  transform: translateX(4px);
+}
+
+/* ======================================================
+   ⚙️ SUBMENÚ SUPERPUESTO (INVENTARIO)
+====================================================== */
+
+.sidebar-menu__item.has-submenu {
+  position: relative;
+}
+
+.sidebar-submenu {
+  list-style: none;
+  position: absolute;
+  left: 0;
+  top: 100%;
+  background: rgba(20, 20, 20, 0.95);
+  border-radius: 10px;
+  padding: 8px 0;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+  min-width: 220px;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-8px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  z-index: 9999;
+}
+
+.sidebar-menu__item.open .sidebar-submenu {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.sidebar-submenu li a {
+  display: block;
+  padding: 8px 16px;
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  font-size: 0.9rem;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.sidebar-submenu li a:hover {
+  background: rgba(26, 188, 156, 0.25);
+  color: #fff;
+}
+
+/* Flecha ▼ */
+.sidebar-menu__link .arrow {
+  margin-left: 8px;
+  font-size: 0.9rem;
+  transition: transform 0.3s ease;
+}
+
+.sidebar-menu__item.open .arrow {
+  transform: rotate(180deg);
+}
+
+/* ======================================================
+   🦶 FOOTER DEL SIDEBAR
+====================================================== */
+.sidebar-footer {
+  margin-top: auto;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* ======================================================
+   📱 MEDIA QUERIES
+====================================================== */
+@media (max-height: 800px) {
+  .sidebar-footer {
+    position: relative;
+    bottom: -60px;
+  }
+}
+
+/* ======================================================
+   📏 ANCHOS INDIVIDUALES
+====================================================== */
+.sidebar-menu__item:nth-child(1) .sidebar-menu__link,
+.sidebar-menu__item:nth-child(2) .sidebar-menu__link,
+.sidebar-menu__item:nth-child(3) .sidebar-menu__link,
+.sidebar-menu__item:nth-child(4) .sidebar-menu__link,
+.sidebar-menu__item:nth-child(5) .sidebar-menu__link {
+  width: 220px;
+}

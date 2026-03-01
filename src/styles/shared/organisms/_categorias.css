@@ -1,0 +1,699 @@
+/* 🎨 ESTILOS PARA FORMULARIO DE CATEGORÍAS */
+.categoria-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 400px;
+  margin-bottom: 2rem;
+}
+
+.categoria-form label {
+  color: var(--text-color, #222);
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.categoria-form input {
+  color: #222;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 8px;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.categoria-form input::placeholder {
+  color: #777;
+}
+
+.categoria-form input:focus {
+  border-color: var(--primary-color, #007bff);
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+.categoria-form input.error {
+  border-color: #ef4444;
+  background-color: #fef2f2;
+}
+
+.categoria-form button {
+  margin-top: 10px;
+  background-color: var(--primary-color, #007bff);
+  color: #fff;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.2s ease;
+}
+
+.categoria-form button:hover {
+  background-color: var(--primary-hover, #0056b3);
+}
+
+.categoria-form button:focus {
+  outline: 2px solid var(--primary-hover, #0056b3);
+  outline-offset: 2px;
+}
+
+/* =========================================================
+   🎨 GRID DE TARJETAS DE CATEGORÍAS
+========================================================= */
+.grid-categorias {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1rem;
+  list-style: none;
+  padding: 0;
+}
+
+/* Tarjeta base con animación */
+.categoria-card .card {
+  border: 1px solid #e1e5e9;
+  border-radius: 12px;
+  padding: 1.25rem;
+  background: #fff;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  animation: fadeInUp 0.4s ease-out;
+}
+
+.categoria-card .card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
+  border-color: #3b82f6;
+}
+
+.categoria-card .card.success {
+  border-color: #10b981;
+  box-shadow: 0 0 0 1px #10b981;
+}
+
+.categoria-card.loading .card {
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Encabezado de tarjeta */
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.card-header h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  color: #1f2937;
+}
+
+/* Badges para diferentes tipos */
+.badge {
+  background: #3b82f6;
+  color: #fff;
+  padding: 0.25rem 0.5rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.badge.categoria {
+  background: #3b82f6;
+}
+
+.badge.producto {
+  background: #10b981;
+}
+
+/* Descripción */
+.card-desc {
+  color: #6b7280;
+  margin-bottom: 1rem;
+  line-height: 1.4;
+  flex-grow: 1;
+}
+
+/* Botones pequeños dentro de tarjeta */
+.card-actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.btn-small {
+  background: #f3f4f6;
+  padding: 0.375rem 0.75rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.875rem;
+  transition: background 0.2s;
+  color: #374151;
+}
+
+.btn-small:hover {
+  background: #e5e7eb;
+}
+
+.btn-small:focus {
+  outline: 2px solid #3b82f6;
+  outline-offset: 1px;
+}
+
+.btn-small:active {
+  transform: scale(0.98);
+}
+
+.btn-small:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn-small:disabled:hover {
+  background: #f3f4f6;
+}
+
+.btn-edit {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+.btn-edit:hover {
+  background: #bfdbfe;
+}
+
+.btn-delete {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+.btn-delete:hover {
+  background: #fecaca;
+}
+
+/* =========================================================
+   🎯 VISTA DETALLE
+========================================================= */
+.vista-detalle {
+  padding: 1.5rem;
+}
+
+.detalle-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.detalle-content {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.seccion-subcategorias,
+.seccion-productos {
+  margin-top: 2rem;
+}
+
+.seccion-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.detalle-info h3 {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  color: #1f2937;
+}
+
+.detalle-info p {
+  color: #6b7280;
+  margin-bottom: 0.5rem;
+}
+
+.detalle-stats {
+  margin-top: 0.75rem;
+  display: flex;
+  gap: 1rem;
+}
+
+.stat {
+  color: #6b7280;
+  font-size: 0.875rem;
+}
+
+.stat strong {
+  color: #111827;
+  font-size: 1rem;
+}
+
+/* Tarjetas de productos */
+.grid-productos {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.producto-card .card {
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 1rem;
+  text-align: center;
+  background: #fff;
+  transition: 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.producto-card .card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+}
+
+.producto-card img {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 0.5rem;
+}
+
+.producto-card h4 {
+  margin: 0.5rem 0 0.25rem 0;
+  color: #111827;
+  font-size: 1rem;
+}
+
+.producto-card .precio {
+  color: #16a34a;
+  font-weight: bold;
+  margin: 0.25rem 0;
+}
+
+.producto-card .stock {
+  font-size: 0.875rem;
+  color: #6b7280;
+  margin: 0.25rem 0;
+}
+
+/* Botón volver */
+.btn-volver {
+  background: #e5e7eb;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.2s;
+  color: #374151;
+  font-weight: 500;
+}
+
+.btn-volver:hover {
+  background: #d1d5db;
+}
+
+.btn-volver:focus {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+.btn-volver:active {
+  transform: scale(0.98);
+}
+
+.btn-volver:disabled {
+  background: #9ca3af;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.btn-volver:disabled:hover {
+  background: #9ca3af;
+  transform: none;
+}
+
+/* Estados vacíos más descriptivos */
+.no-items {
+  color: #6b7280;
+  font-style: italic;
+  text-align: center;
+  padding: 3rem 1rem;
+  border: 2px dashed #e5e7eb;
+  border-radius: 8px;
+  background: #f9fafb;
+  grid-column: 1 / -1;
+}
+
+/* Mensajes de éxito */
+
+/* =========================================================
+   🎯 ESTADOS DE CARGA (LOADING)
+========================================================= */
+
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* =========================================================
+   📱 RESPONSIVE PARA MÓVILES
+========================================================= */
+@media (max-width: 768px) {
+  .grid-categorias {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .grid-productos {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  }
+  
+  .detalle-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  
+  .seccion-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  
+  .card-actions {
+    flex-wrap: wrap;
+  }
+  
+  .vista-detalle {
+    padding: 1rem;
+  }
+  
+  .detalle-stats {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
+
+/* =========================================================
+   🎨 MEJORAS PARA TABLETS
+========================================================= */
+@media (max-width: 1024px) and (min-width: 769px) {
+  .grid-categorias {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  }
+  
+  .grid-productos {
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  }
+}
+
+/* =========================================================
+   🖥️ MEJORAS PARA ESCRITORIO GRANDE
+========================================================= */
+@media (min-width: 1200px) {
+  .grid-categorias {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  }
+  
+  .detalle-content {
+    max-width: 1400px;
+  }
+}
+
+/* =========================================================
+   🌙 SOPORTE PARA MODO OSCURO (FUTURO)
+========================================================= */
+/* @media (prefers-color-scheme: dark) {
+  .categoria-card .card {
+    background: #1f2937;
+    border-color: #374151;
+    color: #f9fafb;
+  }
+  
+  .card-header h3 {
+    color: #f9fafb;
+  }
+  
+  .card-desc {
+    color: #d1d5db;
+  }
+}
+ */
+/* =========================================================
+   ♿ MEJORAS DE ACCESIBILIDAD
+========================================================= */
+@media (prefers-reduced-motion: reduce) {
+  .categoria-card .card,
+  .btn-small,
+  .btn-volver {
+    transition: none;
+    animation: none;
+  }
+}
+
+/* Enfocado para navegación con teclado */
+.categoria-card .card:focus-visible {
+  outline: 3px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+/* Mejor contraste para textos importantes */
+.stat strong,
+.detalle-info h3,
+.card-header h3 {
+  color: #111827;
+}
+
+/* Feedback táctil para móviles */
+@media (hover: none) {
+  .categoria-card .card:hover {
+    transform: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .btn-small:hover,
+  .btn-volver:hover {
+    transform: none;
+  }
+}
+
+/* =========================================================
+   🎪 MICRO-INTERACCIONES ADICIONALES
+========================================================= */
+.categoria-card .card:active {
+  transform: scale(0.99);
+}
+
+/* ======================================================
+   🎯 ESTILOS PARA EL MODAL
+====================================================== */
+
+/* Fondo del modal */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+/* Contenido del modal */
+.modal-content {
+  background: rgb(224, 7, 7);
+  padding: 2rem;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 600px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  position: relative;
+  transform: translateY(-20px);
+  transition: transform 0.3s ease;
+}
+
+/* Botón de cerrar */
+.close-modal {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #6b7280;
+  background: none;
+  border: none;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.close-modal:hover {
+  background-color: #f3f4f6;
+  color: #374151;
+}
+
+/* Título del modal */
+.modal-content h2 {
+  margin: 0 0 1.5rem 0;
+  color: #1f2937;
+  font-size: 1.5rem;
+  padding-right: 2rem;
+}
+
+/* Formulario */
+.producto-form {
+  margin-top: 1rem;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #374151;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  padding: 0.75rem;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.form-group textarea {
+  min-height: 80px;
+  resize: vertical;
+}
+
+.form-group small {
+  margin-top: 0.25rem;
+  color: #6b7280;
+  font-size: 0.875rem;
+}
+
+/* Acciones del formulario */
+.form-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid #e5e7eb;
+}
+
+/* Botones */
+.btn {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.btn--primary {
+  background-color: #3b82f6;
+  color: white;
+}
+
+.btn--primary:hover {
+  background-color: #2563eb;
+}
+
+.btn--secondary {
+  background-color: #6b7280;
+  color: white;
+}
+
+.btn--secondary:hover {
+  background-color: #4b5563;
+}
+
+.btn:active {
+  transform: scale(0.98);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .modal-content {
+    padding: 1.5rem;
+    margin: 1rem;
+    width: calc(100% - 2rem);
+  }
+
+  .form-actions {
+    flex-direction: column;
+  }
+
+  .btn {
+    width: 100%;
+  }
+}

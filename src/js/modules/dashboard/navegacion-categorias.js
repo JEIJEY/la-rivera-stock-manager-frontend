@@ -1,5 +1,5 @@
 // ✅ NAVEGACIÓN DE CATEGORÍAS - VERSIÓN SIN DEPENDENCIAS CIRCULARES
-import apiClient from "../utilities/apiClient.js";
+import apiClient from "../../core/apiClient.js";
 import { mostrarProductos } from "./productos-vista.js";
 
 console.log("🎯 NAVEGACIÓN DE CATEGORÍAS: Módulo cargado");
@@ -28,16 +28,9 @@ export const NavegacionCategorias = {
     this.$btnVolver.addEventListener("click", () => this.volver());
     this.$breadcrumbs.addEventListener("click", (e) => this.handleBreadcrumb(e));
 
-    // Inicializar la vista según el nivel actual (0)
     this.actualizarVistaModo();
     this.renderBreadcrumbs();
     this.updateVolverButton();
-
-    // 🔥 Cargar categorías raíz (pero no en nivel 0, porque el CRUD ya muestra las categorías)
-    // En nivel 0, no cargamos nada en la vista de navegación, porque mostramos el CRUD.
-    // Pero si queremos pre-cargar las categorías raíz para la navegación, podríamos hacerlo.
-    // Sin embargo, note que el CRUD ya carga las categorías en la vistaRaiz.
-    // Por lo tanto, no necesitamos cargar categorías raíz en la vista de navegación en el nivel 0.
   },
 
   // =====================================================
@@ -60,7 +53,6 @@ export const NavegacionCategorias = {
     try {
       const categorias = await apiClient.getCategorias(parentId);
 
-      // ✅ Si la categoría actual NO tiene subcategorías → mostrar productos
       if (!categorias || categorias.length === 0) {
         if (state.categoriaActual) {
           await mostrarProductos(state.categoriaActual.id, state.categoriaActual.nombre);
@@ -71,7 +63,6 @@ export const NavegacionCategorias = {
         }
       }
 
-      // 🔁 Si sí tiene subcategorías → renderiza el nivel
       this.renderVista(categorias);
 
     } catch (err) {
@@ -93,7 +84,6 @@ export const NavegacionCategorias = {
       )
       .join("");
 
-    // Click en una categoría → navegar un nivel más
     this.$vista.querySelectorAll(".cat-item").forEach((el) =>
       el.addEventListener("click", () =>
         this.irASubcategoria(el.dataset.id, el.textContent)

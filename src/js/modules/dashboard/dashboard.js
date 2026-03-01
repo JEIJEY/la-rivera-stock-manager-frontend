@@ -12,71 +12,64 @@ import {
   toggleGrilla,
   crearGrillaExacta,
   observarRedimensionamiento,
-} from "../utilities/debugGrid.js";
+} from "../../shared/utils/debugGrid.js";
 
 // ======================================================
 // ⚙️ INTEGRACIÓN DEL GESTOR SPA (Single Page Application)
 // ======================================================
 import SPAViewManager from "./SPAViewManager.js";
-import { appEvents } from "../utilities/EventBus.js";
+import { appEvents } from "../../core/EventBus.js";
 
 // 1️⃣ Inicializamos el gestor de vistas
 const viewManager = new SPAViewManager({
   container: main,
-  pagesBase: "./dashboard/", // HTMLs dentro de /pages/dashboard/
+  pagesBase: "./dashboard/",
 });
 
 // 2️⃣ Registramos todas las vistas del dashboard
 viewManager.register("inventario", {
   html: "inventario_dashboard.html",
-  module: "../../js/dashboard/inventario.js",
+  module: "./inventario.js",
   initExport: "inicializarInventario",
   afterLoad: async () => {
-    // Al cargar el inventario, inyecta el módulo ABC y observa la grilla
     await cargarABCparaInventario();
     observarRedimensionamiento();
   },
 });
 
-// 🆕 Vista “Productos” — usa el mismo módulo inventario.js
 viewManager.register("productos", {
   html: "productos.html",
-  module: "../../js/dashboard/inventario.js",
+  module: "./inventario.js",
   initExport: "inicializarInventario",
 });
 
-// Vista “Categorías”
 viewManager.register("categorias", {
   html: "categorias.html",
-  module: "../../js/dashboard/categorias.js",
+  module: "./categorias.js",
   initExport: "inicializarCategorias",
 });
 
-// Vista “Usuarios”
 viewManager.register("usuarios", {
   html: "usuarios.html",
-  module: "../../js/dashboard/usuarios.js",
+  module: "./usuarios.js",
   initExport: "inicializarUsuarios",
 });
 
-// Vista “Reportes”
 viewManager.register("reportes", {
   html: "reportes.html",
-  module: "../../js/dashboard/reportes.js",
+  module: "./reportes.js",
   initExport: "inicializarReportes",
 });
 
-// Vista “Configuración”
 viewManager.register("configuracion", {
   html: "configuracion.html",
-  module: "../../js/dashboard/configuracion.js",
+  module: "./configuracion.js",
   initExport: "inicializarConfiguracion",
 });
 
 // ======================================================
 // 🧭 NAVEGACIÓN DINÁMICA DEL DASHBOARD
 // ======================================================
-// Todos los enlaces del sidebar que tengan data-seccion
 document.querySelectorAll(".sidebar-menu__link").forEach((link) => {
   link.addEventListener("click", (e) => {
     e.preventDefault();
@@ -87,7 +80,6 @@ document.querySelectorAll(".sidebar-menu__link").forEach((link) => {
     }
   });
 
-  // 🪄 Precarga el módulo al pasar el mouse (para carga instantánea)
   link.addEventListener("mouseenter", () => {
     const seccion = link.dataset.seccion;
     if (seccion) viewManager.prefetchModule(seccion);
@@ -125,20 +117,19 @@ document.addEventListener("keydown", (e) => {
 });
 
 // ======================================================
-// 🚀 CARGA ESPECÍFICA PARA EL MÓDULO ABC (Análisis de Inventario)
+// 🚀 CARGA ESPECÍFICA PARA EL MÓDULO ABC
 // ======================================================
 async function cargarABCparaInventario() {
   console.log("🔄 Iniciando carga de ABC...");
 
   return new Promise((resolve) => {
-    // Evita recargar si ya está disponible
     if (window.recalcularABC && window.filtrarProductos) {
       console.log("⚡ ABC.js ya estaba cargado");
       return resolve();
     }
 
     const script = document.createElement("script");
-    script.src = "/src/js/dashboard/abc.js"; // Ruta absoluta (segura)
+    script.src = "/src/js/modules/dashboard/abc.js";
     script.type = "text/javascript";
     script.defer = true;
 
@@ -162,7 +153,7 @@ async function cargarABCparaInventario() {
 }
 
 // ======================================================
-// 🧠 EVENTO GLOBAL DEL GESTOR SPA (debug opcional)
+// 🧠 EVENTO GLOBAL DEL GESTOR SPA
 // ======================================================
 appEvents.on("vista-cargada", (vista) => {
   console.log(`📄 Vista activa: ${vista}`);

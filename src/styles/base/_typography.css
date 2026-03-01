@@ -1,0 +1,23 @@
+/* =========== TYPOGRAPHY =========== */
+h1, h2, h3, h4 {
+  font-family: var(--font-secondary);
+  font-weight: var(--font-normal);
+  color: var(--title-color);
+  line-height: 1.2;
+}
+
+h1 { font-size: var(--text-5xl); }
+h2 { font-size: var(--text-4xl); }
+h3 { font-size: var(--text-3xl); }
+h4 { font-size: var(--text-2xl); }
+
+body, p, li, a, span {
+  font-family: var(--font-primary);
+  font-weight: var(--font-normal);
+}
+
+.section__title {
+  font-size: var(--text-4xl);
+  text-align: center;
+  margin-bottom: var(--space-8);
+}

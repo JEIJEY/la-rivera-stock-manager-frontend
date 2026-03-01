@@ -1,0 +1,40 @@
+/* =========== HERO ORGANISM =========== */
+.hero {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: var(--space-8);
+  align-items: center;
+}
+
+.hero__title {
+  line-height: 1;
+  margin: 0;
+  font-size: var(--text-5xl);
+  color: var(--white-color);
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.hero__subtitle {
+  font-size: var(--text-3xl);
+  margin-bottom: var(--space-8);
+  color: var(--white-color);
+}
+
+.hero__description {
+  margin-bottom: var(--space-8);
+  line-height: 1.5;
+  color: var(--white-color);
+}
+
+.hero__image { 
+  margin-left: var(--space-16); 
+}
+
+.hero__image img {
+  width: 100%;
+  max-width: 600px;
+  height: auto;
+  border-radius: var(--border-radius-lg);
+  box-shadow: 0 10px 30px rgba(240, 224, 9, 0.7);
+  overflow: hidden;
+}
