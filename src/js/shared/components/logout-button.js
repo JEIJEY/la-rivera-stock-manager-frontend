@@ -1,66 +1,64 @@
 // ============================
-// BOTÓN LOGOUT ANIMADO
-// Hover → animación
-// Click → redirección
+// BOTÓN LOGOUT ANIMADO (MÓDULO SPA)
 // ============================
 
-document.querySelectorAll(".logoutButton").forEach((button) => {
-  button.state = "default";
+export function initLogoutButton() {
+  document.querySelectorAll(".logoutButton").forEach((button) => {
+    button.state = "default";
 
-  const updateButtonState = (button, state) => {
-    if (logoutButtonStates[state]) {
-      button.state = state;
-      for (let key in logoutButtonStates[state]) {
-        button.style.setProperty(key, logoutButtonStates[state][key]);
+    const updateButtonState = (button, state) => {
+      if (logoutButtonStates[state]) {
+        button.state = state;
+        for (let key in logoutButtonStates[state]) {
+          button.style.setProperty(key, logoutButtonStates[state][key]);
+        }
       }
-    }
-  };
+    };
 
-  // 🚪 ANIMACIÓN: al pasar el mouse (hover)
-  button.addEventListener("mouseenter", () => {
-    if (button.state === "default" || button.state === "hover") {
-      button.classList.add("clicked");
-      updateButtonState(button, "walking1");
-
-      setTimeout(() => {
-        button.classList.add("door-slammed");
-        updateButtonState(button, "walking2");
+    // 🚪 Hover → animación
+    button.addEventListener("mouseenter", () => {
+      if (button.state === "default" || button.state === "hover") {
+        button.classList.add("clicked");
+        updateButtonState(button, "walking1");
 
         setTimeout(() => {
-          button.classList.add("falling");
-          updateButtonState(button, "falling1");
+          button.classList.add("door-slammed");
+          updateButtonState(button, "walking2");
 
           setTimeout(() => {
-            updateButtonState(button, "falling2");
+            button.classList.add("falling");
+            updateButtonState(button, "falling1");
 
             setTimeout(() => {
-              updateButtonState(button, "falling3");
+              updateButtonState(button, "falling2");
 
-              // ✅ Finaliza animación sin redirigir
               setTimeout(() => {
-                button.classList.remove("clicked", "door-slammed", "falling");
-                updateButtonState(button, "default");
-              }, 800);
-            }, logoutButtonStates["falling2"]["--walking-duration"]);
-          }, logoutButtonStates["falling1"]["--walking-duration"]);
-        }, logoutButtonStates["walking2"]["--figure-duration"]);
-      }, logoutButtonStates["walking1"]["--figure-duration"]);
-    }
-  });
+                updateButtonState(button, "falling3");
 
-  // 💥 CLICK → redirección al login
-  button.addEventListener("click", () => {
-    console.log("🔁 Redirigiendo al login...");
-    window.location.href = "landing.html";
-    // ajusta si cambia la ruta
-  });
+                setTimeout(() => {
+                  button.classList.remove("clicked", "door-slammed", "falling");
+                  updateButtonState(button, "default");
+                }, 800);
+              }, logoutButtonStates["falling2"]["--walking-duration"]);
+            }, logoutButtonStates["falling1"]["--walking-duration"]);
+          }, logoutButtonStates["walking2"]["--figure-duration"]);
+        }, logoutButtonStates["walking1"]["--figure-duration"]);
+      }
+    });
 
-  // 🔁 Reinicio si se interrumpe
-  button.addEventListener("mouseleave", () => {
-    button.classList.remove("clicked", "door-slammed", "falling");
-    updateButtonState(button, "default");
+    // 💥 Click → redirección
+    button.addEventListener("click", () => {
+      console.log("🔁 Redirigiendo al login...");
+      window.location.href = "/";
+    });
+
+    // 🔁 Reset si se interrumpe
+    button.addEventListener("mouseleave", () => {
+      button.classList.remove("clicked", "door-slammed", "falling");
+      updateButtonState(button, "default");
+    });
   });
-});
+}
 
 // ============================
 // ESTADOS DEL BOTÓN

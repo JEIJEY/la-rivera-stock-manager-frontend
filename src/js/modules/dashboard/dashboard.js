@@ -1,6 +1,7 @@
 import logger from "../../core/logger.js";
 import SPAViewManager from "./SPAViewManager.js";
 import { appEvents } from "../../core/EventBus.js";
+import { initLogoutButton } from "../../shared/components/logout-button.js";
 
 const main = document.querySelector(".dashboard-main");
 
@@ -71,6 +72,7 @@ document.querySelectorAll(".sidebar-menu__link").forEach((link) => {
 (async () => {
   logger.info("Cargando vista inicial...");
   await viewManager.load("inventario");
+  initLogoutButton();
 })();
 
 function inicializarToggleInventario() {
