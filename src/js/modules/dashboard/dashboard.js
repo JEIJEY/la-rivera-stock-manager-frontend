@@ -45,7 +45,7 @@ viewManager.register("reportes", {
 
 viewManager.register("configuracion", {
   html: "configuracion.html",
-  module: "./configuracion.js",
+  module: "./configuracion/configuracion.entry.js",
   initExport: "inicializarConfiguracion",
 });
 
