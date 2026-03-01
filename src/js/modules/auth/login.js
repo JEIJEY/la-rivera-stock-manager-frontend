@@ -1,4 +1,5 @@
 import { navigate } from "../../core/router.js";
+import apiClient from "../../core/apiClient.js";
 
 export function renderLogin() {
   document.body.classList.add("no-header");
@@ -63,29 +64,12 @@ export function renderLogin() {
     submitBtn.disabled = true;
 
     try {
-      const formData = new FormData(loginForm);
       const datos = {
-        email: formData.get("email"),
-        password: formData.get("password"),
+        email: new FormData(loginForm).get("email"),
+        password: new FormData(loginForm).get("password"),
       };
 
-      const response = await fetch("http://localhost:3001/api/auth/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(datos),
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        if (errorData.errors?.length) {
-          alert("❌ Errores:\n• " + errorData.errors.join("\n• "));
-        } else {
-          alert("❌ " + (errorData.message || "Credenciales inválidas"));
-        }
-        return;
-      }
-
-      const result = await response.json();
+      const result = await apiClient.login(datos);
 
       if (result.token) {
         localStorage.setItem("authToken", result.token);
@@ -95,7 +79,7 @@ export function renderLogin() {
       navigate("/dashboard");
 
     } catch (error) {
-      alert("💥 Error de conexión con el servidor");
+      alert("❌ " + (error.message || "Credenciales inválidas"));
     } finally {
       submitBtn.textContent = "Ingresa";
       submitBtn.disabled = false;

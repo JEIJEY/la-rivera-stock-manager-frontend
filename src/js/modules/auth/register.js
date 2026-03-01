@@ -1,4 +1,5 @@
 import { navigate } from "../../core/router.js";
+import apiClient from "../../core/apiClient.js";
 
 export function renderRegister() {
   document.body.classList.add("no-header");
@@ -87,27 +88,13 @@ export function renderRegister() {
 
       delete datos.confirmPassword;
 
-      const response = await fetch("http://localhost:3001/api/auth/register", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(datos),
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        if (errorData.errors?.length) {
-          alert("❌ Errores:\n• " + errorData.errors.join("\n• "));
-        } else {
-          alert("❌ " + (errorData.message || "Error al registrar"));
-        }
-        return;
-      }
+      await apiClient.register(datos);
 
       alert("✅ Registro exitoso");
       navigate("/login");
 
     } catch (error) {
-      alert("💥 Error de conexión con el servidor");
+      alert("❌ " + (error.message || "Error al registrar"));
     } finally {
       submitBtn.textContent = "Registrarse";
       submitBtn.disabled = false;

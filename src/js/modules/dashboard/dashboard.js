@@ -17,7 +17,7 @@ import {
 // ======================================================
 // ⚙️ INTEGRACIÓN DEL GESTOR SPA (Single Page Application)
 // ======================================================
-import SPAViewManager from "./SPAViewManager.js";
+import SPAViewManager from "./core/SPAViewManager.js";
 import { appEvents } from "../../core/EventBus.js";
 
 // 1️⃣ Inicializamos el gestor de vistas
