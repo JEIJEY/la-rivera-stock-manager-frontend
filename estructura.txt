@@ -200,6 +200,8 @@
         |-- [dashboard]
             |-- categorias.html
             |-- inventario_dashboard.html
+            |-- modal-producto.html
+            |-- productos.html
         |-- dashboard-layout.html
     |-- [styles]
         |-- [auth]
