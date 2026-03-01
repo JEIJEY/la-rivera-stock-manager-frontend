@@ -17,16 +17,19 @@ import {
 // ======================================================
 // ⚙️ INTEGRACIÓN DEL GESTOR SPA (Single Page Application)
 // ======================================================
-import SPAViewManager from "./core/SPAViewManager.js";
+import SPAViewManager from "./SPAViewManager.js";
 import { appEvents } from "../../core/EventBus.js";
 
-// 1️⃣ Inicializamos el gestor de vistas
+// ✅ Configuración correcta para Vite
 const viewManager = new SPAViewManager({
   container: main,
-  pagesBase: "./dashboard/",
+  pagesBase: "/src/pages/dashboard/",
 });
 
-// 2️⃣ Registramos todas las vistas del dashboard
+// ======================================================
+// 📄 REGISTRO DE VISTAS
+// ======================================================
+
 viewManager.register("inventario", {
   html: "inventario_dashboard.html",
   module: "./inventario.js",
@@ -70,6 +73,7 @@ viewManager.register("configuracion", {
 // ======================================================
 // 🧭 NAVEGACIÓN DINÁMICA DEL DASHBOARD
 // ======================================================
+
 document.querySelectorAll(".sidebar-menu__link").forEach((link) => {
   link.addEventListener("click", (e) => {
     e.preventDefault();
@@ -89,6 +93,7 @@ document.querySelectorAll(".sidebar-menu__link").forEach((link) => {
 // ======================================================
 // 🚀 CARGA INICIAL DEL DASHBOARD
 // ======================================================
+
 (async () => {
   console.log("🚀 Cargando vista inicial (Inventario con ABC)...");
   await viewManager.load("inventario");
@@ -97,9 +102,11 @@ document.querySelectorAll(".sidebar-menu__link").forEach((link) => {
 // ======================================================
 // 📂 CONTROL DEL SUBMENÚ DE INVENTARIO
 // ======================================================
+
 document.addEventListener("DOMContentLoaded", () => {
   const toggle = document.getElementById("inventarioToggle");
   if (!toggle) return;
+
   const item = toggle.closest(".sidebar-menu__item");
 
   toggle.addEventListener("click", () => {
@@ -110,6 +117,7 @@ document.addEventListener("DOMContentLoaded", () => {
 // ======================================================
 // 🎹 ATAJO DE TECLADO "G" → MOSTRAR / OCULTAR GRILLA DEBUG
 // ======================================================
+
 document.addEventListener("keydown", (e) => {
   if (e.key.toLowerCase() === "g") {
     toggleGrilla();
@@ -119,6 +127,7 @@ document.addEventListener("keydown", (e) => {
 // ======================================================
 // 🚀 CARGA ESPECÍFICA PARA EL MÓDULO ABC
 // ======================================================
+
 async function cargarABCparaInventario() {
   console.log("🔄 Iniciando carga de ABC...");
 
@@ -155,6 +164,7 @@ async function cargarABCparaInventario() {
 // ======================================================
 // 🧠 EVENTO GLOBAL DEL GESTOR SPA
 // ======================================================
+
 appEvents.on("vista-cargada", (vista) => {
   console.log(`📄 Vista activa: ${vista}`);
 });

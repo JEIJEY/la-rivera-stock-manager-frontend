@@ -41,8 +41,6 @@
                 |-- register.js
             |-- [dashboard]
                 |-- [categorias]
-                |-- [core]
-                    |-- SPAViewManager.js
                 |-- abc.js
                 |-- categorias.js
                 |-- configuracion.js
@@ -51,6 +49,7 @@
                 |-- inventario.js
                 |-- navegacion-categorias.js
                 |-- productos-vista.js
+                |-- SPAViewManager.js
             |-- [website]
                 |-- landing.controller.js
                 |-- splash.controller.js

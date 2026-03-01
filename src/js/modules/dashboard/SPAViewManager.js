@@ -1,5 +1,5 @@
 // ======================================================
-// 📦 src/js/modules/dashboard/SPAViewManager.js
+// 📦 src/js/modules/dashboard/core/SPAViewManager.js
 // Gestor SPA universal para el Dashboard de La Rivera
 // ======================================================
 
@@ -16,12 +16,13 @@ import { appEvents } from "../../core/EventBus.js";
 export default class SPAViewManager {
   constructor({ container, pagesBase = "./dashboard/" } = {}) {
     if (!container) throw new Error("SPAViewManager: container requerido");
+
     this.container = container;
     this.pagesBase = pagesBase;
     this.registry = new Map();
     this.currentView = null;
 
-    // 🌀 Loader global
+    // Loader global opcional
     this.loader = document.getElementById("spaLoader");
 
     console.log("🧭 SPAViewManager inicializado correctamente");
@@ -33,37 +34,37 @@ export default class SPAViewManager {
   initializeDefaults() {
     this.register("inventario", {
       html: "inventario_dashboard.html",
-      module: "./inventario.js",
+      module: "../inventario.js", // ← corregido
       initExport: "inicializarInventario",
     });
 
     this.register("productos", {
       html: "productos.html",
-      module: "./inventario.js",
+      module: "../inventario.js", // ← reutiliza inventario
       initExport: "inicializarInventario",
     });
 
     this.register("categorias", {
       html: "categorias.html",
-      module: "./categorias.js",
+      module: "../categorias.js",
       initExport: "inicializarCategorias",
     });
 
     this.register("usuarios", {
       html: "usuarios.html",
-      module: "./usuarios.js",
+      module: "../usuarios.js",
       initExport: "inicializarUsuarios",
     });
 
     this.register("reportes", {
       html: "reportes.html",
-      module: "./reportes.js",
+      module: "../reportes.js",
       initExport: "inicializarReportes",
     });
 
     this.register("configuracion", {
       html: "configuracion.html",
-      module: "./configuracion.js",
+      module: "../configuracion.js",
       initExport: "inicializarConfiguracion",
     });
 
@@ -74,7 +75,14 @@ export default class SPAViewManager {
   // 🧩 REGISTRAR UNA VISTA INDIVIDUAL
   // ======================================================
   register(name, { html, module, initExport = "inicializarVista", beforeLoad, afterLoad }) {
-    this.registry.set(name, { html, module, initExport, beforeLoad, afterLoad, _modCache: null });
+    this.registry.set(name, {
+      html,
+      module,
+      initExport,
+      beforeLoad,
+      afterLoad,
+      _modCache: null,
+    });
   }
 
   // ======================================================
@@ -82,7 +90,10 @@ export default class SPAViewManager {
   // ======================================================
   async load(name) {
     const entry = this.registry.get(name);
-    if (!entry) return console.error(`Vista "${name}" no registrada`);
+    if (!entry) {
+      console.error(`❌ Vista "${name}" no registrada`);
+      return;
+    }
 
     console.log(`🧭 Navegando a vista: ${name}`);
 
@@ -93,20 +104,24 @@ export default class SPAViewManager {
 
       await this.fadeOut(this.container);
 
-      // 1️⃣ Cargar HTML de la vista
+      // 1️⃣ Cargar HTML
       const resp = await fetch(this.pagesBase + entry.html, { cache: "no-cache" });
       if (!resp.ok) throw new Error(`Error al cargar ${entry.html}`);
+
       const html = await resp.text();
       this.container.innerHTML = html;
 
       // 2️⃣ Lazy load del módulo JS
-      const mod = entry._modCache || await import(/* @vite-ignore */ entry.module);
+      const mod = entry._modCache || await import(entry.module);
       entry._modCache = mod;
 
-      // 3️⃣ Llamar a la función de inicialización
+      // 3️⃣ Ejecutar función de inicialización
       const initFn = mod[entry.initExport];
+
       if (typeof initFn !== "function") {
-        throw new Error(`El módulo ${entry.module} no exporta ${entry.initExport}`);
+        throw new Error(
+          `El módulo ${entry.module} no exporta ${entry.initExport}`
+        );
       }
 
       await initFn();
@@ -115,6 +130,7 @@ export default class SPAViewManager {
       await this.fadeIn(this.container);
 
       if (entry.afterLoad) await entry.afterLoad();
+
       appEvents.emit("vista-cargada", name);
 
       console.log(`✅ Vista "${name}" cargada correctamente`);
@@ -127,7 +143,7 @@ export default class SPAViewManager {
   }
 
   // ======================================================
-  // 🎡 LOADER GLOBAL (mostrar / ocultar)
+  // 🎡 LOADER GLOBAL
   // ======================================================
   mostrarLoader(activo) {
     if (!this.loader) return;
@@ -135,15 +151,16 @@ export default class SPAViewManager {
   }
 
   // ======================================================
-  // ✨ EFECTOS DE TRANSICIÓN (FADE)
+  // ✨ EFECTOS DE TRANSICIÓN
   // ======================================================
   async fadeOut(element) {
     element.style.transition = "opacity 0.3s ease";
     element.style.opacity = 1;
-    await new Promise((r) =>
+
+    await new Promise((resolve) =>
       requestAnimationFrame(() => {
         element.style.opacity = 0;
-        setTimeout(r, 300);
+        setTimeout(resolve, 300);
       })
     );
   }
@@ -151,22 +168,24 @@ export default class SPAViewManager {
   async fadeIn(element) {
     element.style.transition = "opacity 0.3s ease";
     element.style.opacity = 0;
-    await new Promise((r) =>
+
+    await new Promise((resolve) =>
       requestAnimationFrame(() => {
         element.style.opacity = 1;
-        setTimeout(r, 300);
+        setTimeout(resolve, 300);
       })
     );
   }
 
   // ======================================================
-  // ⚡ PREFETCH (precarga opcional)
+  // ⚡ PREFETCH OPCIONAL
   // ======================================================
   async prefetchModule(name) {
     const entry = this.registry.get(name);
     if (!entry || entry._modCache) return;
+
     try {
-      entry._modCache = await import(/* @vite-ignore */ entry.module);
+      entry._modCache = await import(entry.module);
       console.log(`📦 Prefetch exitoso: ${name}`);
     } catch {
       console.warn(`⚠️ No se pudo precargar ${name}`);
