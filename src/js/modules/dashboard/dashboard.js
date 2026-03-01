@@ -23,7 +23,7 @@ const viewManager = new SPAViewManager({
 
 viewManager.register("inventario", {
   html: "inventario_dashboard.html",
-  module: "./inventario.js",
+  module: "./inventario/inventario.entry.js",
   initExport: "inicializarInventario",
   afterLoad: async () => {
     await cargarABCparaInventario();
@@ -32,7 +32,7 @@ viewManager.register("inventario", {
 
 viewManager.register("productos", {
   html: "productos.html",
-  module: "./inventario.js",
+  module: "./inventario/inventario.entry.js",
   initExport: "inicializarInventario",
 });
 
