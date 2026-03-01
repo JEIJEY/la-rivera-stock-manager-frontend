@@ -14,7 +14,8 @@ viewManager.register("inventario", {
   module: "./inventario/inventario.entry.js",
   initExport: "inicializarInventario",
   afterLoad: async () => {
-    await cargarABCparaInventario();
+    const { inicializarABC } = await import("./abc/abc.entry.js");
+    await inicializarABC();
   },
 });
 
@@ -69,23 +70,13 @@ document.querySelectorAll(".sidebar-menu__link").forEach((link) => {
 function inicializarToggleInventario() {
   const toggle = document.getElementById("inventarioToggle");
   if (!toggle || toggle.dataset.listener) return;
+
   toggle.dataset.listener = "true";
   const item = toggle.closest(".sidebar-menu__item");
+
   toggle.addEventListener("click", (e) => {
     e.preventDefault();
     item.classList.toggle("open");
-  });
-}
-
-async function cargarABCparaInventario() {
-  return new Promise((resolve) => {
-    if (window.recalcularABC && window.filtrarProductos) return resolve();
-    const script = document.createElement("script");
-    script.src = "/src/js/modules/dashboard/abc.js";
-    script.defer = true;
-    script.onload = () => resolve();
-    script.onerror = () => resolve();
-    document.head.appendChild(script);
   });
 }
 

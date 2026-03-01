@@ -166,6 +166,11 @@
                 |-- login.js
                 |-- register.js
             |-- [dashboard]
+                |-- [abc]
+                    |-- abc.api.js
+                    |-- abc.entry.js
+                    |-- abc.service.js
+                    |-- abc.view.js
                 |-- [categorias]
                     |-- categorias.api.js
                     |-- categorias.entry.js
@@ -181,12 +186,9 @@
                     |-- productos.entry.js
                     |-- productos.service.js
                     |-- productos.view.js
-                |-- abc.js
                 |-- configuracion.js
                 |-- dashboard.entry.js
                 |-- dashboard.js
-                |-- navegacion-categorias.js
-                |-- productos-vista.js
                 |-- SPAViewManager.js
             |-- [website]
                 |-- landing.controller.js
