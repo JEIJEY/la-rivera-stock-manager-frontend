@@ -6,15 +6,6 @@
 const main = document.querySelector(".dashboard-main");
 
 // ======================================================
-// 🧩 UTILIDADES GLOBALES
-// ======================================================
-import {
-  toggleGrilla,
-  crearGrillaExacta,
-  observarRedimensionamiento,
-} from "../../shared/utils/debugGrid.js";
-
-// ======================================================
 // ⚙️ INTEGRACIÓN DEL GESTOR SPA (Single Page Application)
 // ======================================================
 import SPAViewManager from "./SPAViewManager.js";
@@ -36,7 +27,6 @@ viewManager.register("inventario", {
   initExport: "inicializarInventario",
   afterLoad: async () => {
     await cargarABCparaInventario();
-    observarRedimensionamiento();
   },
 });
 
@@ -48,7 +38,7 @@ viewManager.register("productos", {
 
 viewManager.register("categorias", {
   html: "categorias.html",
-  module: "./categorias.js",
+  module: "./categorias/categorias.entry.js",
   initExport: "inicializarCategorias",
 });
 
@@ -100,29 +90,24 @@ document.querySelectorAll(".sidebar-menu__link").forEach((link) => {
 })();
 
 // ======================================================
-// 📂 CONTROL DEL SUBMENÚ DE INVENTARIO
+// 📂 CONTROL DEL SUBMENÚ DE INVENTARIO (SPA SAFE)
 // ======================================================
 
-document.addEventListener("DOMContentLoaded", () => {
+function inicializarToggleInventario() {
   const toggle = document.getElementById("inventarioToggle");
   if (!toggle) return;
 
   const item = toggle.closest(".sidebar-menu__item");
 
-  toggle.addEventListener("click", () => {
-    item.classList.toggle("open");
-  });
-});
+  if (!toggle.dataset.listener) {
+    toggle.dataset.listener = "true";
 
-// ======================================================
-// 🎹 ATAJO DE TECLADO "G" → MOSTRAR / OCULTAR GRILLA DEBUG
-// ======================================================
-
-document.addEventListener("keydown", (e) => {
-  if (e.key.toLowerCase() === "g") {
-    toggleGrilla();
+    toggle.addEventListener("click", (e) => {
+      e.preventDefault();
+      item.classList.toggle("open");
+    });
   }
-});
+}
 
 // ======================================================
 // 🚀 CARGA ESPECÍFICA PARA EL MÓDULO ABC
@@ -139,23 +124,10 @@ async function cargarABCparaInventario() {
 
     const script = document.createElement("script");
     script.src = "/src/js/modules/dashboard/abc.js";
-    script.type = "text/javascript";
     script.defer = true;
 
-    script.onload = () => {
-      console.log("✅ ABC.js cargado exitosamente");
-      console.log("🧠 Funciones disponibles:", {
-        recalcularABC: typeof window.recalcularABC,
-        filtrarProductos: typeof window.filtrarProductos,
-        cargarDatosABC: typeof window.cargarDatosABC,
-      });
-      resolve();
-    };
-
-    script.onerror = (error) => {
-      console.error("❌ Error al cargar ABC.js:", error);
-      resolve();
-    };
+    script.onload = () => resolve();
+    script.onerror = () => resolve();
 
     document.head.appendChild(script);
   });
@@ -167,4 +139,5 @@ async function cargarABCparaInventario() {
 
 appEvents.on("vista-cargada", (vista) => {
   console.log(`📄 Vista activa: ${vista}`);
+  inicializarToggleInventario();
 });

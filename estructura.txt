@@ -41,6 +41,10 @@
                 |-- register.js
             |-- [dashboard]
                 |-- [categorias]
+                    |-- categorias.api.js
+                    |-- categorias.entry.js
+                    |-- categorias.service.js
+                    |-- categorias.view.js
                 |-- abc.js
                 |-- categorias.js
                 |-- configuracion.js
@@ -59,6 +63,9 @@
             |-- [utils]
                 |-- debugGrid.js
     |-- [pages]
+        |-- [dashboard]
+            |-- categorias.html
+            |-- inventario_dashboard.html
         |-- dashboard-layout.html
     |-- [styles]
         |-- [auth]
