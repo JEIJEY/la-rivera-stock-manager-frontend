@@ -1,15 +1,217 @@
-/* =========== REDIRECT SCREEN ORGANISM =========== */
-.redirect {
+.splash {
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background: var(--gradient-hero);
-  font-family: var(--font-primary);
+  height: 100vh;
+  overflow: hidden;
+  background: #032221;
 }
 
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+/* FONDO */
+.splash__fondo {
+  position: absolute;
+  width: 900px;
+  height: 900px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
+.splash__mascara {
+  position: absolute;
+  width: 900px;
+  height: 900px;
+  z-index: 10;
+  background: radial-gradient(ellipse at center, rgba(0,0,0,0) 0%, rgba(3,34,33,1) 76%);
+}
+
+.splash__vacio {
+  position: absolute;
+  width: 900px;
+  height: 900px;
+  overflow: hidden;
+}
+
+.splash__vacio div {
+  opacity: 0.3;
+  border-color: #00DF81;
+}
+
+.splash__completo {
+  position: absolute;
+  width: 900px;
+  height: 900px;
+  overflow: hidden;
+  opacity: 0;
+}
+
+.splash__completo div {
+  opacity: 1;
+  border-color: #00DF81;
+}
+
+/* LÍNEAS */
+.splash__lineas-izq,
+.splash__lineas-der {
+  position: absolute;
+  top: 225px;
+  width: 900px;
+}
+
+.splash__linea {
+  border-bottom: 1px solid;
+  margin-bottom: 150px;
+}
+
+.splash__linea--izq {
+  transform: rotate(30deg);
+}
+
+.splash__linea--der {
+  transform: rotate(-30deg);
+}
+
+/* EXTERIOR */
+.splash__exterior {
+  position: absolute;
+  width: 380px;
+  height: 900px;
+  border: 1px solid;
+  border-top: none;
+  border-bottom: none;
+  left: 260px;
+}
+
+.splash__exterior div {
+  width: 260px;
+  height: 100%;
+  border: 1px solid;
+  border-top: none;
+  border-bottom: none;
+  margin: 0 auto;
+}
+
+/* CÍRCULO */
+.splash__circulo {
+  position: absolute;
+  width: 380px;
+  height: 380px;
+  border: 1px solid;
+  border-radius: 100%;
+  top: 261px;
+  left: 260px;
+}
+
+.splash__circulo div {
+  position: absolute;
+  width: 260px;
+  height: 260px;
+  border: 1px solid;
+  border-radius: 100%;
+  top: 60px;
+  left: 60px;
+}
+
+/* HEXÁGONO */
+.splash__hexagono {
+  position: absolute;
+  width: 370px;
+  height: 440px;
+  top: 232px;
+  left: 265px;
+  border: none;
+}
+
+.splash__hexagono div {
+  position: absolute;
+  border-bottom: 1px solid;
+}
+
+.splash__lado--1 { transform: rotate(30deg); width: 214px; left: 170px; top: 53px; }
+.splash__lado--2 { width: 228px; right: -113px; transform: rotate(90deg); top: 220px; }
+.splash__lado--3 { transform: rotate(150deg); width: 214px; left: 171px; top: 386px; }
+.splash__lado--4 { transform: rotate(30deg); width: 214px; left: -15px; top: 386px; }
+.splash__lado--5 { width: 228px; transform: rotate(90deg); top: 220px; left: -113px; }
+.splash__lado--6 { transform: rotate(150deg); width: 214px; left: -15px; top: 54px; }
+
+/* ANIMACIONES */
+.splash__completo--izq {
+  clip: rect(0px, 450px, 900px, 450px);
+  animation: aniIzq 5s infinite;
+}
+
+.splash__completo--der {
+  clip: rect(0px, 450px, 900px, 450px);
+  animation: aniDer 5s infinite;
+}
+
+@keyframes aniIzq {
+  0%   { clip: rect(0px, 450px, 900px, 450px); opacity: 0; }
+  75%  { clip: rect(0px, 450px, 900px, 200px); opacity: 1; }
+  100% { clip: rect(0px, 450px, 900px, 450px); opacity: 0; }
+}
+
+@keyframes aniDer {
+  0%   { clip: rect(0px, 450px, 900px, 450px); opacity: 0; }
+  75%  { clip: rect(0px, 700px, 900px, 450px); opacity: 1; }
+  100% { clip: rect(0px, 450px, 900px, 450px); opacity: 0; }
+}
+
+/* LOGO */
+.splash__logo {
+  position: relative;
+  width: 400px;
+  height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 20;
+}
+
+.splash__anillo {
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  top: 0;
+  left: 0;
+}
+
+.splash__giro {
+  animation: girar 2s linear infinite;
+}
+
+@keyframes girar {
+  100% { transform: rotate(1turn); }
+}
+
+.splash__img {
+  width: 240px;
+  height: 240px;
+  object-fit: contain;
+  position: relative;
+  z-index: 1;
+}
+
+/*  
+.splash                    ✅ bloque
+.splash__fondo             ✅ elemento
+.splash__mascara           ✅ elemento
+.splash__vacio             ✅ elemento
+.splash__completo          ✅ elemento
+.splash__completo--izq     ✅ modificador
+.splash__completo--der     ✅ modificador
+.splash__lineas-izq        ✅ elemento
+.splash__lineas-der        ✅ elemento
+.splash__linea             ✅ elemento
+.splash__linea--izq        ✅ modificador
+.splash__linea--der        ✅ modificador
+.splash__exterior          ✅ elemento
+.splash__circulo           ✅ elemento
+.splash__hexagono          ✅ elemento
+.splash__lado--1..6        ✅ modificador
+.splash__logo              ✅ elemento
+.splash__anillo            ✅ elemento
+.splash__giro              ✅ elemento
+.splash__img               ✅ elemento */
