@@ -1,0 +1,27 @@
+/* ============================
+   ORGANISM — Features Section (BEM)
+   la-rivera/styles/organisms/_features.css
+   ============================ */
+
+.features {
+  padding: var(--space-28) 0;
+  position: relative;
+}
+
+.features__header {
+  text-align: center;
+  margin-bottom: var(--space-16);
+}
+
+.features__header .section__subtitle {
+  margin: 0 auto;
+}
+
+.features__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-6);
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 var(--space-8);
+}

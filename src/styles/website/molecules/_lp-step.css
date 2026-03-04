@@ -1,0 +1,43 @@
+/* ============================
+   MOLECULE — Step (BEM)
+   la-rivera/styles/molecules/_step.css
+   ============================ */
+
+/* --- Block --- */
+.step {
+  text-align: center;
+  position: relative;
+}
+
+/* --- Elements --- */
+.step__number {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--color-neutral-900);
+  border: 2px solid var(--color-primary-400);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--color-primary-400);
+  margin: 0 auto var(--space-5);
+  position: relative;
+  z-index: 1;
+  box-shadow: 0 0 20px rgba(0, 217, 139, 0.15);
+}
+
+.step__title {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: var(--space-2);
+}
+
+.step__text {
+  font-size: 0.9rem;
+  color: var(--color-neutral-400);
+  line-height: 1.6;
+}

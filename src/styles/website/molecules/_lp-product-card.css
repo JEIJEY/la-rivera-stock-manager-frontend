@@ -1,0 +1,86 @@
+/* ============================
+   MOLECULE — Product Card (BEM)
+   la-rivera/styles/molecules/_product-card.css
+   ============================ */
+
+/* --- Block --- */
+.product-card {
+  position: relative;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  background: var(--color-neutral-900);
+  border: 1px solid var(--color-neutral-800);
+  transition: all var(--transition-smooth);
+  cursor: pointer;
+}
+
+.product-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+  border-color: var(--color-neutral-700);
+}
+
+/* --- Elements --- */
+.product-card__image-wrap {
+  position: relative;
+  height: 240px;
+  overflow: hidden;
+}
+
+.product-card__bg {
+  position: absolute;
+  inset: 0;
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.5s;
+  filter: brightness(0.7);
+}
+
+.product-card:hover .product-card__bg {
+  transform: scale(1.08);
+}
+
+.product-card__fg {
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.5));
+  transition: all var(--transition-smooth);
+  z-index: 1;
+}
+
+.product-card:hover .product-card__fg {
+  transform: translateX(-50%) translateY(-10px) scale(1.05);
+}
+
+.product-card__overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 60%;
+  background: linear-gradient(to top, var(--color-neutral-900), transparent);
+  z-index: 1;
+}
+
+.product-card__info {
+  position: relative;
+  z-index: 2;
+  padding: var(--space-5) var(--space-6);
+}
+
+.product-card__name {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.1rem;
+  margin-bottom: var(--space-1);
+}
+
+.product-card__category {
+  font-size: 0.8rem;
+  color: var(--color-neutral-500);
+}

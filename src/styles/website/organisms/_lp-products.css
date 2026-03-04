@@ -1,0 +1,32 @@
+/* ============================
+   ORGANISM — Products Section (BEM)
+   la-rivera/styles/organisms/_products.css
+   ============================ */
+
+.products {
+  padding: var(--space-28) 0;
+  background: linear-gradient(
+    180deg,
+    transparent,
+    rgba(0, 217, 139, 0.02),
+    transparent
+  );
+}
+
+.products__header {
+  text-align: center;
+  margin-bottom: var(--space-16);
+}
+
+.products__header .section__subtitle {
+  margin: 0 auto;
+}
+
+.products__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-8);
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 var(--space-8);
+}

@@ -3,7 +3,7 @@ body {
   font-family: var(--font-primary);
   font-size: var(--text-base);
   color: var(--text-color);
-  background: var(--body-bg) no-repeat fixed;
+  background: #0d0f0e;
   background-size: cover;
   margin: var(--header-height) 0 0 0;
   min-height: 100vh;

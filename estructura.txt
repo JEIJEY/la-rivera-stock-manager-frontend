@@ -1,4 +1,5 @@
 |-- [docs]
+    |-- css_refactor.md
     |-- ESTRUCTURA.MD
 |-- [src]
     |-- [assets]
@@ -101,24 +102,23 @@
         |-- [layouts]
         |-- [shared]
             |-- [atoms]
+                |-- _badges.css
                 |-- _buttons.css
                 |-- _headings.css
-                |-- _icons.css
-                |-- _images.css
                 |-- _inputs.css
                 |-- _labels.css
-                |-- _links.css
                 |-- _logout-button.css
+                |-- _stats.css
             |-- [molecules]
                 |-- _cards.css
                 |-- _forms.css
+                |-- _inventory-item.css
                 |-- _list-items.css
                 |-- _login-footer.css
                 |-- _logo.css
                 |-- _navigation.css
                 |-- _product-cards.css
                 |-- _separator.css
-                |-- _social-links.css
                 |-- _social-login.css
             |-- [organisms]
                 |-- _alerts.css
@@ -129,7 +129,6 @@
                 |-- _dashboard.css
                 |-- _footer.css
                 |-- _header.css
-                |-- _hero.css
                 |-- _inventario.css
                 |-- _login-card.css
                 |-- _login-form.css
@@ -140,13 +139,23 @@
                 |-- inventario_dashboard.css
         |-- [tokens]
         |-- [utilities]
-            |-- _animations.css
             |-- _debug-grid.css
             |-- _grid.css
             |-- _loader.css
             |-- _responsive.css
             |-- _spacing.css
         |-- [website]
+            |-- [atoms]
+                |-- _lp-badge.css
+                |-- _lp-buttons.css
+                |-- _lp-glow-orb.css
+            |-- [molecules]
+                |-- _lp-feature-card.css
+            |-- [organisms]
+                |-- _lp-header.css
+                |-- _lp-hero.css
+            |-- [tokens]
+                |-- _lp-tokens.css
         |-- index.css
     |-- main.js
 |-- .gitignore
@@ -154,4 +163,5 @@
 |-- index.html
 |-- package-lock.json
 |-- package.json
+|-- PROYECTO.HTML
 |-- vite.config.js

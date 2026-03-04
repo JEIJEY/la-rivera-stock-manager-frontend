@@ -1,0 +1,1382 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>La Rivera — Landing Prototype</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* ====== TOKENS ====== */
+      :root {
+        --color-primary-900: #0b3d2b;
+        --color-primary-800: #0a5038;
+        --color-primary-700: #00694b;
+        --color-primary-600: #0d7a54;
+        --color-primary-500: #1db870;
+        --color-primary-400: #00d98b;
+        --color-primary-300: #33cc88;
+        --color-primary-200: #8ff0c0;
+        --color-primary-100: #b8f5d8;
+        --color-primary-50: #e0fff0;
+        --color-neutral-950: #0d0f0e;
+        --color-neutral-900: #141816;
+        --color-neutral-800: #1c2120;
+        --color-neutral-700: #2a302e;
+        --color-neutral-600: #3d4543;
+        --color-neutral-500: #5a6462;
+        --color-neutral-400: #7a8583;
+        --color-neutral-300: #a0aaa8;
+        --color-neutral-200: #c8cfcd;
+        --color-neutral-100: #e8eceb;
+        --color-neutral-50: #f0f0f0;
+        --font-display: "Syne", sans-serif;
+        --font-body: "DM Sans", sans-serif;
+        --radius-md: 0.5rem;
+        --radius-lg: 0.75rem;
+        --radius-xl: 1rem;
+        --radius-2xl: 1.5rem;
+        --radius-full: 9999px;
+      } /* ====== RESET ====== */
+      *,
+      *::before,
+      *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
+      ul {
+        list-style: none;
+      }
+      img {
+        display: block;
+        max-width: 100%;
+      } /* ====== BASE ====== */
+      body {
+        font-family: var(--font-body);
+        background: var(--color-neutral-950);
+        color: var(--color-neutral-50);
+        overflow-x: hidden;
+        line-height: 1.6;
+      } /* ====== NOISE TEXTURE OVERLAY ====== */
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        pointer-events: none;
+        opacity: 0.03;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      } /* ====== GLOW ORB (ambient background) ====== */
+      .glow-orb {
+        position: fixed;
+        width: 600px;
+        height: 600px;
+        border-radius: 50%;
+        background: radial-gradient(
+          circle,
+          rgba(0, 217, 139, 0.08),
+          transparent 70%
+        );
+        pointer-events: none;
+        z-index: 0;
+      }
+      .glow-orb--top {
+        top: -200px;
+        right: -100px;
+      }
+      .glow-orb--mid {
+        top: 50%;
+        left: -200px;
+      }
+      .glow-orb--bot {
+        bottom: -200px;
+        right: 20%;
+      } /* ====== HEADER ====== */
+      .header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 72px;
+        padding: 0 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: rgba(13, 15, 14, 0.7);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+        z-index: 1000;
+      }
+      .header__brand {
+        font-family: var(--font-display);
+        font-size: 1.4rem;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+      }
+      .header__brand-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: var(--color-primary-400);
+        box-shadow: 0 0 12px rgba(0, 217, 139, 0.5);
+      }
+      .header__nav {
+        display: flex;
+        gap: 2rem;
+      }
+      .header__nav-link {
+        font-size: 0.9rem;
+        font-weight: 500;
+        color: var(--color-neutral-400);
+        transition: color 0.25s;
+        position: relative;
+      }
+      .header__nav-link:hover {
+        color: var(--color-primary-400);
+      }
+      .header__nav-link::after {
+        content: "";
+        position: absolute;
+        bottom: -4px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: var(--color-primary-400);
+        transition: width 0.3s;
+      }
+      .header__nav-link:hover::after {
+        width: 100%;
+      }
+      .header__actions {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      } /* ====== BUTTONS ====== */
+      .btn {
+        font-family: var(--font-body);
+        font-weight: 600;
+        font-size: 0.9rem;
+        padding: 0.7rem 1.6rem;
+        border-radius: var(--radius-full);
+        border: none;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        text-decoration: none;
+      }
+      .btn--primary {
+        background: var(--color-primary-400);
+        color: var(--color-neutral-950);
+      }
+      .btn--primary:hover {
+        background: var(--color-primary-300);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 30px rgba(0, 217, 139, 0.3);
+      }
+      .btn--ghost {
+        background: transparent;
+        color: var(--color-neutral-50);
+        border: 1px solid var(--color-neutral-700);
+      }
+      .btn--ghost:hover {
+        border-color: var(--color-primary-400);
+        color: var(--color-primary-400);
+        transform: translateY(-2px);
+      }
+      .btn--lg {
+        padding: 1rem 2.2rem;
+        font-size: 1rem;
+      } /* ====== SECTION UTILITY ====== */
+      .section {
+        position: relative;
+        z-index: 1;
+      }
+      .section__container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 2rem;
+      }
+      .section__overline {
+        font-family: var(--font-display);
+        font-size: 0.75rem;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--color-primary-400);
+        margin-bottom: 0.75rem;
+        display: block;
+      }
+      .section__title {
+        font-family: var(--font-display);
+        font-size: clamp(2rem, 5vw, 3rem);
+        font-weight: 700;
+        letter-spacing: -0.03em;
+        line-height: 1.15;
+        margin-bottom: 1rem;
+      }
+      .section__subtitle {
+        font-size: 1.1rem;
+        color: var(--color-neutral-400);
+        max-width: 550px;
+        line-height: 1.6;
+      } /* ====== HERO ====== */
+      .hero {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        padding-top: 72px;
+        position: relative;
+        overflow: hidden;
+      }
+      .hero__bg {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+      }
+      .hero__bg-gradient {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 60%;
+        background: linear-gradient(
+          to top,
+          var(--color-neutral-950),
+          transparent
+        );
+      }
+      .hero__bg-glow {
+        position: absolute;
+        top: 10%;
+        right: -10%;
+        width: 800px;
+        height: 800px;
+        border-radius: 50%;
+        background: radial-gradient(
+          circle,
+          rgba(0, 217, 139, 0.12),
+          transparent 65%
+        );
+        filter: blur(40px);
+      }
+      .hero__grid {
+        position: relative;
+        z-index: 1;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 4rem;
+        align-items: center;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 2rem;
+      }
+      .hero__content {
+        max-width: 560px;
+      }
+      .hero__badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.4rem 1rem;
+        border-radius: var(--radius-full);
+        border: 1px solid var(--color-neutral-700);
+        background: rgba(255, 255, 255, 0.03);
+        font-size: 0.8rem;
+        color: var(--color-neutral-300);
+        margin-bottom: 1.5rem;
+      }
+      .hero__badge-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--color-primary-400);
+        animation: pulse-dot 2s infinite;
+      }
+      @keyframes pulse-dot {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.3;
+        }
+      }
+      .hero__title {
+        font-family: var(--font-display);
+        font-size: clamp(2.8rem, 6vw, 4.2rem);
+        font-weight: 800;
+        letter-spacing: -0.04em;
+        line-height: 1.05;
+        margin-bottom: 1.5rem;
+      }
+      .hero__title-accent {
+        background: linear-gradient(
+          135deg,
+          var(--color-primary-400),
+          var(--color-primary-200)
+        );
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+      .hero__description {
+        font-size: 1.15rem;
+        color: var(--color-neutral-400);
+        line-height: 1.7;
+        margin-bottom: 2rem;
+        max-width: 480px;
+      }
+      .hero__actions {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+      .hero__stats {
+        display: flex;
+        gap: 2.5rem;
+        margin-top: 3rem;
+        padding-top: 2rem;
+        border-top: 1px solid var(--color-neutral-800);
+      }
+      .hero__stat-number {
+        font-family: var(--font-display);
+        font-size: 2rem;
+        font-weight: 700;
+        color: var(--color-primary-400);
+      }
+      .hero__stat-label {
+        font-size: 0.85rem;
+        color: var(--color-neutral-500);
+        margin-top: 0.2rem;
+      } /* Hero visual */
+      .hero__visual {
+        position: relative;
+        display: flex;
+        justify-content: center;
+      }
+      .hero__card {
+        position: relative;
+        width: 100%;
+        max-width: 420px;
+        background: var(--color-neutral-900);
+        border: 1px solid var(--color-neutral-800);
+        border-radius: var(--radius-2xl);
+        padding: 2rem;
+        box-shadow: 0 24px 80px rgba(0, 0, 0, 0.5);
+      }
+      .hero__card::before {
+        content: "";
+        position: absolute;
+        inset: -1px;
+        border-radius: var(--radius-2xl);
+        padding: 1px;
+        background: linear-gradient(
+          135deg,
+          var(--color-primary-700),
+          transparent 60%
+        );
+        -webkit-mask:
+          linear-gradient(#fff 0 0) content-box,
+          linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+      }
+      .hero__card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1.5rem;
+      }
+      .hero__card-title {
+        font-family: var(--font-display);
+        font-size: 1rem;
+        font-weight: 600;
+      }
+      .hero__card-badge {
+        padding: 0.25rem 0.7rem;
+        border-radius: var(--radius-full);
+        background: rgba(0, 217, 139, 0.1);
+        color: var(--color-primary-400);
+        font-size: 0.75rem;
+        font-weight: 600;
+      }
+      .hero__card-items {
+        display: flex;
+        flex-direction: column;
+        gap: 0.8rem;
+      }
+      .hero__card-item {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 0.8rem 1rem;
+        background: var(--color-neutral-800);
+        border-radius: var(--radius-lg);
+        transition: all 0.25s;
+      }
+      .hero__card-item:hover {
+        background: var(--color-neutral-700);
+        transform: translateX(4px);
+      }
+      .hero__card-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: var(--radius-md);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2rem;
+        flex-shrink: 0;
+      }
+      .hero__card-icon--green {
+        background: rgba(0, 217, 139, 0.15);
+      }
+      .hero__card-icon--blue {
+        background: rgba(52, 152, 219, 0.15);
+      }
+      .hero__card-icon--orange {
+        background: rgba(245, 166, 35, 0.15);
+      }
+      .hero__card-item-info {
+        flex: 1;
+      }
+      .hero__card-item-name {
+        font-size: 0.9rem;
+        font-weight: 500;
+        margin-bottom: 0.15rem;
+      }
+      .hero__card-item-meta {
+        font-size: 0.75rem;
+        color: var(--color-neutral-500);
+      }
+      .hero__card-item-stock {
+        font-family: var(--font-display);
+        font-weight: 700;
+        font-size: 0.95rem;
+      }
+      .hero__card-item-stock--ok {
+        color: var(--color-primary-400);
+      }
+      .hero__card-item-stock--low {
+        color: #f5a623;
+      }
+      .hero__card-item-stock--crit {
+        color: #e74c3c;
+      } /* Floating elements around card */
+      .hero__float {
+        position: absolute;
+        padding: 0.6rem 1rem;
+        border-radius: var(--radius-lg);
+        background: var(--color-neutral-900);
+        border: 1px solid var(--color-neutral-800);
+        font-size: 0.8rem;
+        font-weight: 500;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        animation: float 3s ease-in-out infinite;
+      }
+      .hero__float--top {
+        top: -10px;
+        right: -30px;
+        animation-delay: 0s;
+      }
+      .hero__float--bottom {
+        bottom: 20px;
+        left: -40px;
+        animation-delay: 1.5s;
+      }
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-8px);
+        }
+      }
+      .hero__float-icon {
+        width: 28px;
+        height: 28px;
+        border-radius: var(--radius-md);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.9rem;
+      } /* ====== FEATURES ====== */
+      .features {
+        padding: 7rem 0;
+        position: relative;
+      }
+      .features__header {
+        text-align: center;
+        margin-bottom: 4rem;
+      }
+      .features__header .section__subtitle {
+        margin: 0 auto;
+      }
+      .features__grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 2rem;
+      }
+      .feature-card {
+        padding: 2rem;
+        background: var(--color-neutral-900);
+        border: 1px solid var(--color-neutral-800);
+        border-radius: var(--radius-xl);
+        transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        position: relative;
+        overflow: hidden;
+      }
+      .feature-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 3px;
+        background: linear-gradient(
+          90deg,
+          var(--color-primary-400),
+          transparent
+        );
+        opacity: 0;
+        transition: opacity 0.3s;
+      }
+      .feature-card:hover::before {
+        opacity: 1;
+      }
+      .feature-card:hover {
+        transform: translateY(-6px);
+        border-color: var(--color-neutral-700);
+        box-shadow: 0 16px 48px rgba(0, 0, 0, 0.3);
+      }
+      .feature-card__icon {
+        width: 52px;
+        height: 52px;
+        border-radius: var(--radius-lg);
+        background: rgba(0, 217, 139, 0.08);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        margin-bottom: 1.25rem;
+      }
+      .feature-card__title {
+        font-family: var(--font-display);
+        font-size: 1.15rem;
+        font-weight: 600;
+        margin-bottom: 0.6rem;
+      }
+      .feature-card__text {
+        font-size: 0.9rem;
+        color: var(--color-neutral-400);
+        line-height: 1.6;
+      } /* ====== PRODUCTS SHOWCASE ====== */
+      .products {
+        padding: 7rem 0;
+        background: linear-gradient(
+          180deg,
+          transparent,
+          rgba(0, 217, 139, 0.02),
+          transparent
+        );
+      }
+      .products__header {
+        text-align: center;
+        margin-bottom: 4rem;
+      }
+      .products__header .section__subtitle {
+        margin: 0 auto;
+      }
+      .products__grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 2rem;
+      }
+      .product-card {
+        position: relative;
+        border-radius: var(--radius-xl);
+        overflow: hidden;
+        background: var(--color-neutral-900);
+        border: 1px solid var(--color-neutral-800);
+        transition: all 0.4s;
+        cursor: pointer;
+        group: true;
+      }
+      .product-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+        border-color: var(--color-neutral-700);
+      }
+      .product-card__image-wrap {
+        position: relative;
+        height: 240px;
+        overflow: hidden;
+      }
+      .product-card__bg {
+        position: absolute;
+        inset: 0;
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
+        transition: transform 0.5s;
+        filter: brightness(0.7);
+      }
+      .product-card:hover .product-card__bg {
+        transform: scale(1.08);
+      }
+      .product-card__fg {
+        position: absolute;
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        height: 70%;
+        object-fit: contain;
+        filter: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.5));
+        transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        z-index: 1;
+      }
+      .product-card:hover .product-card__fg {
+        transform: translateX(-50%) translateY(-10px) scale(1.05);
+      }
+      .product-card__overlay {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 60%;
+        background: linear-gradient(
+          to top,
+          var(--color-neutral-900),
+          transparent
+        );
+        z-index: 1;
+      }
+      .product-card__info {
+        position: relative;
+        z-index: 2;
+        padding: 1.25rem 1.5rem;
+      }
+      .product-card__name {
+        font-family: var(--font-display);
+        font-weight: 600;
+        font-size: 1.1rem;
+        margin-bottom: 0.3rem;
+      }
+      .product-card__category {
+        font-size: 0.8rem;
+        color: var(--color-neutral-500);
+      }
+      .product-card__stock {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        z-index: 3;
+        padding: 0.3rem 0.8rem;
+        border-radius: var(--radius-full);
+        font-size: 0.75rem;
+        font-weight: 600;
+        background: rgba(0, 217, 139, 0.15);
+        color: var(--color-primary-400);
+        backdrop-filter: blur(10px);
+      } /* ====== HOW IT WORKS ====== */
+      .how-it-works {
+        padding: 7rem 0;
+      }
+      .how-it-works__header {
+        text-align: center;
+        margin-bottom: 4rem;
+      }
+      .how-it-works__header .section__subtitle {
+        margin: 0 auto;
+      }
+      .steps {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2rem;
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 0 2rem;
+        position: relative;
+      }
+      .steps::before {
+        content: "";
+        position: absolute;
+        top: 40px;
+        left: 20%;
+        right: 20%;
+        height: 2px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          var(--color-neutral-700),
+          transparent
+        );
+      }
+      .step {
+        text-align: center;
+        position: relative;
+      }
+      .step__number {
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        background: var(--color-neutral-900);
+        border: 2px solid var(--color-primary-400);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: var(--font-display);
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: var(--color-primary-400);
+        margin: 0 auto 1.25rem;
+        position: relative;
+        z-index: 1;
+        box-shadow: 0 0 20px rgba(0, 217, 139, 0.15);
+      }
+      .step__title {
+        font-family: var(--font-display);
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+      }
+      .step__text {
+        font-size: 0.9rem;
+        color: var(--color-neutral-400);
+        line-height: 1.6;
+      } /* ====== TRUST / STATS ====== */
+      .trust {
+        padding: 5rem 0;
+        background: var(--color-neutral-900);
+        border-top: 1px solid var(--color-neutral-800);
+        border-bottom: 1px solid var(--color-neutral-800);
+      }
+      .trust__grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 2rem;
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 0 2rem;
+        text-align: center;
+      }
+      .trust__item {
+      }
+      .trust__number {
+        font-family: var(--font-display);
+        font-size: 2.5rem;
+        font-weight: 800;
+        background: linear-gradient(
+          135deg,
+          var(--color-primary-400),
+          var(--color-primary-200)
+        );
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        margin-bottom: 0.3rem;
+      }
+      .trust__label {
+        font-size: 0.9rem;
+        color: var(--color-neutral-400);
+      } /* ====== CTA ====== */
+      .cta {
+        padding: 7rem 0;
+        text-align: center;
+        position: relative;
+      }
+      .cta__glow {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 500px;
+        height: 500px;
+        border-radius: 50%;
+        background: radial-gradient(
+          circle,
+          rgba(0, 217, 139, 0.1),
+          transparent 65%
+        );
+        pointer-events: none;
+      }
+      .cta__content {
+        position: relative;
+        z-index: 1;
+        max-width: 600px;
+        margin: 0 auto;
+      }
+      .cta .section__title {
+        margin-bottom: 1rem;
+      }
+      .cta .section__subtitle {
+        margin: 0 auto 2rem;
+        text-align: center;
+      }
+      .cta__actions {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+      } /* ====== FOOTER ====== */
+      .footer {
+        padding: 4rem 0 2rem;
+        border-top: 1px solid var(--color-neutral-800);
+      }
+      .footer__grid {
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr 1fr;
+        gap: 3rem;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 2rem;
+      }
+      .footer__brand {
+        font-family: var(--font-display);
+        font-size: 1.3rem;
+        font-weight: 700;
+        margin-bottom: 0.75rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+      .footer__desc {
+        font-size: 0.9rem;
+        color: var(--color-neutral-500);
+        line-height: 1.6;
+        max-width: 300px;
+      }
+      .footer__title {
+        font-family: var(--font-display);
+        font-size: 0.9rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+        color: var(--color-neutral-50);
+      }
+      .footer__link {
+        display: block;
+        font-size: 0.85rem;
+        color: var(--color-neutral-500);
+        margin-bottom: 0.6rem;
+        transition: all 0.25s;
+      }
+      .footer__link:hover {
+        color: var(--color-primary-400);
+        transform: translateX(3px);
+      }
+      .footer__socials {
+        display: flex;
+        gap: 0.75rem;
+        margin-top: 1rem;
+      }
+      .footer__social {
+        width: 36px;
+        height: 36px;
+        border-radius: var(--radius-md);
+        background: var(--color-neutral-800);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1rem;
+        transition: all 0.25s;
+      }
+      .footer__social:hover {
+        background: var(--color-primary-400);
+        color: var(--color-neutral-950);
+        transform: translateY(-2px);
+      }
+      .footer__bottom {
+        max-width: 1200px;
+        margin: 3rem auto 0;
+        padding: 1.5rem 2rem 0;
+        border-top: 1px solid var(--color-neutral-800);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .footer__copy {
+        font-size: 0.8rem;
+        color: var(--color-neutral-600);
+      } /* ====== RESPONSIVE ====== */
+      @media (max-width: 768px) {
+        .hero__grid {
+          grid-template-columns: 1fr;
+          gap: 3rem;
+          text-align: center;
+        }
+        .hero__content {
+          max-width: 100%;
+        }
+        .hero__description {
+          margin: 0 auto 2rem;
+        }
+        .hero__actions {
+          justify-content: center;
+        }
+        .hero__stats {
+          justify-content: center;
+          gap: 2rem;
+        }
+        .hero__visual {
+          order: -1;
+        }
+        .hero__card {
+          max-width: 340px;
+          margin: 0 auto;
+        }
+        .hero__float {
+          display: none;
+        }
+        .features__grid,
+        .products__grid,
+        .steps {
+          grid-template-columns: 1fr;
+          max-width: 400px;
+        }
+        .steps::before {
+          display: none;
+        }
+        .trust__grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .footer__grid {
+          grid-template-columns: 1fr;
+          text-align: center;
+        }
+        .footer__desc {
+          margin: 0 auto;
+        }
+        .footer__socials {
+          justify-content: center;
+        }
+        .footer__bottom {
+          flex-direction: column;
+          gap: 0.5rem;
+          text-align: center;
+        }
+        .header__nav {
+          display: none;
+        }
+      } /* ====== ANIMATIONS ====== */
+      @keyframes fade-up {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .animate-in {
+        animation: fade-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        opacity: 0;
+      }
+      .delay-1 {
+        animation-delay: 0.1s;
+      }
+      .delay-2 {
+        animation-delay: 0.2s;
+      }
+      .delay-3 {
+        animation-delay: 0.3s;
+      }
+      .delay-4 {
+        animation-delay: 0.4s;
+      }
+      .delay-5 {
+        animation-delay: 0.5s;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Ambient glow orbs -->
+    <div class="glow-orb glow-orb--top"></div>
+    <div class="glow-orb glow-orb--mid"></div>
+    <!-- HEADER -->
+    <header class="header">
+      <div class="header__brand">
+        <span class="header__brand-dot"></span> La Rivera
+      </div>
+      <nav class="header__nav">
+        <a href="#inicio" class="header__nav-link">Inicio</a>
+        <a href="#productos" class="header__nav-link">Productos</a>
+        <a href="#como-funciona" class="header__nav-link">Cómo Funciona</a>
+        <a href="#contacto" class="header__nav-link">Contacto</a>
+      </nav>
+      <div class="header__actions">
+        <a href="#" class="btn btn--ghost">Iniciar Sesión</a>
+      </div>
+    </header>
+    <!-- HERO -->
+    <section id="inicio" class="hero section">
+      <div class="hero__bg">
+        <div class="hero__bg-glow"></div>
+        <div class="hero__bg-gradient"></div>
+      </div>
+      <div class="hero__grid">
+        <div class="hero__content animate-in">
+          <div class="hero__badge">
+            <span class="hero__badge-dot"></span> Sistema de inventario
+            inteligente
+          </div>
+          <h1 class="hero__title">
+            Controla tu tienda<br />
+            <span class="hero__title-accent">sin complicaciones</span>
+          </h1>
+          <p class="hero__description">
+            La Rivera te ayuda a gestionar productos, stock y ventas desde un
+            solo lugar. Diseñado para tiendas que quieren crecer.
+          </p>
+          <div class="hero__actions">
+            <a href="#" class="btn btn--primary btn--lg">Comenzar gratis →</a>
+            <a href="#como-funciona" class="btn btn--ghost btn--lg"
+              >Ver cómo funciona</a
+            >
+          </div>
+          <div class="hero__stats animate-in delay-3">
+            <div>
+              <div class="hero__stat-number">500+</div>
+              <div class="hero__stat-label">Productos gestionados</div>
+            </div>
+            <div>
+              <div class="hero__stat-number">24/7</div>
+              <div class="hero__stat-label">Acceso total</div>
+            </div>
+            <div>
+              <div class="hero__stat-number">100%</div>
+              <div class="hero__stat-label">Control real</div>
+            </div>
+          </div>
+        </div>
+        <div class="hero__visual animate-in delay-2">
+          <div class="hero__card">
+            <div class="hero__card-header">
+              <span class="hero__card-title">📦 Inventario</span>
+              <span class="hero__card-badge">En vivo</span>
+            </div>
+            <div class="hero__card-items">
+              <div class="hero__card-item">
+                <div class="hero__card-icon hero__card-icon--green">🥤</div>
+                <div class="hero__card-item-info">
+                  <div class="hero__card-item-name">Coca-Cola 350ml</div>
+                  <div class="hero__card-item-meta">Bebidas</div>
+                </div>
+                <div class="hero__card-item-stock hero__card-item-stock--ok">
+                  48
+                </div>
+              </div>
+              <div class="hero__card-item">
+                <div class="hero__card-icon hero__card-icon--orange">🍫</div>
+                <div class="hero__card-item-info">
+                  <div class="hero__card-item-name">Nutella 250g</div>
+                  <div class="hero__card-item-meta">Snacks</div>
+                </div>
+                <div class="hero__card-item-stock hero__card-item-stock--low">
+                  12
+                </div>
+              </div>
+              <div class="hero__card-item">
+                <div class="hero__card-icon hero__card-icon--blue">🍬</div>
+                <div class="hero__card-item-info">
+                  <div class="hero__card-item-name">M&M's Original</div>
+                  <div class="hero__card-item-meta">Dulces</div>
+                </div>
+                <div class="hero__card-item-stock hero__card-item-stock--crit">
+                  3
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Floating badges -->
+          <div class="hero__float hero__float--top">
+            <div
+              class="hero__float-icon"
+              style="background: rgba(0, 217, 139, 0.15)"
+            >
+              ✓
+            </div>
+            <span style="color: var(--color-primary-400)"
+              >Stock actualizado</span
+            >
+          </div>
+          <div class="hero__float hero__float--bottom">
+            <div
+              class="hero__float-icon"
+              style="background: rgba(245, 166, 35, 0.15)"
+            >
+              ⚠
+            </div>
+            <span style="color: #f5a623">Nutella: stock bajo</span>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- FEATURES -->
+    <section class="features section">
+      <div class="features__header">
+        <span class="section__overline">Funcionalidades</span>
+        <h2 class="section__title">Todo lo que necesita tu tienda</h2>
+        <p class="section__subtitle">
+          Herramientas diseñadas para que manejes tu negocio sin complicaciones.
+        </p>
+      </div>
+      <div class="features__grid">
+        <div class="feature-card animate-in delay-1">
+          <div class="feature-card__icon">📊</div>
+          <h3 class="feature-card__title">Control de inventario</h3>
+          <p class="feature-card__text">
+            Agrega, edita y organiza tus productos. Siempre sabrás qué tienes y
+            qué necesitas reponer.
+          </p>
+        </div>
+        <div class="feature-card animate-in delay-2">
+          <div class="feature-card__icon">📦</div>
+          <h3 class="feature-card__title">Categorías inteligentes</h3>
+          <p class="feature-card__text">
+            Organiza por tipo: bebidas, snacks, aseo, granos. Encuentra
+            cualquier producto en segundos.
+          </p>
+        </div>
+        <div class="feature-card animate-in delay-3">
+          <div class="feature-card__icon">🔔</div>
+          <h3 class="feature-card__title">Alertas de stock</h3>
+          <p class="feature-card__text">
+            Recibe notificaciones cuando un producto esté por agotarse. Nunca
+            más pierdas una venta.
+          </p>
+        </div>
+        <div class="feature-card animate-in delay-1">
+          <div class="feature-card__icon">📈</div>
+          <h3 class="feature-card__title">Reportes y métricas</h3>
+          <p class="feature-card__text">
+            Visualiza las tendencias de tu negocio. Qué se vende más, qué se
+            estanca, y toma decisiones.
+          </p>
+        </div>
+        <div class="feature-card animate-in delay-2">
+          <div class="feature-card__icon">👥</div>
+          <h3 class="feature-card__title">Multi-usuario</h3>
+          <p class="feature-card__text">
+            Agrega empleados con roles específicos. Tú decides quién puede ver y
+            editar qué.
+          </p>
+        </div>
+        <div class="feature-card animate-in delay-3">
+          <div class="feature-card__icon">📱</div>
+          <h3 class="feature-card__title">Acceso desde cualquier lugar</h3>
+          <p class="feature-card__text">
+            Funciona en tu celular, tablet o computador. Revisa tu tienda desde
+            donde estés.
+          </p>
+        </div>
+      </div>
+    </section>
+    <!-- PRODUCTS -->
+    <section id="productos" class="products section">
+      <div class="products__header">
+        <span class="section__overline">Nuestros productos</span>
+        <h2 class="section__title">Lo que mueve a La Rivera</h2>
+        <p class="section__subtitle">
+          Algunos de los productos que gestionamos a diario.
+        </p>
+      </div>
+      <div class="products__grid">
+        <div class="product-card animate-in delay-1">
+          <div class="product-card__image-wrap">
+            <div
+              style="
+                background: linear-gradient(135deg, #1a0000, #4a0000);
+                width: 100%;
+                height: 100%;
+              "
+            ></div>
+            <div class="product-card__overlay"></div>
+            <span class="product-card__stock">48 uds</span>
+          </div>
+          <div class="product-card__info">
+            <div class="product-card__name">Coca-Cola 350ml</div>
+            <div class="product-card__category">Bebidas</div>
+          </div>
+        </div>
+        <div class="product-card animate-in delay-2">
+          <div class="product-card__image-wrap">
+            <div
+              style="
+                background: linear-gradient(135deg, #1a1a00, #3d2b00);
+                width: 100%;
+                height: 100%;
+              "
+            ></div>
+            <div class="product-card__overlay"></div>
+            <span class="product-card__stock">12 uds</span>
+          </div>
+          <div class="product-card__info">
+            <div class="product-card__name">Nutella 250g</div>
+            <div class="product-card__category">Snacks</div>
+          </div>
+        </div>
+        <div class="product-card animate-in delay-3">
+          <div class="product-card__image-wrap">
+            <div
+              style="
+                background: linear-gradient(135deg, #001a0a, #003d1f);
+                width: 100%;
+                height: 100%;
+              "
+            ></div>
+            <div class="product-card__overlay"></div>
+            <span class="product-card__stock">3 uds</span>
+          </div>
+          <div class="product-card__info">
+            <div class="product-card__name">M&M's Original</div>
+            <div class="product-card__category">Dulces</div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- HOW IT WORKS -->
+    <section id="como-funciona" class="how-it-works section">
+      <div class="how-it-works__header">
+        <span class="section__overline">Cómo funciona</span>
+        <h2 class="section__title">3 pasos para tomar el control</h2>
+        <p class="section__subtitle">
+          Empieza en minutos, sin configuraciones complicadas.
+        </p>
+      </div>
+      <div class="steps">
+        <div class="step animate-in delay-1">
+          <div class="step__number">1</div>
+          <h3 class="step__title">Crea tu cuenta</h3>
+          <p class="step__text">
+            Regístrate gratis y configura tu tienda en menos de 2 minutos.
+          </p>
+        </div>
+        <div class="step animate-in delay-2">
+          <div class="step__number">2</div>
+          <h3 class="step__title">Agrega productos</h3>
+          <p class="step__text">
+            Carga tu inventario con categorías, precios y cantidades.
+          </p>
+        </div>
+        <div class="step animate-in delay-3">
+          <div class="step__number">3</div>
+          <h3 class="step__title">Gestiona todo</h3>
+          <p class="step__text">
+            Controla stock, movimientos y reportes desde un solo panel.
+          </p>
+        </div>
+      </div>
+    </section>
+    <!-- TRUST STATS -->
+    <section class="trust section">
+      <div class="trust__grid">
+        <div class="trust__item animate-in delay-1">
+          <div class="trust__number">500+</div>
+          <div class="trust__label">Productos registrados</div>
+        </div>
+        <div class="trust__item animate-in delay-2">
+          <div class="trust__number">50+</div>
+          <div class="trust__label">Categorías activas</div>
+        </div>
+        <div class="trust__item animate-in delay-3">
+          <div class="trust__number">99.9%</div>
+          <div class="trust__label">Uptime del sistema</div>
+        </div>
+        <div class="trust__item animate-in delay-4">
+          <div class="trust__number">0</div>
+          <div class="trust__label">Productos perdidos</div>
+        </div>
+      </div>
+    </section>
+    <!-- CTA -->
+    <section class="cta section">
+      <div class="cta__glow"></div>
+      <div class="cta__content animate-in">
+        <span class="section__overline">¿Listo para empezar?</span>
+        <h2 class="section__title">
+          Tu tienda merece<br />un sistema profesional
+        </h2>
+        <p class="section__subtitle">
+          Empieza a controlar tu inventario hoy. Es gratis, es fácil, y está
+          hecho para ti.
+        </p>
+        <div class="cta__actions">
+          <a href="#" class="btn btn--primary btn--lg">Crear cuenta gratis →</a>
+          <a href="#" class="btn btn--ghost btn--lg">Hablar con nosotros</a>
+        </div>
+      </div>
+    </section>
+    <!-- FOOTER -->
+    <footer id="contacto" class="footer">
+      <div class="footer__grid">
+        <div>
+          <div class="footer__brand">
+            <span class="header__brand-dot"></span> La Rivera
+          </div>
+          <p class="footer__desc">
+            Sistema de gestión de inventarios diseñado para tiendas que quieren
+            crecer y tomar el control de su negocio.
+          </p>
+          <div class="footer__socials">
+            <a href="#" class="footer__social">📘</a>
+            <a href="#" class="footer__social">✉️</a>
+            <a href="#" class="footer__social">💬</a>
+            <a href="#" class="footer__social">💼</a>
+          </div>
+        </div>
+        <div>
+          <h4 class="footer__title">Producto</h4>
+          <a href="#" class="footer__link">Funcionalidades</a>
+          <a href="#" class="footer__link">Precios</a>
+          <a href="#" class="footer__link">Actualizaciones</a>
+        </div>
+        <div>
+          <h4 class="footer__title">Compañía</h4>
+          <a href="#" class="footer__link">Sobre nosotros</a>
+          <a href="#" class="footer__link">Blog</a>
+          <a href="#" class="footer__link">Contacto</a>
+        </div>
+        <div>
+          <h4 class="footer__title">Soporte</h4>
+          <a href="#" class="footer__link">Ayuda</a>
+          <a href="#" class="footer__link">FAQ</a>
+          <a href="#" class="footer__link">Términos</a>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <span class="footer__copy"
+          >© 2025 La Rivera. Todos los derechos reservados.</span
+        >
+        <span class="footer__copy">Hecho con 💚 para tiendas que crecen</span>
+      </div>
+    </footer>
+  </body>
+</html>
+<!DOCTYPE html>

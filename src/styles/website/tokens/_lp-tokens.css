@@ -1,0 +1,100 @@
+/* ============================
+   TOKENS — Design System Base
+   la-rivera/styles/tokens/_tokens.css
+   ============================ */
+
+   @import url("https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap");
+
+:root {
+  /* --- Color: Primary (Green) --- */
+  --color-primary-900: #0b3d2b;
+  --color-primary-800: #0a5038;
+  --color-primary-700: #00694b;
+  --color-primary-600: #0d7a54;
+  --color-primary-500: #1db870;
+  --color-primary-400: #00d98b;
+  --color-primary-300: #33cc88;
+  --color-primary-200: #8ff0c0;
+  --color-primary-100: #b8f5d8;
+  --color-primary-50:  #e0fff0;
+
+  /* --- Color: Neutral --- */
+  --color-neutral-950: #0d0f0e;
+  --color-neutral-900: #141816;
+  --color-neutral-800: #1c2120;
+  --color-neutral-700: #2a302e;
+  --color-neutral-600: #3d4543;
+  --color-neutral-500: #5a6462;
+  --color-neutral-400: #7a8583;
+  --color-neutral-300: #a0aaa8;
+  --color-neutral-200: #c8cfcd;
+  --color-neutral-100: #e8eceb;
+  --color-neutral-50:  #f0f0f0;
+
+  /* --- Semantic --- */
+  --color-warning: #f5a623;
+  --color-danger:  #e74c3c;
+  --color-info:    #3498db;
+
+  /* --- Typography --- */
+  --font-display: "Syne", sans-serif;
+  --font-body:    "DM Sans", sans-serif;
+
+  /* --- Border Radius --- */
+  --radius-sm:   0.25rem;
+  --radius-md:   0.5rem;
+  --radius-lg:   0.75rem;
+  --radius-xl:   1rem;
+  --radius-2xl:  1.5rem;
+  --radius-full: 9999px;
+
+  /* --- Spacing scale --- */
+  --space-1:  0.25rem;
+  --space-2:  0.5rem;
+  --space-3:  0.75rem;
+  --space-4:  1rem;
+  --space-5:  1.25rem;
+  --space-6:  1.5rem;
+  --space-8:  2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+  --space-28: 7rem;
+
+  /* --- Shadows --- */
+  --shadow-sm:  0 4px 12px rgba(0, 0, 0, 0.2);
+  --shadow-md:  0 8px 30px rgba(0, 0, 0, 0.3);
+  --shadow-lg:  0 16px 48px rgba(0, 0, 0, 0.3);
+  --shadow-xl:  0 24px 80px rgba(0, 0, 0, 0.5);
+  --shadow-glow: 0 8px 30px rgba(0, 217, 139, 0.3);
+
+  /* --- Transitions --- */
+  --transition-fast:   0.2s ease;
+  --transition-base:   0.3s ease;
+  --transition-bounce: 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  --transition-smooth: 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  --transition-enter:  6s cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* --- Z-index --- */
+  --z-base:    1;
+  --z-header:  1000;
+  --z-overlay: 9999;
+
+  /* --- Layout --- */
+  --container-max: 1200px;
+  --header-height: 72px;
+}
+
+.section__title {
+  color: var(--color-neutral-50);
+}
+
+.section__subtitle {
+  color: var(--color-neutral-400);
+}
+
+.section__overline {
+  color: var(--color-primary-400);
+}
+

@@ -1,0 +1,60 @@
+/* ============================
+   ATOM — Badge (BEM)
+   la-rivera/styles/atoms/_badge.css
+   ============================ */
+
+/* --- Block --- */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 0.25rem 0.7rem;
+  border-radius: var(--radius-full);
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+/* --- Elements --- */
+.badge__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-primary-400);
+  animation: pulse-dot 2s infinite;
+}
+
+/* --- Modifiers: Variant --- */
+.badge--outline {
+  border: 1px solid var(--color-neutral-700);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--color-neutral-300);
+  font-size: 0.8rem;
+}
+
+.badge--green {
+  background: rgba(0, 217, 139, 0.1);
+  color: var(--color-primary-400);
+}
+
+.badge--warning {
+  background: rgba(245, 166, 35, 0.15);
+  color: var(--color-warning);
+}
+
+.badge--danger {
+  background: rgba(231, 76, 60, 0.15);
+  color: var(--color-danger);
+}
+
+/* --- Stock badge (usado en product-card) --- */
+.badge--stock {
+  position: absolute;
+  top: var(--space-4);
+  right: var(--space-4);
+  z-index: 3;
+  background: #f5c400;
+  color: #0d0f0e;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  box-shadow: 0 2px 12px rgba(245, 196, 0, 0.4);
+}

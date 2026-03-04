@@ -2,6 +2,7 @@
    📐 ESTRUCTURA PRINCIPAL DEL DASHBOARD
 ====================================================== */
 .grid-container {
+  background: #ffffff;
   display: grid;
   grid-template-areas:
     "sidebar header"

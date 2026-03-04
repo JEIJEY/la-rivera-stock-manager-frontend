@@ -1,0 +1,233 @@
+/* ============================
+   ORGANISM — How It Works (BEM)
+   la-rivera/styles/organisms/_how-it-works.css
+   ============================ */
+
+.how-it-works {
+  padding: var(--space-28) 0;
+}
+
+.how-it-works__header {
+  text-align: center;
+  margin-bottom: var(--space-16);
+}
+
+.how-it-works__header .section__subtitle {
+  margin: 0 auto;
+}
+
+.steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-8);
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 var(--space-8);
+  position: relative;
+}
+
+/* Connector line between steps */
+.steps::before {
+  content: "";
+  position: absolute;
+  top: 40px;
+  left: 20%;
+  right: 20%;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--color-neutral-700),
+    transparent
+  );
+}
+
+
+/* ============================
+   ORGANISM — Trust / Stats (BEM)
+   la-rivera/styles/organisms/_trust.css
+   ============================ */
+
+.trust {
+  padding: var(--space-20) 0;
+  background: var(--color-neutral-900);
+  border-top: 1px solid var(--color-neutral-800);
+  border-bottom: 1px solid var(--color-neutral-800);
+}
+
+.trust__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-8);
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 var(--space-8);
+  text-align: center;
+}
+
+.trust__number {
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  font-weight: 800;
+  background: linear-gradient(
+    135deg,
+    var(--color-primary-400),
+    var(--color-primary-200)
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  margin-bottom: var(--space-1);
+}
+
+.trust__label {
+  font-size: 0.9rem;
+  color: var(--color-neutral-400);
+}
+
+
+/* ============================
+   ORGANISM — CTA Section (BEM)
+   la-rivera/styles/organisms/_cta.css
+   ============================ */
+
+.cta {
+  padding: var(--space-28) 0;
+  text-align: center;
+  position: relative;
+}
+
+.cta__glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(0, 217, 139, 0.1),
+    transparent 65%
+  );
+  pointer-events: none;
+}
+
+.cta__content {
+  position: relative;
+  z-index: 1;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.cta .section__title {
+  margin-bottom: var(--space-4);
+}
+
+.cta .section__subtitle {
+  margin: 0 auto var(--space-8);
+  text-align: center;
+}
+
+.cta__actions {
+  display: flex;
+  gap: var(--space-4);
+  justify-content: center;
+}
+
+
+/* ============================
+   ORGANISM — Footer (BEM)
+   la-rivera/styles/organisms/_footer.css
+   ============================ */
+
+.footer {
+  padding: var(--space-16) 0 var(--space-8);
+  border-top: 1px solid var(--color-neutral-800);
+}
+
+.footer__grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: var(--space-12);
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 var(--space-8);
+}
+
+.footer__brand {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: var(--space-3);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.footer__desc {
+  font-size: 0.9rem;
+  color: var(--color-neutral-500);
+  line-height: 1.6;
+  max-width: 300px;
+}
+
+.footer__title {
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: var(--space-4);
+  color: var(--color-neutral-50);
+}
+
+.footer__link {
+  display: block;
+  font-size: 0.85rem;
+  color: var(--color-neutral-500);
+  margin-bottom: 0.6rem;
+  transition: all var(--transition-fast);
+}
+
+.footer__link:hover {
+  color: var(--color-primary-400);
+  transform: translateX(3px);
+}
+
+.footer__socials {
+  display: flex;
+  gap: var(--space-3);
+  margin-top: var(--space-4);
+}
+
+.footer__social {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-md);
+  background: var(--color-neutral-800);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  transition: all var(--transition-fast);
+}
+
+.footer__social:hover {
+  background: var(--color-primary-400);
+  color: var(--color-neutral-950);
+  transform: translateY(-2px);
+}
+
+.footer__bottom {
+  max-width: var(--container-max);
+  margin: var(--space-12) auto 0;
+  padding: var(--space-6) var(--space-8) 0;
+  border-top: 1px solid var(--color-neutral-800);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer__copy {
+  font-size: 0.8rem;
+  color: var(--color-neutral-600);
+}

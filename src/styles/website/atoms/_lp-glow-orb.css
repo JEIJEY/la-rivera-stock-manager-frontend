@@ -1,0 +1,22 @@
+/* =========== ATOM: Glow Orb — Landing =========== */
+
+
+.glow-orb {
+  position: fixed;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0, 217, 139, 0.08), transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.glow-orb--top {
+  top: -200px;
+  right: -100px;
+}
+
+.glow-orb--mid {
+  top: 50%;
+  left: -200px;
+}
