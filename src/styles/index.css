@@ -17,7 +17,6 @@
     @import "./shared/molecules/_cards.css";
     @import "./shared/molecules/_forms.css";
     @import "./shared/molecules/_navigation.css";
-    @import "./shared/molecules/_product-cards.css";
     @import "./shared/molecules/_list-items.css";
     @import "./shared/molecules/_social-login.css";
     @import "./shared/molecules/_logo.css";
@@ -27,9 +26,7 @@
 
     /* === SHARED - ORGANISMS === */
     @import "./shared/organisms/_header.css";
-    @import "./shared/organisms/_footer.css";
     @import "./shared/organisms/_products-grid.css";
-    @import "./shared/organisms/_promo-section.css";
     @import "./shared/organisms/_login-card.css";
     @import "./shared/organisms/_login-form.css";
     @import "./shared/organisms/_redirect-screen.css";
@@ -66,8 +63,6 @@
     /* === DASHBOARD === */
 
     /* === UTILITIES === */
-    @import "./utilities/_grid.css";
     @import "./utilities/_spacing.css";
     @import "./utilities/_responsive.css";
-    @import "./utilities/_debug-grid.css";
     @import "./utilities/_loader.css";
