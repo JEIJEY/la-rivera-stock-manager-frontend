@@ -1,0 +1,49 @@
+/* =========== AUTH FORM ORGANISM =========== */
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.login-form__group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.login-form__label {
+  font-family: var(--font-body);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--auth-label-color);
+}
+
+.login-form__forgot {
+  font-size: var(--text-sm);
+  color: var(--auth-forgot-color);
+  text-align: right;
+  text-decoration: none;
+  transition: color var(--transition-fast);
+  margin-top: -4px;
+}
+
+.login-form__forgot:hover {
+  color: var(--color-primary-400);
+}
+
+/* Grid 2 columnas para register */
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-2);
+}
+
+/* Botón full width */
+.btn--full {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: var(--space-2);
+}

@@ -10,7 +10,6 @@
     @import "./shared/atoms/_inputs.css";
     @import "./shared/atoms/_labels.css";
     @import "./shared/atoms/_logout-button.css";
-    @import "./shared/atoms/_headings.css";
     @import "./shared/atoms/_stats.css";
 
     /* === SHARED - MOLECULES === */
@@ -18,17 +17,11 @@
     @import "./shared/molecules/_forms.css";
     @import "./shared/molecules/_navigation.css";
     @import "./shared/molecules/_list-items.css";
-    @import "./shared/molecules/_social-login.css";
-    @import "./shared/molecules/_logo.css";
-    @import "./shared/molecules/_separator.css";
-    @import "./shared/molecules/_login-footer.css";
     @import "./shared/molecules/_inventory-item.css";
 
     /* === SHARED - ORGANISMS === */
     @import "./shared/organisms/_header.css";
     @import "./shared/organisms/_products-grid.css";
-    @import "./shared/organisms/_login-card.css";
-    @import "./shared/organisms/_login-form.css";
     @import "./shared/organisms/_redirect-screen.css";
     @import "./shared/organisms/_dashboard.css";
     @import "./shared/organisms/_dashboard-sidebar.css";
@@ -59,6 +52,17 @@
     @import "./website/_lp-responsive.css";
 
     /* === AUTH === */
+    @import "./auth/tokens/_auth-tokens.css";
+    @import "./auth/atoms/_auth-input.css";
+    @import "./auth/atoms/_auth-logo.css";
+    @import "./auth/atoms/_auth-title.css";
+    @import "./auth/molecules/_auth-separator.css";
+    @import "./auth/molecules/_auth-social.css";
+    @import "./auth/molecules/_auth-footer.css";
+    @import "./auth/organisms/_auth-page.css";
+    @import "./auth/organisms/_auth-card.css";
+    @import "./auth/organisms/_auth-form.css";
+    @import "./auth/_auth-responsive.css";
 
     /* === DASHBOARD === */
 

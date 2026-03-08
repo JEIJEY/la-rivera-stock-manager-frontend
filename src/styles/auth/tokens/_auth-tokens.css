@@ -1,0 +1,41 @@
+/* =========== AUTH TOKENS =========== */
+:root {
+  /* === Fondos === */
+  --auth-bg:           var(--color-neutral-950);
+  --auth-card-bg:      var(--color-neutral-900);
+  --auth-card-border:  rgba(255, 255, 255, 0.07);
+  --auth-card-width:   440px;
+  --auth-card-padding: var(--space-8);
+  --auth-card-radius:  var(--radius-xl);
+
+  /* === Orbs === */
+  --auth-orb-primary:   rgba(0, 217, 139, 0.13);
+  --auth-orb-secondary: rgba(0, 217, 139, 0.07);
+
+  /* === Input === */
+  --auth-input-bg:           rgba(255, 255, 255, 0.05);
+  --auth-input-bg-focus:     rgba(0, 217, 139, 0.07);
+  --auth-input-border:       rgba(255, 255, 255, 0.09);
+  --auth-input-radius:       10px;
+  --auth-input-placeholder:  rgba(255, 255, 255, 0.3);
+  --auth-input-focus-shadow: rgba(0, 217, 139, 0.12);
+
+  /* === Badge === */
+  --auth-badge-bg:     rgba(0, 217, 139, 0.08);
+  --auth-badge-border: rgba(0, 217, 139, 0.22);
+
+  /* === Separador === */
+  --auth-separator-color: rgba(255, 255, 255, 0.07);
+
+  /* === Social === */
+  --auth-social-bg:           rgba(255, 255, 255, 0.05);
+  --auth-social-border:       rgba(255, 255, 255, 0.08);
+  --auth-social-hover-bg:     rgba(0, 217, 139, 0.08);
+  --auth-social-hover-border: rgba(0, 217, 139, 0.25);
+
+  /* === Texto === */
+  --auth-muted:        rgba(255, 255, 255, 0.4);
+  --auth-label-color:  rgba(255, 255, 255, 0.5);
+  --auth-forgot-color: rgba(255, 255, 255, 0.35);
+  --auth-link-color:   var(--color-primary-400);
+}

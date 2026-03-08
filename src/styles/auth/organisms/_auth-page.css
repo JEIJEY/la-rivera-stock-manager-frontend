@@ -1,0 +1,35 @@
+/* =========== AUTH PAGE ORGANISM =========== */
+.login-page {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: var(--auth-bg);
+  padding: var(--space-8) var(--space-4);
+  overflow: hidden;
+}
+
+/* Orbs de fondo */
+.auth-orb {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.auth-orb--top {
+  width: 500px;
+  height: 500px;
+  top: -160px;
+  right: -100px;
+  background: radial-gradient(circle, var(--auth-orb-primary) 0%, transparent 70%);
+}
+
+.auth-orb--bottom {
+  width: 380px;
+  height: 380px;
+  bottom: -100px;
+  left: -80px;
+  background: radial-gradient(circle, var(--auth-orb-secondary) 0%, transparent 70%);
+}

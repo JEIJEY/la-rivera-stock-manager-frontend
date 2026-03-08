@@ -1,0 +1,15 @@
+/* =========== AUTH RESPONSIVE =========== */
+@media (max-width: 480px) {
+  .login-page {
+    align-items: flex-start;
+    padding: var(--space-8) var(--space-4);
+  }
+
+  .login-card {
+    width: 100%;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+}

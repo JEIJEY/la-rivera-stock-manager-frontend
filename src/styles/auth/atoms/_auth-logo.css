@@ -1,0 +1,23 @@
+/* =========== AUTH LOGO ATOM =========== */
+.login-card__header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  padding-bottom: var(--space-1);
+}
+
+.login-card__logo {
+  width: 90px;
+  height: 90px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 16px rgba(0, 217, 139, 0.4));
+}
+
+.login-card__brand {
+  height: 62px;
+  object-fit: contain;
+  opacity: 0.92;
+  filter: brightness(0) invert(1);
+}

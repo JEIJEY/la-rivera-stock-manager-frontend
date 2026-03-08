@@ -7,28 +7,38 @@ export function renderLogin() {
 
   app.innerHTML = `
     <main class="login-page">
+      <div class="auth-orb auth-orb--top"></div>
+      <div class="auth-orb auth-orb--bottom"></div>
+
       <article class="login-card">
         <header class="login-card__header">
           <img src="/src/assets/images/logo.png" alt="Logo" class="login-card__logo" />
           <img src="/src/assets/images/La_Rivera.png" alt="La Rivera" class="login-card__brand" />
         </header>
 
+        <div class="login-card__hero">
+          <span class="auth-badge">Acceso seguro</span>
+          <h1 class="login-card__title">Bienvenido de <span>vuelta</span></h1>
+          <p class="login-card__subtitle">Gestiona tu inventario desde un solo lugar</p>
+        </div>
+
         <section class="login-card__form">
-          <h1 class="login-card__title">Ingresa</h1>
           <form id="loginForm" class="login-form">
             <div class="login-form__group">
-              <input type="email" name="email" placeholder="Correo" required class="login-form__input" />
+              <label class="login-form__label">Correo electrónico</label>
+              <input type="email" name="email" placeholder="hola@larivera.com" required class="login-form__input" />
             </div>
             <div class="login-form__group">
-              <input type="password" name="password" placeholder="Contraseña" required class="login-form__input" />
+              <label class="login-form__label">Contraseña</label>
+              <input type="password" name="password" placeholder="••••••••" required class="login-form__input" />
             </div>
             <a href="#" class="login-form__forgot">¿Olvidaste tu contraseña?</a>
-            <button type="submit" class="btn btn--primary btn--full">Ingresa</button>
+            <button type="submit" class="btn btn--primary btn--full">Iniciar sesión →</button>
           </form>
         </section>
 
         <div class="login-card__separator">
-          <span>Ingresa con</span>
+          <span>o continúa con</span>
         </div>
 
         <nav class="login-card__social">
@@ -81,7 +91,7 @@ export function renderLogin() {
     } catch (error) {
       alert("❌ " + (error.message || "Credenciales inválidas"));
     } finally {
-      submitBtn.textContent = "Ingresa";
+      submitBtn.textContent = "Iniciar sesión →";
       submitBtn.disabled = false;
     }
   });

@@ -102,8 +102,6 @@
         |-- [layouts]
         |-- [shared]
             |-- [atoms]
-                |-- _badges.css
-                |-- _buttons.css
                 |-- _headings.css
                 |-- _inputs.css
                 |-- _labels.css
@@ -117,7 +115,6 @@
                 |-- _login-footer.css
                 |-- _logo.css
                 |-- _navigation.css
-                |-- _product-cards.css
                 |-- _separator.css
                 |-- _social-login.css
             |-- [organisms]
@@ -127,20 +124,16 @@
                 |-- _dashboard-main.css
                 |-- _dashboard-sidebar.css
                 |-- _dashboard.css
-                |-- _footer.css
                 |-- _header.css
                 |-- _inventario.css
                 |-- _login-card.css
                 |-- _login-form.css
                 |-- _modal-producto.css
                 |-- _products-grid.css
-                |-- _promo-section.css
                 |-- _redirect-screen.css
                 |-- inventario_dashboard.css
         |-- [tokens]
         |-- [utilities]
-            |-- _debug-grid.css
-            |-- _grid.css
             |-- _loader.css
             |-- _responsive.css
             |-- _spacing.css
@@ -151,11 +144,18 @@
                 |-- _lp-glow-orb.css
             |-- [molecules]
                 |-- _lp-feature-card.css
+                |-- _lp-product-card.css
+                |-- _lp-step.css
             |-- [organisms]
+                |-- _lp-features.css
                 |-- _lp-header.css
                 |-- _lp-hero.css
+                |-- _lp-products.css
+                |-- _lp-sections.css
             |-- [tokens]
+                |-- _lp-animations.css
                 |-- _lp-tokens.css
+            |-- _lp-responsive.css
         |-- index.css
     |-- main.js
 |-- .gitignore

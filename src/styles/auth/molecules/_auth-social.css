@@ -1,0 +1,30 @@
+/* =========== AUTH SOCIAL LOGIN MOLECULE =========== */
+.login-card__social {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-3);
+}
+
+.social-login__link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  background: var(--auth-social-bg);
+  border: 1px solid var(--auth-social-border);
+  border-radius: var(--auth-input-radius);
+  transition: all var(--transition-fast);
+}
+
+.social-login__link:hover {
+  background: var(--auth-social-hover-bg);
+  border-color: var(--auth-social-hover-border);
+  transform: translateY(-2px);
+}
+
+.social-login__icon {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}

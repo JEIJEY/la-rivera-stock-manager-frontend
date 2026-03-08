@@ -1,0 +1,29 @@
+/* =========== AUTH INPUT ATOM =========== */
+.login-form__input {
+  width: 100%;
+  padding: 11px var(--space-3);
+  background: var(--auth-input-bg);
+  border: 1px solid var(--auth-input-border);
+  border-radius: var(--auth-input-radius);
+  color: var(--color-neutral-50);
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  transition: all var(--transition-fast);
+  outline: none;
+}
+
+.login-form__input::placeholder {
+  color: var(--auth-input-placeholder);
+}
+
+.login-form__input:focus {
+  border-color: var(--color-primary-400);
+  background: var(--auth-input-bg-focus);
+  box-shadow: 0 0 0 3px var(--auth-input-focus-shadow);
+}
+
+/* Fix color picker de fecha en dark */
+.login-form__input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(0.6);
+  cursor: pointer;
+}

@@ -1,0 +1,16 @@
+/* =========== AUTH SEPARATOR MOLECULE =========== */
+.login-card__separator {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  color: var(--auth-muted);
+  font-size: var(--text-sm);
+}
+
+.login-card__separator::before,
+.login-card__separator::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--auth-separator-color);
+}

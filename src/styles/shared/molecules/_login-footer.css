@@ -1,14 +1,1 @@
-/* =========== LOGIN FOOTER MOLECULE =========== */
-.login-card__footer {
-  font-size: var(--text-sm);
-}
-
-.login-card__footer a {
-  color: #14532D;
-  text-decoration: none;
-  font-weight: var(--font-semibold);
-}
-
-.login-card__footer a:hover {
-  text-decoration: underline;
-}
+/* Movido a src/styles/auth/molecules/_auth-footer.css */

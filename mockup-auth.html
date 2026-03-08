@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Auth Mockup – La Rivera</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:          #0d0f0e;
+      --bg-card:     #141714;
+      --border:      rgba(255,255,255,0.08);
+      --border-glow: rgba(0, 217, 139, 0.35);
+      --primary:     #00d98b;
+      --primary-dim: rgba(0, 217, 139, 0.12);
+      --primary-hover: #00c47d;
+      --white:       #f0f0f0;
+      --muted:       rgba(255,255,255,0.45);
+      --input-bg:    rgba(255,255,255,0.06);
+      --input-border: rgba(255,255,255,0.12);
+      --radius-sm:   8px;
+      --radius-md:   14px;
+      --radius-lg:   20px;
+      --font-display: 'Syne', sans-serif;
+      --font-body:   'DM Sans', sans-serif;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--bg);
+      color: var(--white);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 48px 24px;
+      gap: 64px;
+    }
+
+    h2.section-label {
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    /* ── WRAPPER ── */
+    .mockup-wrapper {
+      display: flex;
+      gap: 40px;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    /* ── AUTH PAGE ── */
+    .auth-page {
+      position: relative;
+      width: 420px;
+      min-height: 600px;
+      background: var(--bg);
+      border-radius: 24px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 32px 24px;
+      border: 1px solid var(--border);
+    }
+
+    /* glow orbs */
+    .auth-page::before {
+      content: '';
+      position: absolute;
+      width: 320px; height: 320px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(0,217,139,0.18) 0%, transparent 70%);
+      top: -80px; right: -80px;
+      pointer-events: none;
+    }
+    .auth-page::after {
+      content: '';
+      position: absolute;
+      width: 280px; height: 280px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(0,217,139,0.10) 0%, transparent 70%);
+      bottom: -60px; left: -60px;
+      pointer-events: none;
+    }
+
+    /* ── CARD ── */
+    .auth-card {
+      position: relative;
+      width: 100%;
+      max-width: 360px;
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      padding: 32px 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      /* top accent line */
+      box-shadow:
+        0 0 0 1px rgba(0,217,139,0.15) inset,
+        0 24px 48px rgba(0,0,0,0.5);
+    }
+
+    .auth-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 10%; right: 10%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--primary), transparent);
+      border-radius: 9999px;
+    }
+
+    /* ── HEADER ── */
+    .auth-header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .auth-header img.logo {
+      width: 52px; height: 52px;
+      object-fit: contain;
+      filter: drop-shadow(0 0 12px rgba(0,217,139,0.4));
+    }
+
+    .auth-header img.brand {
+      height: 22px;
+      object-fit: contain;
+      opacity: 0.9;
+      filter: brightness(0) invert(1);
+    }
+
+    /* ── TITLE ── */
+    .auth-title {
+      font-family: var(--font-display);
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--white);
+      text-align: center;
+      line-height: 1.2;
+    }
+
+    .auth-title span {
+      color: var(--primary);
+    }
+
+    /* ── BADGE ── */
+    .auth-badge {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--primary-dim);
+      border: 1px solid rgba(0,217,139,0.25);
+      border-radius: 9999px;
+      padding: 4px 12px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--primary);
+      width: fit-content;
+      margin: 0 auto;
+    }
+
+    .auth-badge::before {
+      content: '';
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--primary);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    /* ── FORM ── */
+    .auth-form {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .form-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 11px 14px;
+      background: var(--input-bg);
+      border: 1px solid var(--input-border);
+      border-radius: var(--radius-sm);
+      color: var(--white);
+      font-family: var(--font-body);
+      font-size: 14px;
+      transition: all 0.2s;
+      outline: none;
+    }
+
+    .form-input::placeholder { color: var(--muted); }
+
+    .form-input.focused {
+      border-color: var(--primary);
+      background: rgba(0,217,139,0.06);
+      box-shadow: 0 0 0 3px rgba(0,217,139,0.10);
+    }
+
+    .form-input.date-field { color: var(--muted); }
+
+    /* ── FORGOT ── */
+    .forgot-link {
+      font-size: 12px;
+      color: var(--muted);
+      text-align: right;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .forgot-link:hover { color: var(--primary); }
+
+    /* ── BUTTON ── */
+    .btn-primary {
+      width: 100%;
+      padding: 12px;
+      background: var(--primary);
+      color: #0d0f0e;
+      border: none;
+      border-radius: var(--radius-sm);
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+      letter-spacing: 0.02em;
+    }
+
+    .btn-primary:hover { background: var(--primary-hover); }
+
+    /* ── SEPARATOR ── */
+    .separator {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+    .separator::before, .separator::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* ── SOCIAL ── */
+    .social-row {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    .social-btn {
+      width: 44px; height: 44px;
+      border-radius: var(--radius-sm);
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .social-btn:hover {
+      background: rgba(255,255,255,0.1);
+      border-color: rgba(255,255,255,0.2);
+      transform: translateY(-2px);
+    }
+
+    /* ── FOOTER ── */
+    .auth-footer {
+      font-size: 13px;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    .auth-footer a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    /* ── TWO COL FORM ── */
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    /* ── LABEL ── */
+    .page-label {
+      text-align: center;
+      margin-bottom: -48px;
+    }
+
+    .page-label h3 {
+      font-family: var(--font-display);
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .page-label p {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2 class="section-label">Propuesta de diseño · Auth · La Rivera Stock Manager</h2>
+
+  <div class="mockup-wrapper">
+
+    <!-- ======== LOGIN ======== -->
+    <div style="display:flex;flex-direction:column;gap:16px;align-items:center;">
+      <div class="page-label">
+        <h3>Login</h3>
+        <p>/login</p>
+      </div>
+      <div class="auth-page">
+        <div class="auth-card">
+
+          <div class="auth-header">
+            <img class="logo" src="/src/assets/images/logo.png" alt="Logo" onerror="this.style.fontSize='32px';this.alt='🏪';this.removeAttribute('src')"/>
+            <img class="brand" src="/src/assets/images/La_Rivera.png" alt="La Rivera" onerror="this.outerHTML='<span style=\'font-family:Syne,sans-serif;font-weight:800;font-size:14px;opacity:.85;letter-spacing:.06em\'>LA RIVERA</span>'" />
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:6px;align-items:center;">
+            <div class="auth-badge">Acceso seguro</div>
+            <p class="auth-title">Bienvenido de <span>vuelta</span></p>
+            <p style="font-size:13px;color:var(--muted);text-align:center;">Gestiona tu inventario desde un solo lugar</p>
+          </div>
+
+          <form class="auth-form">
+            <div class="form-group">
+              <label class="form-label">Correo electrónico</label>
+              <input class="form-input" type="email" placeholder="hola@larivera.com" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Contraseña</label>
+              <input class="form-input focused" type="password" placeholder="••••••••" />
+            </div>
+            <a href="#" class="forgot-link">¿Olvidaste tu contraseña?</a>
+            <button class="btn-primary">Iniciar sesión →</button>
+          </form>
+
+          <div class="separator">o continúa con</div>
+
+          <div class="social-row">
+            <div class="social-btn">G</div>
+            <div class="social-btn">f</div>
+            <div class="social-btn">in</div>
+          </div>
+
+          <p class="auth-footer">¿No tienes cuenta? <a href="#">Regístrate aquí</a></p>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- ======== REGISTER ======== -->
+    <div style="display:flex;flex-direction:column;gap:16px;align-items:center;">
+      <div class="page-label">
+        <h3>Register</h3>
+        <p>/register</p>
+      </div>
+      <div class="auth-page" style="min-height:700px;">
+        <div class="auth-card">
+
+          <div class="auth-header">
+            <img class="logo" src="/src/assets/images/logo.png" alt="Logo" onerror="this.style.fontSize='32px';this.alt='🏪';this.removeAttribute('src')"/>
+            <img class="brand" src="/src/assets/images/La_Rivera.png" alt="La Rivera" onerror="this.outerHTML='<span style=\'font-family:Syne,sans-serif;font-weight:800;font-size:14px;opacity:.85;letter-spacing:.06em\'>LA RIVERA</span>'" />
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:6px;align-items:center;">
+            <div class="auth-badge">Crea tu cuenta</div>
+            <p class="auth-title"><span>Empieza</span> gratis hoy</p>
+            <p style="font-size:13px;color:var(--muted);text-align:center;">Únete y toma el control de tu tienda</p>
+          </div>
+
+          <form class="auth-form">
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Nombres</label>
+                <input class="form-input" type="text" placeholder="Juan" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Apellidos</label>
+                <input class="form-input" type="text" placeholder="García" />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Cédula</label>
+                <input class="form-input" type="text" placeholder="1234567890" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Fecha de nac.</label>
+                <input class="form-input date-field" type="date" />
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Correo electrónico</label>
+              <input class="form-input" type="email" placeholder="hola@larivera.com" />
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Contraseña</label>
+                <input class="form-input" type="password" placeholder="••••••••" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Confirmar</label>
+                <input class="form-input focused" type="password" placeholder="••••••••" />
+              </div>
+            </div>
+            <button class="btn-primary" style="margin-top:4px;">Crear cuenta →</button>
+          </form>
+
+          <div class="separator">o regístrate con</div>
+
+          <div class="social-row">
+            <div class="social-btn">G</div>
+            <div class="social-btn">f</div>
+            <div class="social-btn">in</div>
+          </div>
+
+          <p class="auth-footer">¿Ya tienes cuenta? <a href="#">Inicia sesión</a></p>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>

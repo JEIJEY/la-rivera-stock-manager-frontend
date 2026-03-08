@@ -25,16 +25,7 @@
   background: linear-gradient(to top, #0d0f0e, transparent);
 }
 
-.hero__bg-glow {
-  position: absolute;
-  top: 10%;
-  right: -10%;
-  width: 800px;
-  height: 800px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(0, 217, 139, 0.12), transparent 65%);
-  filter: blur(40px);
-}
+
 
 /* --- Grid --- */
 .hero__grid {
@@ -275,3 +266,5 @@
   .hero__card       { max-width: 340px; margin: 0 auto; }
   .hero__float      { display: none; }
 }
+
+    
