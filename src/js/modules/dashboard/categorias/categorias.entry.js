@@ -17,6 +17,7 @@ export async function inicializarCategorias() {
   await cargarCategorias();
   conectarFormulario();
   conectarEventosDelegados();
+  conectarModal();
 
   logger.info("Categorías inicializadas correctamente");
 }
@@ -40,6 +41,55 @@ async function abrirDetalle(id, nombre) {
   } catch (err) {
     logger.error({ err }, "Error abriendo detalle");
   }
+}
+
+function abrirModal(categoriaId, categoriaNombre) {
+  document.getElementById("modalCategoriaNombre").textContent = categoriaNombre || "";
+  document.getElementById("modalCategoriaId").value = categoriaId;
+  document.getElementById("formProducto").reset();
+  document.getElementById("modalProducto").style.display = "flex";
+}
+
+function cerrarModal() {
+  document.getElementById("modalProducto").style.display = "none";
+}
+
+function conectarModal() {
+  const formProducto = document.getElementById("formProducto");
+  if (!formProducto || formProducto.dataset.listener) return;
+  formProducto.dataset.listener = "true";
+
+  formProducto.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const categoriaId = document.getElementById("modalCategoriaId").value;
+    const data = {
+      nombre: document.getElementById("productoNombre").value.trim(),
+      descripcion: document.getElementById("productoDescripcion").value.trim(),
+      precio_unitario: parseFloat(document.getElementById("productoPrecio").value),
+      stock: parseInt(document.getElementById("productoStock").value),
+      unidad_medida: document.getElementById("productoUnidad").value,
+      id_marca: document.getElementById("productoMarca").value || null,
+      id_proveedor: document.getElementById("productoProveedor").value || null,
+      estado: parseInt(document.getElementById("productoEstado").value),
+      id_categoria: categoriaId,
+    };
+
+    try {
+      await categoriasService.crearProducto(data);
+      cerrarModal();
+      const detalle = await categoriasService.getDetalle(categoriaId);
+      categoriasView.renderDetalle(detalle);
+      alert("✅ Producto agregado correctamente");
+    } catch (err) {
+      alert("❌ " + err.message);
+    }
+  });
+
+  const modal = document.getElementById("modalProducto");
+  modal?.addEventListener("click", (e) => {
+    if (e.target === modal) cerrarModal();
+    if (e.target.closest("[data-action='cerrar-modal']")) cerrarModal();
+  });
 }
 
 function conectarFormulario() {
@@ -121,11 +171,38 @@ function conectarEventosDelegados() {
   detalleContainer?.addEventListener("click", async (e) => {
     const btn = e.target.closest("[data-action]");
     if (!btn) return;
-    if (btn.dataset.action === "detalle") {
-      await abrirDetalle(btn.dataset.id, btn.dataset.nombre);
+    const { action, id, nombre } = btn.dataset;
+
+    if (action === "detalle") await abrirDetalle(id, nombre);
+
+    if (action === "volver") categoriasView.mostrarVista("raiz");
+
+    if (action === "nueva-subcategoria") {
+      const subNombre = prompt("Nombre de la subcategoría:");
+      if (!subNombre) return;
+      const subDesc = prompt("Descripción (opcional):") || "";
+      try {
+        await categoriasService.crear(subNombre, subDesc, categoriaActualId);
+        const detalle = await categoriasService.getDetalle(categoriaActualId);
+        categoriasView.renderDetalle(detalle);
+        alert("✅ Subcategoría creada correctamente");
+      } catch (err) {
+        alert("❌ " + err.message);
+      }
     }
-    if (btn.dataset.action === "volver") {
-      categoriasView.mostrarVista("raiz");
+
+    if (action === "agregar-producto") {
+      try {
+        const { marcas, proveedores } = await categoriasService.getMarcasYProveedores();
+        categoriasView.renderMarcas(marcas);
+        categoriasView.renderProveedores(proveedores);
+      } catch (err) {
+        logger.warn("Error cargando marcas/proveedores:", err.message);
+      }
+      const tituloCat = document.getElementById("detalleNombre")?.textContent || "";
+      abrirModal(categoriaActualId, tituloCat);
     }
+
+    if (action === "cerrar-modal") cerrarModal();
   });
 }

@@ -1,0 +1,115 @@
+/* =========================================================
+   THEME SYSTEM — La Rivera Stock Manager
+   Define tokens semánticos para dark / light mode.
+   Se aplica como atributo [data-theme="dark|light"] en <html>.
+   ========================================================= */
+
+/* ── DARK (default) ── */
+:root,
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  /* Body (páginas genéricas — auth tiene su propio bg) */
+  --theme-body-bg: var(--color-neutral-950);
+
+  /* ── Dashboard grid-container bg (full-screen canvas) ── */
+  /* Orb top-right hero + orb bottom-left secondary + base dark */
+  --theme-grid-bg:
+    radial-gradient(
+      ellipse 1100px 800px at 100% 0%,
+      rgba(0, 217, 139, 0.18) 0%,
+      transparent 60%
+    ),
+    radial-gradient(
+      ellipse 800px 700px at 0% 100%,
+      rgba(0, 217, 139, 0.13) 0%,
+      transparent 60%
+    ),
+    radial-gradient(
+      ellipse 550px 400px at 100% 100%,
+      rgba(0, 80, 45, 0.07) 0%,
+      transparent 70%
+    ),
+    var(--color-neutral-950);
+
+  /* ── Sidebar ── */
+  --theme-sidebar-from:         rgba(15, 18, 17, 0.95);
+  --theme-sidebar-to:           rgba(8, 10, 9, 0.90);
+  --theme-sidebar-border:       rgba(255, 255, 255, 0.07);
+  --theme-sidebar-shadow:       4px 0 24px rgba(0, 0, 0, 0.55);
+  --theme-sidebar-color:        rgba(255, 255, 255, 0.85);
+  --theme-sidebar-muted:        rgba(255, 255, 255, 0.55);
+  --theme-sidebar-name:         #ffffff;
+  --theme-sidebar-link:         rgba(255, 255, 255, 0.72);
+  --theme-sidebar-hover-bg:     rgba(0, 217, 139, 0.12);
+  --theme-sidebar-hover-color:  #ffffff;
+  --theme-sidebar-divider:      rgba(255, 255, 255, 0.07);
+  --theme-avatar-border:        rgba(255, 255, 255, 0.18);
+  --theme-avatar-shadow:        0 2px 8px rgba(0, 0, 0, 0.55);
+
+  /* ── Submenu ── */
+  --theme-submenu-bg:           rgba(10, 12, 11, 0.97);
+  --theme-submenu-shadow:       0 8px 24px rgba(0, 0, 0, 0.55);
+  --theme-submenu-link:         rgba(255, 255, 255, 0.72);
+  --theme-submenu-hover-bg:     rgba(0, 217, 139, 0.12);
+
+  /* ── Header ── */
+  --theme-header-bg:            rgba(13, 15, 14, 0.55);
+  --theme-header-border:        rgba(255, 255, 255, 0.05);
+
+  /* ── Main content area ── */
+  /* Transparent → el gradiente del grid-container se ve a través */
+  --theme-main-bg:              transparent;
+}
+
+/* ── LIGHT ── */
+[data-theme="light"] {
+  color-scheme: light;
+
+  /* Body */
+  --theme-body-bg: #f0f5f2;
+
+  /* ── Dashboard grid-container bg ── */
+  /* Tinte verde muy sutil para que no sea blanco puro y aburrido */
+  --theme-grid-bg:
+    radial-gradient(
+      ellipse 1000px 700px at 100% 0%,
+      rgba(0, 217, 139, 0.055) 0%,
+      transparent 65%
+    ),
+    radial-gradient(
+      ellipse 700px 600px at 0% 100%,
+      rgba(0, 217, 139, 0.035) 0%,
+      transparent 65%
+    ),
+    #f0f5f2;
+
+  /* ── Sidebar ── */
+  --theme-sidebar-from:         rgba(255, 255, 255, 0.93);
+  --theme-sidebar-to:           rgba(232, 248, 241, 0.88);
+  --theme-sidebar-border:       rgba(0, 217, 139, 0.14);
+  --theme-sidebar-shadow:       4px 0 24px rgba(0, 0, 0, 0.07);
+  --theme-sidebar-color:        #1a1d1c;
+  --theme-sidebar-muted:        #4a5552;
+  --theme-sidebar-name:         #0d0f0e;
+  --theme-sidebar-link:         rgba(20, 26, 24, 0.75);
+  --theme-sidebar-hover-bg:     rgba(0, 217, 139, 0.10);
+  --theme-sidebar-hover-color:  #005c3a;
+  --theme-sidebar-divider:      rgba(0, 0, 0, 0.07);
+  --theme-avatar-border:        rgba(0, 0, 0, 0.10);
+  --theme-avatar-shadow:        0 2px 8px rgba(0, 0, 0, 0.10);
+
+  /* ── Submenu ── */
+  --theme-submenu-bg:           rgba(255, 255, 255, 0.98);
+  --theme-submenu-shadow:       0 8px 24px rgba(0, 0, 0, 0.10);
+  --theme-submenu-link:         rgba(20, 26, 24, 0.75);
+  --theme-submenu-hover-bg:     rgba(0, 217, 139, 0.10);
+
+  /* ── Header ── */
+  --theme-header-bg:            rgba(255, 255, 255, 0.72);
+  --theme-header-border:        rgba(0, 217, 139, 0.10);
+
+  /* ── Main content area ── */
+  /* Blanco semi-opaco: deja pasar levemente el tinte verde del grid */
+  --theme-main-bg:              rgba(255, 255, 255, 0.88);
+}

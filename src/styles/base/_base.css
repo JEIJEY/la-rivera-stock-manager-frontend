@@ -3,10 +3,11 @@ body {
   font-family: var(--font-primary);
   font-size: var(--text-base);
   color: var(--text-color);
-  background: #0d0f0e;
+  background: var(--theme-body-bg, #0d0f0e);
   background-size: cover;
   margin: var(--header-height) 0 0 0;
   min-height: 100vh;
+  transition: background-color 0.35s ease;
 }
 
 .container {

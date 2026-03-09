@@ -29,6 +29,12 @@ export const categoriasService = {
     return categoriasApi.delete(id);
   },
 
+  async crearProducto(data) {
+    if (!data.nombre?.trim()) throw new Error("El nombre del producto es requerido");
+    if (!data.precio_unitario) throw new Error("El precio es requerido");
+    return categoriasApi.createProducto(data);
+  },
+
   async getMarcasYProveedores() {
     const [marcas, proveedores] = await Promise.all([
       categoriasApi.getMarcas(),

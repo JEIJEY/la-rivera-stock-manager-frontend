@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>La Rivera — Mockup Temas Light</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:"DM Sans",sans-serif;background:#111413;padding:48px 32px;display:flex;flex-direction:column;gap:72px;}
+
+/* LABELS */
+.lbl{display:flex;align-items:center;gap:12px;margin-bottom:16px;}
+.lbl__tag{font-family:"Syne",sans-serif;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#00d98b;background:rgba(0,217,139,.1);padding:4px 12px;border-radius:99px;border:1px solid rgba(0,217,139,.2);}
+.lbl__desc{font-size:12px;color:rgba(255,255,255,.35);}
+
+/* SHELL */
+.shell{display:grid;grid-template-columns:230px 1fr;grid-template-rows:60px 1fr;height:600px;border-radius:18px;overflow:hidden;box-shadow:0 32px 80px rgba(0,0,0,.35);}
+.sidebar{grid-row:1/3;display:flex;flex-direction:column;padding:0 12px 20px;overflow:hidden;position:relative;}
+.sb-logo{display:flex;align-items:center;gap:10px;height:60px;padding:0 8px;flex-shrink:0;}
+.sb-logo-icon{width:34px;height:34px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0;}
+.sb-logo-name{font-family:"Syne",sans-serif;font-size:15px;font-weight:700;}
+.sb-divider{height:1px;margin:4px 8px 12px;}
+.sb-section{font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:4px 8px 6px;}
+.nav{display:flex;align-items:center;gap:9px;padding:9px 10px;border-radius:10px;font-size:13px;font-weight:500;cursor:pointer;transition:all .15s;position:relative;}
+.nav-icon{font-size:15px;width:20px;text-align:center;flex-shrink:0;}
+.nav-badge{margin-left:auto;font-size:10px;font-weight:700;padding:1px 7px;border-radius:99px;}
+
+/* HEADER */
+.header{grid-column:2;display:flex;align-items:center;justify-content:space-between;padding:0 24px;position:sticky;top:0;z-index:10;flex-shrink:0;}
+.hdr-left h2{font-family:"Syne",sans-serif;font-size:17px;font-weight:700;line-height:1.1;}
+.hdr-left p{font-size:12px;margin-top:1px;}
+.hdr-right{display:flex;align-items:center;gap:8px;}
+.hdr-search{display:flex;align-items:center;gap:8px;padding:7px 14px;border-radius:10px;font-size:12px;min-width:180px;}
+.hdr-btn{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px;position:relative;}
+.hdr-dot{position:absolute;top:6px;right:7px;width:7px;height:7px;border-radius:50%;background:#ef4444;}
+.hdr-avatar{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;border:2px solid #00d98b;}
+
+/* MAIN */
+.main{grid-column:2;padding:20px 24px;overflow-y:auto;display:flex;flex-direction:column;gap:16px;}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+.stat{border-radius:14px;padding:18px 18px 14px;position:relative;overflow:hidden;}
+.stat-accent{position:absolute;top:0;left:0;right:0;height:3px;}
+.stat-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;}
+.stat-lbl{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;}
+.chip{font-size:10px;font-weight:600;padding:2px 8px;border-radius:99px;}
+.stat-val{font-family:"Syne",sans-serif;font-size:28px;font-weight:700;line-height:1;margin-bottom:4px;}
+.stat-sub{font-size:11px;margin-bottom:12px;}
+.bar-track{height:4px;border-radius:99px;overflow:hidden;}
+.bar-fill{height:100%;border-radius:99px;}
+.tcard{border-radius:14px;overflow:hidden;}
+.tcard-head{display:flex;justify-content:space-between;align-items:center;padding:14px 20px;}
+.tcard-title{font-family:"Syne",sans-serif;font-size:13px;font-weight:700;}
+.tcard-cta{font-size:11px;font-weight:600;padding:5px 12px;border-radius:8px;}
+table{width:100%;border-collapse:collapse;}
+thead th{font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;padding:8px 20px;text-align:left;}
+tbody tr{transition:background .1s;}
+tbody td{padding:11px 20px;font-size:12px;}
+tbody td:first-child{font-weight:600;}
+.badge{display:inline-flex;align-items:center;padding:2px 9px;border-radius:99px;font-size:10px;font-weight:700;}
+
+/* ══ DARK ══ */
+.dk .shell{border:1px solid rgba(255,255,255,.06);}
+.dk .sidebar{background:#111513;border-right:1px solid rgba(255,255,255,.06);}
+.dk .sb-logo-icon{background:rgba(0,217,139,.1);}
+.dk .sb-logo-name{color:#f1f5f3;}
+.dk .sb-divider{background:rgba(255,255,255,.06);}
+.dk .sb-section{color:rgba(255,255,255,.3);}
+.dk .nav{color:rgba(255,255,255,.55);}
+.dk .nav:hover{background:rgba(255,255,255,.05);color:#f1f5f3;}
+.dk .nav.on{background:rgba(0,217,139,.12);color:#00d98b;}
+.dk .nav-badge{background:rgba(239,68,68,.15);color:#f87171;}
+.dk .header{background:rgba(13,15,14,.75);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.06);}
+.dk .hdr-left h2{color:#f1f5f3;}
+.dk .hdr-left p{color:rgba(255,255,255,.35);}
+.dk .hdr-search{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);color:rgba(255,255,255,.35);}
+.dk .hdr-btn{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);}
+.dk .hdr-dot{border:2px solid #111513;}
+.dk .hdr-avatar{background:rgba(0,217,139,.1);color:#00d98b;}
+.dk .main{background:#0d0f0e;}
+.dk .stat{background:#161a18;border:1px solid rgba(255,255,255,.06);}
+.dk .stat-lbl{color:rgba(255,255,255,.4);}
+.dk .stat-val{color:#f1f5f3;}
+.dk .stat-sub{color:rgba(255,255,255,.3);}
+.dk .bar-track{background:rgba(255,255,255,.06);}
+.dk .chip-g{background:rgba(0,217,139,.12);color:#00d98b;}
+.dk .chip-r{background:rgba(239,68,68,.12);color:#f87171;}
+.dk .tcard{background:#161a18;border:1px solid rgba(255,255,255,.06);}
+.dk .tcard-head{border-bottom:1px solid rgba(255,255,255,.06);}
+.dk .tcard-title{color:#f1f5f3;}
+.dk .tcard-cta{background:rgba(0,217,139,.1);color:#00d98b;}
+.dk thead th{background:rgba(255,255,255,.03);color:rgba(255,255,255,.3);border-bottom:1px solid rgba(255,255,255,.06);}
+.dk tbody tr{border-bottom:1px solid rgba(255,255,255,.04);}
+.dk tbody tr:hover{background:rgba(255,255,255,.02);}
+.dk tbody td{color:rgba(255,255,255,.55);}
+.dk tbody td:first-child{color:#f1f5f3;}
+.dk .ba{background:rgba(0,217,139,.12);color:#00d98b;}
+.dk .bb{background:rgba(245,158,11,.12);color:#fbbf24;}
+.dk .bc{background:rgba(107,114,128,.12);color:#9ca3af;}
+.dk .sok{color:#00d98b;font-weight:600;}
+.dk .slo{color:#f87171;font-weight:600;}
+
+/* ══ OPCIÓN A — CLEAN WHITE MODERNO ══ */
+.a .shell{border:1px solid rgba(0,0,0,.06);}
+.a .sidebar{background:#fafcfb;border-right:1px solid rgba(0,0,0,.06);}
+.a .sidebar::after{content:"";position:absolute;bottom:0;left:0;right:0;height:80px;background:linear-gradient(to top,rgba(0,217,139,.05),transparent);pointer-events:none;}
+.a .sb-logo-icon{background:rgba(0,217,139,.1);}
+.a .sb-logo-name{color:#0d0f0e;}
+.a .sb-divider{background:rgba(0,0,0,.07);}
+.a .sb-section{color:rgba(0,0,0,.3);}
+.a .nav{color:rgba(0,0,0,.5);}
+.a .nav:hover{background:rgba(0,0,0,.04);color:#0d0f0e;}
+.a .nav.on{background:rgba(0,217,139,.1);color:#007a4d;font-weight:600;}
+.a .nav-badge{background:rgba(239,68,68,.1);color:#dc2626;}
+.a .header{background:rgba(255,255,255,.72);backdrop-filter:blur(20px) saturate(180%);-webkit-backdrop-filter:blur(20px) saturate(180%);border-bottom:1px solid rgba(0,0,0,.06);box-shadow:0 1px 0 rgba(0,0,0,.04);}
+.a .hdr-left h2{color:#0d0f0e;}
+.a .hdr-left p{color:rgba(0,0,0,.4);}
+.a .hdr-search{background:rgba(0,0,0,.04);border:1px solid rgba(0,0,0,.07);color:rgba(0,0,0,.4);}
+.a .hdr-btn{background:rgba(0,0,0,.04);border:1px solid rgba(0,0,0,.07);}
+.a .hdr-dot{border:2px solid white;}
+.a .hdr-avatar{background:rgba(0,217,139,.1);color:#007a4d;}
+.a .main{background:#f2f5f3;}
+.a .stat{background:#fff;border:1px solid rgba(0,0,0,.06);box-shadow:0 2px 12px rgba(0,0,0,.06),0 1px 3px rgba(0,0,0,.04);}
+.a .stat-lbl{color:rgba(0,0,0,.45);}
+.a .stat-val{color:#0d0f0e;}
+.a .stat-sub{color:rgba(0,0,0,.35);}
+.a .bar-track{background:rgba(0,0,0,.06);}
+.a .chip-g{background:rgba(0,217,139,.1);color:#007a4d;}
+.a .chip-r{background:rgba(239,68,68,.1);color:#dc2626;}
+.a .tcard{background:#fff;border:1px solid rgba(0,0,0,.06);box-shadow:0 2px 12px rgba(0,0,0,.06);}
+.a .tcard-head{border-bottom:1px solid rgba(0,0,0,.06);}
+.a .tcard-title{color:#0d0f0e;}
+.a .tcard-cta{background:rgba(0,217,139,.1);color:#007a4d;}
+.a thead th{background:#f8faf9;color:rgba(0,0,0,.35);border-bottom:1px solid rgba(0,0,0,.06);}
+.a tbody tr{border-bottom:1px solid rgba(0,0,0,.04);}
+.a tbody tr:hover{background:#f8faf9;}
+.a tbody td{color:rgba(0,0,0,.55);}
+.a tbody td:first-child{color:#0d0f0e;}
+.a .ba{background:rgba(0,217,139,.12);color:#007a4d;}
+.a .bb{background:rgba(245,158,11,.12);color:#92400e;}
+.a .bc{background:rgba(107,114,128,.12);color:#6b7280;}
+.a .sok{color:#007a4d;font-weight:600;}
+.a .slo{color:#dc2626;font-weight:600;}
+
+/* ══ OPCIÓN B — SOFT GRAY MODERNO ══ */
+.b .shell{border:1px solid rgba(0,0,0,.07);}
+.b .sidebar{background:#fff;border-right:1px solid #e5e7eb;}
+.b .sb-logo-icon{background:rgba(0,217,139,.1);}
+.b .sb-logo-name{color:#111827;}
+.b .sb-divider{background:#e5e7eb;}
+.b .sb-section{color:#9ca3af;}
+.b .nav{color:#6b7280;}
+.b .nav:hover{background:#f9fafb;color:#111827;}
+.b .nav.on{background:linear-gradient(135deg,rgba(0,217,139,.12),rgba(0,217,139,.06));color:#065f46;font-weight:600;border-left:3px solid #00d98b;padding-left:8px;}
+.b .nav-badge{background:rgba(239,68,68,.1);color:#dc2626;}
+.b .header{background:rgba(255,255,255,.82);backdrop-filter:blur(20px) saturate(160%);-webkit-backdrop-filter:blur(20px) saturate(160%);border-bottom:1px solid #e5e7eb;box-shadow:0 1px 8px rgba(0,0,0,.05);}
+.b .hdr-left h2{color:#111827;}
+.b .hdr-left p{color:#9ca3af;}
+.b .hdr-search{background:#f9fafb;border:1px solid #e5e7eb;color:#9ca3af;}
+.b .hdr-btn{background:#f9fafb;border:1px solid #e5e7eb;}
+.b .hdr-dot{border:2px solid #f9fafb;}
+.b .hdr-avatar{background:rgba(0,217,139,.1);color:#065f46;}
+.b .main{background:#f3f4f6;}
+.b .stat{background:#fff;border:1px solid #e5e7eb;box-shadow:0 4px 16px rgba(0,0,0,.06),0 1px 4px rgba(0,0,0,.03);}
+.b .stat-lbl{color:#9ca3af;}
+.b .stat-val{color:#111827;}
+.b .stat-sub{color:#9ca3af;}
+.b .bar-track{background:#f3f4f6;}
+.b .chip-g{background:#d1fae5;color:#065f46;}
+.b .chip-r{background:#fee2e2;color:#991b1b;}
+.b .tcard{background:#fff;border:1px solid #e5e7eb;box-shadow:0 4px 16px rgba(0,0,0,.06);}
+.b .tcard-head{border-bottom:1px solid #e5e7eb;}
+.b .tcard-title{color:#111827;}
+.b .tcard-cta{background:#d1fae5;color:#065f46;}
+.b thead th{background:#f9fafb;color:#9ca3af;border-bottom:1px solid #e5e7eb;}
+.b tbody tr{border-bottom:1px solid #f3f4f6;}
+.b tbody tr:hover{background:#f9fafb;}
+.b tbody td{color:#6b7280;}
+.b tbody td:first-child{color:#111827;}
+.b .ba{background:#d1fae5;color:#065f46;}
+.b .bb{background:#fef3c7;color:#92400e;}
+.b .bc{background:#f3f4f6;color:#6b7280;}
+.b .sok{color:#059669;font-weight:600;}
+.b .slo{color:#dc2626;font-weight:600;}
+
+/* ══ OPCIÓN C — VERDE TINTADO MODERNO ══ */
+.c .shell{border:1px solid rgba(0,100,60,.12);}
+.c .sidebar{background:linear-gradient(180deg,#f0fdf7 0%,#e6f9f1 100%);border-right:1px solid rgba(0,217,139,.15);position:relative;}
+.c .sidebar::before{content:"";position:absolute;top:-60px;right:-60px;width:160px;height:160px;background:radial-gradient(circle,rgba(0,217,139,.13) 0%,transparent 70%);pointer-events:none;}
+.c .sb-logo-icon{background:rgba(0,217,139,.15);}
+.c .sb-logo-name{color:#064e3b;}
+.c .sb-divider{background:rgba(0,217,139,.12);}
+.c .sb-section{color:rgba(6,78,59,.4);}
+.c .nav{color:rgba(6,78,59,.6);}
+.c .nav:hover{background:rgba(0,217,139,.08);color:#064e3b;}
+.c .nav.on{background:rgba(0,217,139,.16);color:#047857;font-weight:600;box-shadow:inset 3px 0 0 #00d98b;}
+.c .nav-badge{background:rgba(239,68,68,.12);color:#b91c1c;}
+.c .header{background:rgba(240,253,247,.88);backdrop-filter:blur(20px) saturate(180%);-webkit-backdrop-filter:blur(20px) saturate(180%);border-bottom:1px solid rgba(0,217,139,.15);box-shadow:0 1px 0 rgba(0,217,139,.08);}
+.c .hdr-left h2{color:#064e3b;}
+.c .hdr-left p{color:rgba(6,78,59,.5);}
+.c .hdr-search{background:rgba(255,255,255,.75);border:1px solid rgba(0,217,139,.18);color:rgba(6,78,59,.45);}
+.c .hdr-btn{background:rgba(255,255,255,.75);border:1px solid rgba(0,217,139,.18);}
+.c .hdr-dot{border:2px solid rgba(240,253,247,.88);}
+.c .hdr-avatar{background:rgba(0,217,139,.15);color:#047857;}
+.c .main{background:#f2fdf7;}
+.c .stat{background:#fff;border:1px solid rgba(0,217,139,.14);box-shadow:0 4px 20px rgba(0,217,139,.08),0 1px 4px rgba(0,0,0,.04);}
+.c .stat-lbl{color:rgba(6,78,59,.45);}
+.c .stat-val{color:#064e3b;}
+.c .stat-sub{color:rgba(6,78,59,.4);}
+.c .bar-track{background:rgba(0,217,139,.08);}
+.c .chip-g{background:rgba(0,217,139,.12);color:#047857;}
+.c .chip-r{background:rgba(239,68,68,.1);color:#b91c1c;}
+.c .tcard{background:#fff;border:1px solid rgba(0,217,139,.14);box-shadow:0 4px 20px rgba(0,217,139,.08);}
+.c .tcard-head{border-bottom:1px solid rgba(0,217,139,.1);}
+.c .tcard-title{color:#064e3b;}
+.c .tcard-cta{background:rgba(0,217,139,.1);color:#047857;}
+.c thead th{background:rgba(0,217,139,.04);color:rgba(6,78,59,.4);border-bottom:1px solid rgba(0,217,139,.1);}
+.c tbody tr{border-bottom:1px solid rgba(0,217,139,.06);}
+.c tbody tr:hover{background:rgba(0,217,139,.03);}
+.c tbody td{color:rgba(6,78,59,.65);}
+.c tbody td:first-child{color:#064e3b;}
+.c .ba{background:rgba(0,217,139,.12);color:#047857;}
+.c .bb{background:rgba(245,158,11,.12);color:#92400e;}
+.c .bc{background:rgba(107,114,128,.1);color:#6b7280;}
+.c .sok{color:#047857;font-weight:600;}
+.c .slo{color:#b91c1c;font-weight:600;}
+</style>
+</head>
+<body>
+
+<!-- ██ DARK REFERENCIA ██ -->
+<div class="dk">
+  <div class="lbl"><span class="lbl__tag">🌙 Dark Mode — referencia actual</span></div>
+  <div class="shell">
+    <aside class="sidebar">
+      <div class="sb-logo"><div class="sb-logo-icon">🏪</div><span class="sb-logo-name">La Rivera</span></div>
+      <div class="sb-divider"></div>
+      <span class="sb-section">Main Menu</span>
+      <div class="nav on"><span class="nav-icon">📊</span>Dashboard</div>
+      <div class="nav"><span class="nav-icon">📦</span>Inventario</div>
+      <div class="nav"><span class="nav-icon">🏷️</span>Productos</div>
+      <div class="nav"><span class="nav-icon">📁</span>Categorías</div>
+      <span class="sb-section" style="margin-top:8px">Análisis</span>
+      <div class="nav"><span class="nav-icon">📈</span>Reportes</div>
+      <div class="nav"><span class="nav-icon">🔤</span>ABC</div>
+      <div class="nav"><span class="nav-icon">🔔</span>Alertas<span class="nav-badge">5</span></div>
+      <span class="sb-section" style="margin-top:8px">Sistema</span>
+      <div class="nav"><span class="nav-icon">⚙️</span>Configuración</div>
+    </aside>
+    <header class="header">
+      <div class="hdr-left"><h2>Dashboard</h2><p>Bienvenido de vuelta, Jeijey 👋</p></div>
+      <div class="hdr-right">
+        <div class="hdr-search">🔍 &nbsp;Buscar producto...</div>
+        <div class="hdr-btn">🔔<div class="hdr-dot"></div></div>
+        <div class="hdr-btn">☀️</div>
+        <div class="hdr-avatar">JG</div>
+      </div>
+    </header>
+    <main class="main">
+      <div class="stats">
+        <div class="stat"><div class="stat-accent" style="background:linear-gradient(90deg,#00d98b,transparent)"></div><div class="stat-top"><span class="stat-lbl">Total Productos</span><span class="chip chip-g">↑ 12%</span></div><div class="stat-val">248</div><div class="stat-sub">activos en inventario</div><div class="bar-track"><div class="bar-fill" style="width:72%;background:#00d98b"></div></div></div>
+        <div class="stat"><div class="stat-accent" style="background:linear-gradient(90deg,#ef4444,transparent)"></div><div class="stat-top"><span class="stat-lbl">Stock Crítico</span><span class="chip chip-r">⚠ Urgente</span></div><div class="stat-val">5</div><div class="stat-sub">productos bajo mínimo</div><div class="bar-track"><div class="bar-fill" style="width:18%;background:#ef4444"></div></div></div>
+        <div class="stat"><div class="stat-accent" style="background:linear-gradient(90deg,#00d98b,transparent)"></div><div class="stat-top"><span class="stat-lbl">Categorías</span><span class="chip chip-g">Activas</span></div><div class="stat-val">14</div><div class="stat-sub">categorías registradas</div><div class="bar-track"><div class="bar-fill" style="width:55%;background:#00d98b"></div></div></div>
+      </div>
+      <div class="tcard">
+        <div class="tcard-head"><span class="tcard-title">Productos Recientes</span><span class="tcard-cta">Ver todos →</span></div>
+        <table><thead><tr><th>Producto</th><th>Categoría</th><th>Stock</th><th>Precio</th><th>Clase</th></tr></thead>
+        <tbody>
+          <tr><td>Arroz Diana 500g</td><td>Granos</td><td class="sok">142</td><td>$3.200</td><td><span class="badge ba">A</span></td></tr>
+          <tr><td>Aceite Gourmet 1L</td><td>Aceites</td><td class="slo">3</td><td>$12.500</td><td><span class="badge bb">B</span></td></tr>
+          <tr><td>Azúcar Blanca 1kg</td><td>Endulzantes</td><td class="sok">87</td><td>$4.100</td><td><span class="badge ba">A</span></td></tr>
+          <tr><td>Sal Refisal 500g</td><td>Condimentos</td><td class="slo">4</td><td>$1.800</td><td><span class="badge bc">C</span></td></tr>
+        </tbody></table>
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- ██ OPCIÓN A — CLEAN WHITE ██ -->
+<div class="a">
+  <div class="lbl"><span class="lbl__tag">☀️ Opción A — Clean White</span><span class="lbl__desc">Glass header · Cards elevadas con sombra · Sidebar blanco con tinte verde · Fondo gris suave</span></div>
+  <div class="shell">
+    <aside class="sidebar">
+      <div class="sb-logo"><div class="sb-logo-icon">🏪</div><span class="sb-logo-name">La Rivera</span></div>
+      <div class="sb-divider"></div>
+      <span class="sb-section">Main Menu</span>
+      <div class="nav on"><span class="nav-icon">📊</span>Dashboard</div>
+      <div class="nav"><span class="nav-icon">📦</span>Inventario</div>
+      <div class="nav"><span class="nav-icon">🏷️</span>Productos</div>
+      <div class="nav"><span class="nav-icon">📁</span>Categorías</div>
+      <span class="sb-section" style="margin-top:8px">Análisis</span>
+      <div class="nav"><span class="nav-icon">📈</span>Reportes</div>
+      <div class="nav"><span class="nav-icon">🔤</span>ABC</div>
+      <div class="nav"><span class="nav-icon">🔔</span>Alertas<span class="nav-badge">5</span></div>
+      <span class="sb-section" style="margin-top:8px">Sistema</span>
+      <div class="nav"><span class="nav-icon">⚙️</span>Configuración</div>
+    </aside>
+    <header class="header">
+      <div class="hdr-left"><h2>Dashboard</h2><p>Bienvenido de vuelta, Jeijey 👋</p></div>
+      <div class="hdr-right">
+        <div class="hdr-search">🔍 &nbsp;Buscar producto...</div>
+        <div class="hdr-btn">🔔<div class="hdr-dot"></div></div>
+        <div class="hdr-btn">🌙</div>
+        <div class="hdr-avatar">JG</div>
+      </div>
+    </header>
+    <main class="main">
+      <div class="stats">
+        <div class="stat"><div class="stat-accent" style="background:linear-gradient(90deg,#00d98b,transparent)"></div><div class="stat-top"><span class="stat-lbl">Total Productos</span><span class="chip chip-g">↑ 12%</span></div><div class="stat-val">248</div><div class="stat-sub">activos en inventario</div><div class="bar-track"><div class="bar-fill" style="width:72%;background:#00d98b"></div></div></div>
+        <div class="stat"><div class="stat-accent" style="background:linear-gradient(90deg,#ef4444,transparent)"></div><div class="stat-top"><span class="stat-lbl">Stock Crítico</span><span class="chip chip-r">⚠ Urgente</span></div><div class="stat-val">5</div><div class="stat-sub">productos bajo mínimo</div><div class="bar-track"><div class="bar-fill" style="width:18%;background:#ef4444"></div></div></div>
+        <div class="stat"><div class="stat-accent" style="background:linear-gradient(90deg,#00d98b,transparent)"></div><div class="stat-top"><span class="stat-lbl">Categorías</span><span class="chip chip-g">Activas</span></div><div class="stat-val">14</div><div class="stat-sub">categorías registradas</div><div class="bar-track"><div class="bar-fill" style="width:55%;background:#00d98b"></div></div></div>
+      </div>
+      <div class="tcard">
+        <div class="tcard-head"><span class="tcard-title">Productos Recientes</span><span class="tcard-cta">Ver todos →</span></div>
+        <table><thead><tr><th>Producto</th><th>Categoría</th><th>Stock</th><th>Precio</th><th>Clase</th></tr></thead>
+        <tbody>
+          <tr><td>Arroz Diana 500g</td><td>Granos</td><td class="sok">142</td><td>$3.200</td><td><span class="badge ba">A</span></td></tr>
+          <tr><td>Aceite Gourmet 1L</td><td>Aceites</td><td class="slo">3</td><td>$12.500</td><td><span class="badge bb">B</span></td></tr>
+          <tr><td>Azúcar Blanca 1kg</td><td>Endulzantes</td><td class="sok">87</td><td>$4.100</td><td><span class="badge ba">A</span></td></tr>
+          <tr><td>Sal Refisal 500g</td><td>Condimentos</td><td class="slo">4</td><td>$1.800</td><td><span class="badge bc">C</span></td></tr>
+        </tbody></table>
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- ██ OPCIÓN B — SOFT GRAY ██ -->
+<div class="b">
+  <div class="lbl"><span class="lbl__tag">☀️ Opción B — Soft Gray</span><span class="lbl__desc">Glass header · Cards flotantes · Sidebar blanco limpio · Borde activo verde · Fondo gris frío</span></div>
+  <div class="shell">
+    <aside class="sidebar">
+      <div class="sb-logo"><div class="sb-logo-icon">🏪</div><span class="sb-logo-name">La Rivera</span></div>
+      <div class="sb-divider"></div>
+      <span class="sb-section">Main Menu</span>
+      <div class="nav on"><span class="nav-icon">📊</span>Dashboard</div>
+      <div class="nav"><span class="nav-icon">📦</span>Inventario</div>
+      <div class="nav"><span class="nav-icon">🏷️</span>Productos</div>
+      <div class="nav"><span class="nav-icon">📁</span>Categorías</div>
+      <span class="sb-section" style="margin-top:8px">Análisis</span>
+      <div class="nav"><span class="nav-icon">📈</span>Reportes</div>
+      <div class="nav"><span class="nav-icon">🔤</span>ABC</div>
+      <div class="nav"><span class="nav-icon">🔔</span>Alertas<span class="nav-badge">5</span></div>
+      <span class="sb-section" style="margin-top:8px">Sistema</span>
+      <div class="nav"><span class="nav-icon">⚙️</span>Configuración</div>
+    </aside>
+    <header class="header">
+      <div class="hdr-left"><h2>Dashboard</h2><p>Bienvenido de vuelta, Jeijey 👋</p></div>
+      <div class="hdr-right">
+        <div class="hdr-search">🔍 &nbsp;Buscar producto...</div>
+        <div class="hdr-btn">🔔<div class="hdr-dot"></div></div>
+        <div class="hdr-btn">🌙</div>
+        <div class="hdr-avatar">JG</div>
+      </div>
+    </header>
+    <main class="main">
+      <div class="stats">
+        <div class="stat"><div class="stat-accent" style="background:linear-gradient(90deg,#00d98b,transparent)"></div><div class="stat-top"><span class="stat-lbl">Total Productos</span><span class="chip chip-g">↑ 12%</span></div><div class="stat-val">248</div><div class="stat-sub">activos en inventario</div><div class="bar-track"><div class="bar-fill" style="width:72%;background:#00d98b"></div></div></div>
+        <div class="stat"><div class="stat-accent" style="background:linear-gradient(90deg,#ef4444,transparent)"></div><div class="stat-top"><span class="stat-lbl">Stock Crítico</span><span class="chip chip-r">⚠ Urgente</span></div><div class="stat-val">5</div><div class="stat-sub">productos bajo mínimo</div><div class="bar-track"><div class="bar-fill" style="width:18%;background:#ef4444"></div></div></div>
+        <div class="stat"><div class="stat-accent" style="background:linear-gradient(90deg,#00d98b,transparent)"></div><div class="stat-top"><span class="stat-lbl">Categorías</span><span class="chip chip-g">Activas</span></div><div class="stat-val">14</div><div class="stat-sub">categorías registradas</div><div class="bar-track"><div class="bar-fill" style="width:55%;background:#00d98b"></div></div></div>
+      </div>
+      <div class="tcard">
+        <div class="tcard-head"><span class="tcard-title">Productos Recientes</span><span class="tcard-cta">Ver todos →</span></div>
+        <table><thead><tr><th>Producto</th><th>Categoría</th><th>Stock</th><th>Precio</th><th>Clase</th></tr></thead>
+        <tbody>
+          <tr><td>Arroz Diana 500g</td><td>Granos</td><td class="sok">142</td><td>$3.200</td><td><span class="badge ba">A</span></td></tr>
+          <tr><td>Aceite Gourmet 1L</td><td>Aceites</td><td class="slo">3</td><td>$12.500</td><td><span class="badge bb">B</span></td></tr>
+          <tr><td>Azúcar Blanca 1kg</td><td>Endulzantes</td><td class="sok">87</td><td>$4.100</td><td><span class="badge ba">A</span></td></tr>
+          <tr><td>Sal Refisal 500g</td><td>Condimentos</td><td class="slo">4</td><td>$1.800</td><td><span class="badge bc">C</span></td></tr>
+        </tbody></table>
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- ██ OPCIÓN C — VERDE TINTADO ██ -->
+<div class="c">
+  <div class="lbl"><span class="lbl__tag">☀️ Opción C — Verde Tintado</span><span class="lbl__desc">Glass header tintado · Sidebar degradado verde · Cards con glow verde · Identidad de marca fuerte</span></div>
+  <div class="shell">
+    <aside class="sidebar">
+      <div class="sb-logo"><div class="sb-logo-icon">🏪</div><span class="sb-logo-name">La Rivera</span></div>
+      <div class="sb-divider"></div>
+      <span class="sb-section">Main Menu</span>
+      <div class="nav on"><span class="nav-icon">📊</span>Dashboard</div>
+      <div class="nav"><span class="nav-icon">📦</span>Inventario</div>
+      <div class="nav"><span class="nav-icon">🏷️</span>Productos</div>
+      <div class="nav"><span class="nav-icon">📁</span>Categorías</div>
+      <span class="sb-section" style="margin-top:8px">Análisis</span>
+      <div class="nav"><span class="nav-icon">📈</span>Reportes</div>
+      <div class="nav"><span class="nav-icon">🔤</span>ABC</div>
+      <div class="nav"><span class="nav-icon">🔔</span>Alertas<span class="nav-badge">5</span></div>
+      <span class="sb-section" style="margin-top:8px">Sistema</span>
+      <div class="nav"><span class="nav-icon">⚙️</span>Configuración</div>
+    </aside>
+    <header class="header">
+      <div class="hdr-left"><h2>Dashboard</h2><p>Bienvenido de vuelta, Jeijey 👋</p></div>
+      <div class="hdr-right">
+        <div class="hdr-search">🔍 &nbsp;Buscar producto...</div>
+        <div class="hdr-btn">🔔<div class="hdr-dot"></div></div>
+        <div class="hdr-btn">🌙</div>
+        <div class="hdr-avatar">JG</div>
+      </div>
+    </header>
+    <main class="main">
+      <div class="stats">
+        <div class="stat"><div class="stat-accent" style="background:linear-gradient(90deg,#00d98b,transparent)"></div><div class="stat-top"><span class="stat-lbl">Total Productos</span><span class="chip chip-g">↑ 12%</span></div><div class="stat-val">248</div><div class="stat-sub">activos en inventario</div><div class="bar-track"><div class="bar-fill" style="width:72%;background:#00d98b"></div></div></div>
+        <div class="stat"><div class="stat-accent" style="background:linear-gradient(90deg,#ef4444,transparent)"></div><div class="stat-top"><span class="stat-lbl">Stock Crítico</span><span class="chip chip-r">⚠ Urgente</span></div><div class="stat-val">5</div><div class="stat-sub">productos bajo mínimo</div><div class="bar-track"><div class="bar-fill" style="width:18%;background:#ef4444"></div></div></div>
+        <div class="stat"><div class="stat-accent" style="background:linear-gradient(90deg,#00d98b,transparent)"></div><div class="stat-top"><span class="stat-lbl">Categorías</span><span class="chip chip-g">Activas</span></div><div class="stat-val">14</div><div class="stat-sub">categorías registradas</div><div class="bar-track"><div class="bar-fill" style="width:55%;background:#00d98b"></div></div></div>
+      </div>
+      <div class="tcard">
+        <div class="tcard-head"><span class="tcard-title">Productos Recientes</span><span class="tcard-cta">Ver todos →</span></div>
+        <table><thead><tr><th>Producto</th><th>Categoría</th><th>Stock</th><th>Precio</th><th>Clase</th></tr></thead>
+        <tbody>
+          <tr><td>Arroz Diana 500g</td><td>Granos</td><td class="sok">142</td><td>$3.200</td><td><span class="badge ba">A</span></td></tr>
+          <tr><td>Aceite Gourmet 1L</td><td>Aceites</td><td class="slo">3</td><td>$12.500</td><td><span class="badge bb">B</span></td></tr>
+          <tr><td>Azúcar Blanca 1kg</td><td>Endulzantes</td><td class="sok">87</td><td>$4.100</td><td><span class="badge ba">A</span></td></tr>
+          <tr><td>Sal Refisal 500g</td><td>Condimentos</td><td class="slo">4</td><td>$1.800</td><td><span class="badge bc">C</span></td></tr>
+        </tbody></table>
+      </div>
+    </main>
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,4 +1,84 @@
-<section class="configuracion">
-  <h1>⚙️ Configuración</h1>
-  <p>Módulo en construcción...</p>
+<section class="cfg-view">
+
+  <!-- Encabezado de la vista -->
+  <header class="cfg-view__header">
+    <h1 class="cfg-view__title">⚙️ Configuración</h1>
+    <p class="cfg-view__subtitle">Personaliza tu experiencia en La Rivera</p>
+  </header>
+
+  <!-- ── Tarjeta Apariencia ── -->
+  <div class="cfg-card">
+    <div class="cfg-card__header">
+      <div class="cfg-card__icon">🎨</div>
+      <div class="cfg-card__info">
+        <h2 class="cfg-card__title">Apariencia</h2>
+        <p class="cfg-card__desc">Elige el tema visual del panel de gestión</p>
+      </div>
+    </div>
+
+    <div class="cfg-card__body">
+
+      <!-- Toggle principal -->
+      <div class="cfg-theme-row">
+        <div class="cfg-theme-details">
+          <span class="cfg-theme-label" data-theme-label>Modo oscuro activo</span>
+          <span class="cfg-theme-hint">El tema se guarda automáticamente</span>
+        </div>
+
+        <!-- Neo Toggle (grande) -->
+        <div class="neo-toggle-container" title="Cambiar tema">
+          <input type="checkbox" id="cfgThemeToggle" class="neo-toggle-input" />
+          <label for="cfgThemeToggle" class="neo-toggle-label">
+            <span class="neo-toggle-track">
+              <span class="neo-toggle-knob">
+                <span class="neo-icon neo-icon--sun">☀️</span>
+                <span class="neo-icon neo-icon--moon">🌙</span>
+              </span>
+              <span class="neo-spectrum">
+                <i></i><i></i><i></i><i></i><i></i>
+              </span>
+            </span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Vista previa de temas -->
+      <div class="cfg-theme-preview">
+        <button class="cfg-theme-opt" data-theme-opt="dark" title="Aplicar tema oscuro">
+          <div class="cfg-theme-opt__preview cfg-theme-opt__preview--dark"></div>
+          <span>Oscuro</span>
+        </button>
+        <button class="cfg-theme-opt" data-theme-opt="light" title="Aplicar tema claro">
+          <div class="cfg-theme-opt__preview cfg-theme-opt__preview--light"></div>
+          <span>Claro</span>
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── Tarjeta Notificaciones (próximamente) ── -->
+  <div class="cfg-card cfg-card--disabled">
+    <div class="cfg-card__header">
+      <div class="cfg-card__icon">🔔</div>
+      <div class="cfg-card__info">
+        <h2 class="cfg-card__title">Notificaciones</h2>
+        <p class="cfg-card__desc">Alertas de stock y eventos del sistema</p>
+      </div>
+      <span class="cfg-badge-soon">Próximamente</span>
+    </div>
+  </div>
+
+  <!-- ── Tarjeta Cuenta (próximamente) ── -->
+  <div class="cfg-card cfg-card--disabled">
+    <div class="cfg-card__header">
+      <div class="cfg-card__icon">👤</div>
+      <div class="cfg-card__info">
+        <h2 class="cfg-card__title">Perfil de cuenta</h2>
+        <p class="cfg-card__desc">Nombre, correo y foto de perfil</p>
+      </div>
+      <span class="cfg-badge-soon">Próximamente</span>
+    </div>
+  </div>
+
 </section>

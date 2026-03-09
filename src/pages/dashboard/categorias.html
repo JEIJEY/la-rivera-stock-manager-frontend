@@ -53,12 +53,14 @@
 </div>
 
 <!-- MODAL PRODUCTO -->
-<div id="modalProducto" class="modal" style="display: none;" role="dialog" aria-modal="true">
-  <div class="modal-content">
-    <span class="close-modal" data-action="cerrar-modal">&times;</span>
-    <h2 id="modalTitulo">🆕 Agregar Producto a <span id="modalCategoriaNombre"></span></h2>
+<div id="modalProducto" class="modal-producto" style="display: none;" role="dialog" aria-modal="true">
+  <div class="modal-contenido">
+    <div class="modal-header">
+      <h2 id="modalTitulo">🆕 Agregar Producto a <span id="modalCategoriaNombre"></span></h2>
+      <button type="button" class="cerrar-modal" data-action="cerrar-modal">&times;</button>
+    </div>
 
-    <form id="formProducto" class="producto-form" novalidate>
+    <form id="formProducto" class="form-producto" novalidate>
       <input type="hidden" id="modalCategoriaId">
 
       <div class="form-row">
@@ -119,7 +121,7 @@
         </div>
       </div>
 
-      <div class="form-actions">
+      <div class="modal-acciones">
         <button type="button" class="btn" data-action="cerrar-modal">Cancelar</button>
         <button type="submit" class="btn">➕ Agregar Producto</button>
       </div>

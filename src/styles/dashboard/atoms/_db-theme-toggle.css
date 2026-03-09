@@ -1,0 +1,187 @@
+/* =========================================================
+   DB THEME TOGGLE — Neo-style dark / light switch
+   Adaptado de UIverse.io → --toggle-on-color: #00d98b
+   ========================================================= */
+
+/* ── Variables internas (se sobreescriben por tema) ── */
+.neo-toggle-container {
+  --toggle-on-color:    #00d98b;
+  --toggle-track-off:   rgba(255, 255, 255, 0.08);
+  --toggle-border-off:  rgba(255, 255, 255, 0.12);
+  --toggle-knob-off:    #d0d0d0;
+
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  user-select: none;
+}
+
+/* Ajuste para tema claro */
+[data-theme="light"] .neo-toggle-container {
+  --toggle-track-off:   rgba(0, 0, 0, 0.10);
+  --toggle-border-off:  rgba(0, 0, 0, 0.14);
+  --toggle-knob-off:    #6b7a78;
+}
+
+/* ── Checkbox oculto (sigue participando en sibling selectors) ── */
+.neo-toggle-input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+/* ── Label = área clickeable ── */
+.neo-toggle-label {
+  cursor: pointer;
+  display: block;
+}
+
+/* ── Track (píldora exterior) ── */
+.neo-toggle-track {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 68px;
+  height: 34px;
+  background: var(--toggle-track-off);
+  border: 1.5px solid var(--toggle-border-off);
+  border-radius: var(--radius-full);
+  transition:
+    background  0.35s ease,
+    border-color 0.35s ease,
+    box-shadow  0.35s ease;
+  overflow: hidden;
+}
+
+/* Track ON */
+.neo-toggle-input:checked + .neo-toggle-label .neo-toggle-track {
+  background:    rgba(0, 217, 139, 0.14);
+  border-color:  rgba(0, 217, 139, 0.40);
+  box-shadow:
+    0 0 14px rgba(0, 217, 139, 0.20),
+    inset 0 0 10px rgba(0, 217, 139, 0.06);
+}
+
+/* ── Knob (bola deslizante) ── */
+.neo-toggle-knob {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: 24px;
+  height: 24px;
+  background:    var(--toggle-knob-off);
+  border-radius: 50%;
+  display:       flex;
+  align-items:   center;
+  justify-content: center;
+  box-shadow:    0 2px 8px rgba(0, 0, 0, 0.30);
+  transition:
+    left        0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
+    background  0.35s ease,
+    box-shadow  0.35s ease;
+  z-index: 2;
+}
+
+/* Knob ON */
+.neo-toggle-input:checked + .neo-toggle-label .neo-toggle-knob {
+  left:       calc(68px - 24px - 4px);   /* track-width - knob-size - offset */
+  background: var(--toggle-on-color);
+  box-shadow:
+    0 0 14px rgba(0, 217, 139, 0.55),
+    0 2px 8px rgba(0, 0, 0, 0.20);
+  animation:  neo-pulse 2s ease infinite;
+}
+
+/* ── Íconos dentro del knob ── */
+.neo-icon {
+  position: absolute;
+  font-size: 12px;
+  line-height: 1;
+  transition:
+    opacity   0.25s ease,
+    transform 0.25s ease;
+}
+
+/* Estado OFF → muestra ☀️ */
+.neo-icon--sun  { opacity: 1;  transform: scale(1);   }
+.neo-icon--moon { opacity: 0;  transform: scale(0.4); }
+
+/* Estado ON → muestra 🌙 */
+.neo-toggle-input:checked + .neo-toggle-label .neo-icon--sun  { opacity: 0;  transform: scale(0.4); }
+.neo-toggle-input:checked + .neo-toggle-label .neo-icon--moon { opacity: 1;  transform: scale(1);   }
+
+/* ── Spectrum bars (ecualizador animado en estado ON) ── */
+.neo-spectrum {
+  position: absolute;
+  right: 7px;
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 16px;
+}
+
+.neo-spectrum i {
+  display: block;
+  width: 2.5px;
+  height: 4px;
+  background:    var(--toggle-on-color);
+  border-radius: 2px;
+  opacity:       0;
+  transition:    opacity 0.25s ease;
+  font-style:    normal;
+}
+
+/* Spectrum visible cuando ON */
+.neo-toggle-input:checked + .neo-toggle-label .neo-spectrum i {
+  opacity: 0.75;
+  animation: neo-spectrum 0.8s ease infinite alternate;
+}
+
+.neo-toggle-input:checked + .neo-toggle-label .neo-spectrum i:nth-child(1) { animation-delay: 0s;    animation-duration: 0.70s; }
+.neo-toggle-input:checked + .neo-toggle-label .neo-spectrum i:nth-child(2) { animation-delay: 0.10s; animation-duration: 0.55s; }
+.neo-toggle-input:checked + .neo-toggle-label .neo-spectrum i:nth-child(3) { animation-delay: 0.20s; animation-duration: 0.80s; }
+.neo-toggle-input:checked + .neo-toggle-label .neo-spectrum i:nth-child(4) { animation-delay: 0.05s; animation-duration: 0.65s; }
+.neo-toggle-input:checked + .neo-toggle-label .neo-spectrum i:nth-child(5) { animation-delay: 0.15s; animation-duration: 0.75s; }
+
+/* ── Animaciones ── */
+@keyframes neo-pulse {
+  0%,  100% { box-shadow: 0 0 14px rgba(0, 217, 139, 0.55), 0 2px 8px rgba(0, 0, 0, 0.20); }
+  50%        { box-shadow: 0 0 24px rgba(0, 217, 139, 0.80), 0 2px 8px rgba(0, 0, 0, 0.20); }
+}
+
+@keyframes neo-spectrum {
+  from { height: 3px;  }
+  to   { height: 14px; }
+}
+
+/* ── Variante compacta para el header ── */
+.neo-toggle-container--header .neo-toggle-track {
+  width:  56px;
+  height: 28px;
+}
+
+.neo-toggle-container--header .neo-toggle-knob {
+  width:  20px;
+  height: 20px;
+  top:    3px;
+  left:   3px;
+}
+
+.neo-toggle-container--header .neo-icon {
+  font-size: 10px;
+}
+
+.neo-toggle-container--header .neo-toggle-input:checked + .neo-toggle-label .neo-toggle-knob {
+  left: calc(56px - 20px - 3px);
+}
+
+.neo-toggle-container--header .neo-spectrum {
+  right: 6px;
+  height: 12px;
+}
+
+.neo-toggle-container--header .neo-spectrum i {
+  width: 2px;
+}

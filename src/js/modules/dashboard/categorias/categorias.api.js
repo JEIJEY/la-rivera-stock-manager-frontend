@@ -9,6 +9,7 @@ export const categoriasApi = {
   update: (id, data) => apiClient.updateCategoria(id, data),
   delete: (id) => apiClient.deleteCategoria(id),
   getProductos: (id) => apiClient.getProductosPorCategoria(id),
+  createProducto: (data) => apiClient.createProducto(data),
   getMarcas: () => apiClient.get("/marcas"),
   getProveedores: () => apiClient.get("/proveedores"),
 };

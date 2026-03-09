@@ -1,0 +1,245 @@
+/* =========================================================
+   CONFIG VIEW — Vista de Configuración del Dashboard
+   ========================================================= */
+
+/* ── Wrapper principal ── */
+.cfg-view {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  max-width: 720px;
+  padding: var(--space-8) var(--space-6);
+}
+
+/* ── Encabezado de la vista ── */
+.cfg-view__header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding-bottom: var(--space-4);
+  border-bottom: 1px solid var(--theme-sidebar-divider);
+}
+
+.cfg-view__title {
+  font-family:  var(--font-display);
+  font-size:    var(--text-2xl);
+  font-weight:  800;
+  color:        var(--theme-sidebar-name);
+  line-height:  1.15;
+  transition:   color var(--transition-base);
+}
+
+.cfg-view__subtitle {
+  font-family: var(--font-body);
+  font-size:   var(--text-sm);
+  color:       var(--theme-sidebar-muted);
+  transition:  color var(--transition-base);
+}
+
+/* ── Tarjeta de sección ── */
+.cfg-card {
+  background:    rgba(255, 255, 255, 0.04);
+  border:        1px solid var(--theme-sidebar-divider);
+  border-radius: var(--radius-xl);
+  overflow:      hidden;
+  transition:    background var(--transition-base), border-color var(--transition-base);
+}
+
+[data-theme="light"] .cfg-card {
+  background: #ffffff;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+}
+
+.cfg-card--disabled {
+  opacity: 0.45;
+  pointer-events: none;
+}
+
+/* ── Header de tarjeta ── */
+.cfg-card__header {
+  display:     flex;
+  align-items: center;
+  gap:         var(--space-4);
+  padding:     var(--space-5) var(--space-6);
+  border-bottom: 1px solid var(--theme-sidebar-divider);
+  transition:  border-color var(--transition-base);
+}
+
+.cfg-card__icon {
+  font-size: 1.5rem;
+  width:     44px;
+  height:    44px;
+  display:   flex;
+  align-items: center;
+  justify-content: center;
+  background:    rgba(0, 217, 139, 0.10);
+  border:        1px solid rgba(0, 217, 139, 0.18);
+  border-radius: var(--radius-lg);
+  flex-shrink:   0;
+}
+
+.cfg-card__info {
+  flex: 1;
+}
+
+.cfg-card__title {
+  font-family: var(--font-display);
+  font-size:   var(--text-base);
+  font-weight: 700;
+  color:       var(--theme-sidebar-name);
+  transition:  color var(--transition-base);
+}
+
+.cfg-card__desc {
+  font-family: var(--font-body);
+  font-size:   var(--text-sm);
+  color:       var(--theme-sidebar-muted);
+  margin-top:  2px;
+  transition:  color var(--transition-base);
+}
+
+/* ── Chip "Próximamente" ── */
+.cfg-badge-soon {
+  font-size:     11px;
+  font-weight:   700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color:         var(--theme-sidebar-muted);
+  background:    rgba(255, 255, 255, 0.05);
+  border:        1px solid var(--theme-sidebar-divider);
+  border-radius: var(--radius-full);
+  padding:       3px var(--space-3);
+  flex-shrink:   0;
+}
+
+[data-theme="light"] .cfg-badge-soon {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+/* ── Cuerpo de tarjeta ── */
+.cfg-card__body {
+  padding: var(--space-5) var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+/* ── Fila toggle de tema ── */
+.cfg-theme-row {
+  display:     flex;
+  align-items: center;
+  justify-content: space-between;
+  gap:         var(--space-4);
+}
+
+.cfg-theme-details {
+  display:        flex;
+  flex-direction: column;
+  gap:            3px;
+}
+
+.cfg-theme-label {
+  font-family: var(--font-body);
+  font-size:   var(--text-sm);
+  font-weight: 600;
+  color:       var(--theme-sidebar-name);
+  transition:  color var(--transition-base);
+}
+
+.cfg-theme-hint {
+  font-family: var(--font-body);
+  font-size:   11px;
+  color:       var(--theme-sidebar-muted);
+  transition:  color var(--transition-base);
+}
+
+/* ── Vista previa de temas ── */
+.cfg-theme-preview {
+  display: flex;
+  gap:     var(--space-3);
+}
+
+.cfg-theme-opt {
+  display:        flex;
+  flex-direction: column;
+  align-items:    center;
+  gap:            var(--space-2);
+  background:     none;
+  border:         1.5px solid var(--theme-sidebar-divider);
+  border-radius:  var(--radius-lg);
+  padding:        var(--space-2) var(--space-4);
+  cursor:         pointer;
+  transition:     border-color var(--transition-fast), box-shadow var(--transition-fast);
+  font-family:    var(--font-body);
+  font-size:      11px;
+  font-weight:    600;
+  color:          var(--theme-sidebar-muted);
+}
+
+.cfg-theme-opt:hover {
+  border-color: rgba(0, 217, 139, 0.4);
+  color:        var(--theme-sidebar-name);
+}
+
+.cfg-theme-opt.active {
+  border-color: var(--color-primary-400);
+  box-shadow:   0 0 10px rgba(0, 217, 139, 0.15);
+  color:        var(--color-primary-400);
+}
+
+/* Mini previews */
+.cfg-theme-opt__preview {
+  width:         64px;
+  height:        40px;
+  border-radius: var(--radius-md);
+  border:        1px solid rgba(255, 255, 255, 0.08);
+  position:      relative;
+  overflow:      hidden;
+}
+
+.cfg-theme-opt__preview--dark {
+  background:   #0d0f0e;
+}
+.cfg-theme-opt__preview--dark::before {
+  content:       "";
+  position:      absolute;
+  top:           0; left:  0;
+  width:         30%;
+  height:        100%;
+  background:    rgba(20, 20, 20, 0.9);
+  border-right:  1px solid rgba(255, 255, 255, 0.07);
+}
+.cfg-theme-opt__preview--dark::after {
+  content:  "";
+  position: absolute;
+  top:      20%; left: 35%;
+  width:    50%; height: 2px;
+  background: rgba(0, 217, 139, 0.5);
+  border-radius: 1px;
+  box-shadow: 0 6px 0 rgba(255,255,255,0.04),
+              0 12px 0 rgba(255,255,255,0.04);
+}
+
+.cfg-theme-opt__preview--light {
+  background: #f0f5f2;
+  border-color: rgba(0,0,0,0.08);
+}
+.cfg-theme-opt__preview--light::before {
+  content:       "";
+  position:      absolute;
+  top:           0; left:  0;
+  width:         30%;
+  height:        100%;
+  background:    rgba(255, 255, 255, 0.9);
+  border-right:  1px solid rgba(0, 217, 139, 0.12);
+}
+.cfg-theme-opt__preview--light::after {
+  content:  "";
+  position: absolute;
+  top:      20%; left: 35%;
+  width:    50%; height: 2px;
+  background: rgba(0, 150, 80, 0.5);
+  border-radius: 1px;
+  box-shadow: 0 6px 0 rgba(0,0,0,0.06),
+              0 12px 0 rgba(0,0,0,0.04);
+}

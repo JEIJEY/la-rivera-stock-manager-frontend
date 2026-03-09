@@ -2,6 +2,7 @@ import logger from "../../core/logger.js";
 import SPAViewManager from "./SPAViewManager.js";
 import { appEvents } from "../../core/EventBus.js";
 import { initLogoutButton } from "../../shared/components/logout-button.js";
+import { initTheme, initThemeToggle } from "../../shared/theme.js";
 
 const main = document.querySelector(".dashboard-main");
 
@@ -73,6 +74,8 @@ document.querySelectorAll(".sidebar-menu__link").forEach((link) => {
   logger.info("Cargando vista inicial...");
   await viewManager.load("inventario");
   initLogoutButton();
+  initTheme();        // Aplica tema guardado al cargar dashboard
+  initThemeToggle();  // Adjunta listener al toggle del header
 })();
 
 function inicializarToggleInventario() {

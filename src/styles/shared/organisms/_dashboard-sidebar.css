@@ -1,5 +1,5 @@
 /* ======================================================
-   🎨 SIDEBAR GENERAL (sin clip-path, diseño moderno)
+   🎨 SIDEBAR GENERAL — Theme-aware
 ====================================================== */
 
 .dashboard-sidebar {
@@ -12,22 +12,26 @@
   height: 100vh;
   background: linear-gradient(
     180deg,
-    rgba(20, 20, 20, 0.8),
-    rgba(0, 0, 0, 0.6)
+    var(--theme-sidebar-from, rgba(15, 18, 17, 0.95)),
+    var(--theme-sidebar-to,   rgba(8, 10, 9, 0.90))
   );
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border-right: 2px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 4px 0 25px rgba(0, 0, 0, 0.35);
+  border-right: 2px solid var(--theme-sidebar-border, rgba(255, 255, 255, 0.07));
+  box-shadow: var(--theme-sidebar-shadow, 4px 0 24px rgba(0, 0, 0, 0.55));
   padding: 30px 20px;
   border-radius: 0 25px 25px 0;
-  color: #ecf0f1;
+  color: var(--theme-sidebar-color, rgba(255, 255, 255, 0.85));
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   overflow: visible; /* deja ver submenús flotantes */
   z-index: 200;
-  transition: all 0.3s ease-in-out;
+  transition:
+    background  0.35s ease,
+    border-color 0.35s ease,
+    box-shadow  0.35s ease,
+    color       0.35s ease;
 }
 
 /* ======================================================
@@ -38,7 +42,8 @@
   align-items: center;
   gap: 12px;
   padding-bottom: 12px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid var(--theme-sidebar-divider, rgba(255, 255, 255, 0.07));
+  transition: border-color 0.35s ease;
 }
 
 .sidebar-profile__img {
@@ -46,20 +51,23 @@
   height: 50px;
   border-radius: 50%;
   object-fit: cover;
-  border: 2px solid rgba(255, 255, 255, 0.25);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+  border: 2px solid var(--theme-avatar-border, rgba(255, 255, 255, 0.18));
+  box-shadow: var(--theme-avatar-shadow, 0 2px 8px rgba(0, 0, 0, 0.55));
+  transition: border-color 0.35s ease, box-shadow 0.35s ease;
 }
 
 .sidebar-profile__info {
   font-size: 14px;
   display: flex;
   flex-direction: column;
-  color: #e0e0e0;
+  color: var(--theme-sidebar-muted, rgba(255, 255, 255, 0.55));
+  transition: color 0.35s ease;
 }
 
 .sidebar-profile__info .sidebar-profile__name {
   font-weight: 600;
-  color: #fff;
+  color: var(--theme-sidebar-name, #ffffff);
+  transition: color 0.35s ease;
 }
 
 /* ======================================================
@@ -86,16 +94,16 @@
   justify-content: space-between;
   padding: 12px 16px;
   text-decoration: none;
-  color: rgba(255, 255, 255, 0.85);
+  color: var(--theme-sidebar-link, rgba(255, 255, 255, 0.72));
   border-radius: 10px;
   font-weight: 500;
-  transition: background 0.3s, transform 0.2s;
+  transition: background 0.3s, color 0.3s, transform 0.2s;
 }
 
 .sidebar-menu__item.active .sidebar-menu__link,
 .sidebar-menu__link:hover {
-  background: rgba(26, 188, 156, 0.25);
-  color: #ffffff;
+  background: var(--theme-sidebar-hover-bg, rgba(0, 217, 139, 0.12));
+  color: var(--theme-sidebar-hover-color, #ffffff);
   transform: translateX(4px);
 }
 
@@ -112,15 +120,15 @@
   position: absolute;
   left: 0;
   top: 100%;
-  background: rgba(20, 20, 20, 0.95);
+  background: var(--theme-submenu-bg, rgba(10, 12, 11, 0.97));
   border-radius: 10px;
   padding: 8px 0;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+  box-shadow: var(--theme-submenu-shadow, 0 8px 24px rgba(0, 0, 0, 0.55));
   min-width: 220px;
   opacity: 0;
   pointer-events: none;
   transform: translateY(-8px);
-  transition: opacity 0.25s ease, transform 0.25s ease;
+  transition: opacity 0.25s ease, transform 0.25s ease, background 0.35s ease;
   z-index: 9999;
 }
 
@@ -133,7 +141,7 @@
 .sidebar-submenu li a {
   display: block;
   padding: 8px 16px;
-  color: rgba(255, 255, 255, 0.8);
+  color: var(--theme-submenu-link, rgba(255, 255, 255, 0.72));
   text-decoration: none;
   font-size: 0.9rem;
   border-radius: 8px;
@@ -141,8 +149,8 @@
 }
 
 .sidebar-submenu li a:hover {
-  background: rgba(26, 188, 156, 0.25);
-  color: #fff;
+  background: var(--theme-submenu-hover-bg, rgba(0, 217, 139, 0.12));
+  color: var(--theme-sidebar-hover-color, #ffffff);
 }
 
 /* Flecha ▼ */
@@ -162,10 +170,11 @@
 .sidebar-footer {
   margin-top: auto;
   padding-top: 20px;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px solid var(--theme-sidebar-divider, rgba(255, 255, 255, 0.07));
   display: flex;
   justify-content: center;
   align-items: center;
+  transition: border-color 0.35s ease;
 }
 
 /* ======================================================

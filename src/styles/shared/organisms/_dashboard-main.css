@@ -1,57 +1,35 @@
+/* ==============================================
+   📐 Área principal del Dashboard — Theme-aware
+   ============================================== */
 .dashboard-main {
-  grid-area: main;
-  background-color: #f5f5f5;
-  border-radius: 10px;
-  padding: 20px;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 20px;
-  width: 100%;
-  height: auto;
-  position: relative;
-
-  /* 🔹 Elimina top negativo y corrige márgenes */
-  top: 0;
-  margin-left: 5px; /* ancho real del sidebar */
-  margin-top: -80px; /* altura del header */
+  grid-area:        main;
+  position:         relative;
+  width:            100%;
+  height:           100%;
+  min-height:       calc(100vh - 125px);
+  background-color: var(--theme-main-bg, transparent);
+  overflow:         auto;
+  transition:       background-color 0.35s ease;
 }
 
+/* Tarjetas genéricas dentro del main */
 .card {
-  background: white;
-  padding: 20px;
+  background:    var(--theme-main-bg, #ffffff);
+  padding:       20px;
   border-radius: 10px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  border-left: 4px solid #1abc9c;
+  box-shadow:    0 2px 10px rgba(0, 0, 0, 0.1);
+  border-left:   4px solid var(--color-primary-400, #00d98b);
 }
 
 .card h2 {
-  font-size: 0.9rem;
-  color: #666;
+  font-size:     0.9rem;
+  color:         var(--theme-sidebar-muted, #666);
   margin-bottom: 10px;
 }
 
 .card p {
-  font-size: 1.5rem;
+  font-size:   1.5rem;
   font-weight: bold;
-  color: #333;
-  margin: 0;
-}
-
-.dashboard-main {
-  position: relative;
-  min-height: 100vh; /* que tenga altura completa visible */
-  background-color: white; /* para que contraste con la grilla */
-  overflow: visible;
-}
-
-/* ==============================================
-   📐 Contenedor principal del área de trabajo
-   ============================================== */
-.dashboard-main {
-  position: relative;
-  width: 100%;
-  height: 100%;          /* 🔹 toma el alto del grid-container */
-  min-height: calc(100vh - 80px); /* 🔹 ajusta si tu header ocupa algo */
-  background-color: #fff;
-  overflow: visible;       /* evita que la grilla se salga del borde */
+  color:       var(--theme-sidebar-name, #333);
+  margin:      0;
 }

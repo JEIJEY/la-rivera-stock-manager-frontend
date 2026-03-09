@@ -2,7 +2,7 @@
    📐 ESTRUCTURA PRINCIPAL DEL DASHBOARD
 ====================================================== */
 .grid-container {
-  background: #ffffff;
+  background: var(--theme-grid-bg, var(--color-neutral-950));
   display: grid;
   grid-template-areas:
     "sidebar header"
@@ -12,6 +12,7 @@
   height: 100vh;
   width: 100%;
   overflow: hidden;
+  transition: background-color 0.35s ease;
 }
 
 /* Sidebar, header y main ocupan su grid-area */
@@ -26,10 +27,11 @@
 .dashboard-main {
   grid-area: main;
   position: relative; /* Para que la grilla se ubique dentro */
-  background-color: #fff;
+  background: var(--theme-main-bg, transparent);
   overflow: hidden; /* Evita que la grilla se salga */
   width: 100%;
   height: 100%;
   min-height: calc(100vh - 145px);
   padding: 20px;
+  transition: background 0.35s ease;
 }
