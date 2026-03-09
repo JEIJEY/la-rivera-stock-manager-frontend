@@ -112,7 +112,7 @@ export default class SPAViewManager {
       this.container.innerHTML = html;
 
       // 2️⃣ Lazy load del módulo JS
-      const mod = entry._modCache || await import(entry.module);
+      const mod = entry._modCache || await import(/* @vite-ignore */ entry.module);
       entry._modCache = mod;
 
       // 3️⃣ Ejecutar función de inicialización
@@ -185,7 +185,7 @@ export default class SPAViewManager {
     if (!entry || entry._modCache) return;
 
     try {
-      entry._modCache = await import(entry.module);
+      entry._modCache = await import(/* @vite-ignore */ entry.module);
       console.log(`📦 Prefetch exitoso: ${name}`);
     } catch {
       console.warn(`⚠️ No se pudo precargar ${name}`);
