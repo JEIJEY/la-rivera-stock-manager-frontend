@@ -30,3 +30,14 @@
   display: block;
 }
 
+@media (max-width: 1440px) {
+  .dashboard-header {
+    left: 260px;
+    width: calc(100% - 260px);
+    height: 80px;
+  }
+  .dashboard-logo img {
+    max-height: 65px;
+  }
+}
+

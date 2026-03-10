@@ -187,6 +187,20 @@
   }
 }
 
+@media (max-width: 1440px) {
+  .dashboard-sidebar {
+    width: 256px;
+    padding: 20px 14px;
+  }
+  .sidebar-menu {
+    margin-top: 24px;
+  }
+  .sidebar-profile__img {
+    width: 38px;
+    height: 38px;
+  }
+}
+
 /* ======================================================
    📏 ANCHOS INDIVIDUALES
 ====================================================== */

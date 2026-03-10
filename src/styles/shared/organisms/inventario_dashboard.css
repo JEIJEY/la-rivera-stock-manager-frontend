@@ -49,6 +49,14 @@
   padding: 2rem 2.5rem;
 }
 
+/* En pantallas medianas: reducir padding */
+@media (max-width: 1400px) {
+  .invp-dashboard-grid {
+    padding: 1.5rem;
+    gap: 1.5rem;
+  }
+}
+
 /* En pantallas pequeñas: 1 columna */
 @media (max-width: 900px) {
   .invp-dashboard-grid {
@@ -87,7 +95,7 @@
 
 .invp-abc-card {
   flex: 1;
-  min-width: 200px;
+  min-width: 120px;
   border-radius: 14px;
   padding: 1rem 1.2rem;
   color: #fff;
