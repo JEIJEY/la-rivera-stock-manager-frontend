@@ -1,47 +1,47 @@
   <div class="grid-container db-layout">
 
     <!-- SIDEBAR -->
-    <aside class="dashboard-sidebar db-lateral">
-      <div class="sidebar-profile">
-        <img src="/src/assets/images/AVATAR.png" alt="Foto de perfil" class="sidebar-profile__img" />
-        <div class="sidebar-profile__info">
-          <p class="sidebar-profile__name">JEISON AVILA</p>
-          <p class="sidebar-profile__role">Administrador</p>
+    <aside class="dashboard-sidebar db-lateral db-sidebar">
+      <div class="sidebar-profile db-sidebar__profile">
+        <img src="/src/assets/images/AVATAR.png" alt="Foto de perfil" class="sidebar-profile__img db-sidebar__avatar" />
+        <div class="sidebar-profile__info db-sidebar__profile-info">
+          <p class="sidebar-profile__name db-sidebar__name">JEISON AVILA</p>
+          <p class="sidebar-profile__role db-sidebar__role">Administrador</p>
         </div>
       </div>
 
-      <nav class="sidebar-menu">
-        <ul class="sidebar-menu__list">
-          <li class="sidebar-menu__item has-submenu">
-            <button class="sidebar-menu__link" id="inventarioToggle" data-seccion="inventario">
+      <nav class="sidebar-menu db-sidebar__nav">
+        <ul class="sidebar-menu__list db-sidebar__nav-list">
+          <li class="sidebar-menu__item has-submenu db-sidebar__nav-item db-sidebar__nav-item--has-submenu">
+            <button class="sidebar-menu__link db-sidebar__nav-link" id="inventarioToggle" data-seccion="inventario">
               📦 Inventario
-              <span class="arrow">▼</span>
+              <span class="arrow db-sidebar__arrow">▼</span>
             </button>
-            <ul class="sidebar-submenu" id="inventarioSubmenu">
+            <ul class="sidebar-submenu db-sidebar__submenu" id="inventarioSubmenu">
               <li>
-                <a href="#" class="sidebar-menu__link" data-seccion="productos">📋 Productos</a>
+                <a href="#" class="sidebar-menu__link db-sidebar__nav-link" data-seccion="productos">📋 Productos</a>
               </li>
               <li>
-                <a href="#" class="sidebar-menu__link" data-seccion="categorias">🗂️ Categorías</a>
+                <a href="#" class="sidebar-menu__link db-sidebar__nav-link" data-seccion="categorias">🗂️ Categorías</a>
               </li>
               <li>
-                <a href="#" class="sidebar-menu__link" data-seccion="movimientos">➕ Movimientos</a>
+                <a href="#" class="sidebar-menu__link db-sidebar__nav-link" data-seccion="movimientos">➕ Movimientos</a>
               </li>
             </ul>
           </li>
-          <li class="sidebar-menu__item">
-            <a href="#" class="sidebar-menu__link" data-seccion="usuarios">👥 Usuarios</a>
+          <li class="sidebar-menu__item db-sidebar__nav-item">
+            <a href="#" class="sidebar-menu__link db-sidebar__nav-link" data-seccion="usuarios">👥 Usuarios</a>
           </li>
-          <li class="sidebar-menu__item">
-            <a href="#" class="sidebar-menu__link" data-seccion="reportes">📊 Reportes</a>
+          <li class="sidebar-menu__item db-sidebar__nav-item">
+            <a href="#" class="sidebar-menu__link db-sidebar__nav-link" data-seccion="reportes">📊 Reportes</a>
           </li>
-          <li class="sidebar-menu__item">
-            <a href="#" class="sidebar-menu__link" data-seccion="configuracion">⚙️ Configuración</a>
+          <li class="sidebar-menu__item db-sidebar__nav-item">
+            <a href="#" class="sidebar-menu__link db-sidebar__nav-link" data-seccion="configuracion">⚙️ Configuración</a>
           </li>
         </ul>
       </nav>
 
-      <div class="sidebar-footer">
+      <div class="sidebar-footer db-sidebar__footer">
         <button class="logoutButton" id="logoutButton">
           <svg class="doorway" viewBox="0 0 100 100">
             <path d="M93.4 86.3H58.6c-1.9 0-3.4-1.5-3.4-3.4V17.1c0-1.9 1.5-3.4 3.4-3.4h34.8c1.9 0 3.4 1.5 3.4 3.4v65.8c0 1.9-1.5 3.4-3.4 3.4z"/>
