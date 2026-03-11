@@ -42,19 +42,19 @@
 
     /* === LAYOUTS === */
 
-    /* === WEBSITE === */
-    @import "./website/atoms/_lp-glow-orb.css";
-    @import "./website/atoms/_lp-buttons.css";
-    @import "./website/atoms/_lp-badge.css";
-    @import "./website/molecules/_lp-feature-card.css";
-    @import "./website/molecules/_lp-product-card.css";
-    @import "./website/molecules/_lp-step.css";
-    @import "./website/organisms/_lp-header.css";
-    @import "./website/organisms/_lp-hero.css";
-    @import "./website/organisms/_lp-features.css";
-    @import "./website/organisms/_lp-products.css";
-    @import "./website/organisms/_lp-sections.css";
-    @import "./website/_lp-responsive.css";
+    /* === COMPONENTS - WEBSITE === */
+    @import "./components/website/atoms/_lp-glow-orb.css";
+    @import "./components/website/atoms/_lp-buttons.css";
+    @import "./components/website/atoms/_lp-badge.css";
+    @import "./components/website/molecules/_lp-feature-card.css";
+    @import "./components/website/molecules/_lp-product-card.css";
+    @import "./components/website/molecules/_lp-step.css";
+    @import "./components/website/organisms/_lp-header.css";
+    @import "./components/website/organisms/_lp-hero.css";
+    @import "./components/website/organisms/_lp-features.css";
+    @import "./components/website/organisms/_lp-products.css";
+    @import "./components/website/organisms/_lp-sections.css";
+    @import "./components/website/_lp-responsive.css";
 
     /* === COMPONENTS - AUTH === */
     @import "./components/auth/atoms/_auth-input.css";
