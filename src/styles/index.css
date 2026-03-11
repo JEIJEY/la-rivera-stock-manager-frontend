@@ -56,17 +56,17 @@
     @import "./website/organisms/_lp-sections.css";
     @import "./website/_lp-responsive.css";
 
-    /* === AUTH === */
-    @import "./auth/atoms/_auth-input.css";
-    @import "./auth/atoms/_auth-logo.css";
-    @import "./auth/atoms/_auth-title.css";
-    @import "./auth/molecules/_auth-separator.css";
-    @import "./auth/molecules/_auth-social.css";
-    @import "./auth/molecules/_auth-footer.css";
-    @import "./auth/organisms/_auth-page.css";
-    @import "./auth/organisms/_auth-card.css";
-    @import "./auth/organisms/_auth-form.css";
-    @import "./auth/_auth-responsive.css";
+    /* === COMPONENTS - AUTH === */
+    @import "./components/auth/atoms/_auth-input.css";
+    @import "./components/auth/atoms/_auth-logo.css";
+    @import "./components/auth/atoms/_auth-title.css";
+    @import "./components/auth/molecules/_auth-separator.css";
+    @import "./components/auth/molecules/_auth-social.css";
+    @import "./components/auth/molecules/_auth-footer.css";
+    @import "./components/auth/organisms/_auth-page.css";
+    @import "./components/auth/organisms/_auth-card.css";
+    @import "./components/auth/organisms/_auth-form.css";
+    @import "./components/auth/_auth-responsive.css";
 
     /* === DASHBOARD === */
     @import "./dashboard/atoms/_db-theme-toggle.css";
