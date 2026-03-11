@@ -298,12 +298,13 @@
 }
 
 /* ======================================================
-   📋 VISTA PRODUCTOS (tabla) — BEM: prod-tabla-*
+   📋 VISTA PRODUCTOS (tabla) — BEM: prod-tabla
    @obsoleto: inventario, inventario__*
 ====================================================== */
 
 /* @obsoleto — reemplazado por .prod-tabla */
-.inventario {
+.inventario,
+.prod-tabla {
   padding: 20px;
   background-color: #ffffff;
   color: #333;
@@ -312,14 +313,16 @@
 }
 
 /* @obsoleto — reemplazado por .prod-tabla__header */
-.inventario__header {
+.inventario__header,
+.prod-tabla__header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
 }
 
-.inventario__header h2 {
+.inventario__header h2,
+.prod-tabla__header h2 {
   font-size: 1.8rem;
   font-weight: 600;
   color: #1e293b;
@@ -328,13 +331,15 @@
   gap: 10px;
 }
 
-.inventario__header img {
+.inventario__header img,
+.prod-tabla__header img {
   width: 32px;
   height: 32px;
 }
 
 /* @obsoleto — reemplazado por .prod-tabla__tabla */
-.inventario__tabla {
+.inventario__tabla,
+.prod-tabla__tabla {
   width: 100%;
   border-collapse: collapse;
   background: white;
@@ -343,7 +348,8 @@
   font-size: 0.95rem;
 }
 
-.inventario__tabla th {
+.inventario__tabla th,
+.prod-tabla__tabla th {
   background-color: #0ea5e9;
   color: white;
   padding: 12px 16px;
@@ -353,29 +359,36 @@
   white-space: nowrap;
 }
 
-.inventario__tabla td {
+.inventario__tabla td,
+.prod-tabla__tabla td {
   padding: 12px 16px;
   border-bottom: 1px solid #e2e2e2;
   color: #334155;
   vertical-align: middle;
 }
 
-.inventario__tabla tr:nth-child(even) {
+.inventario__tabla tr:nth-child(even),
+.prod-tabla__tabla tr:nth-child(even) {
   background-color: #f8fafc;
 }
 
-.inventario__tabla tr:hover {
+.inventario__tabla tr:hover,
+.prod-tabla__tabla tr:hover {
   background-color: #eaf6ff;
   transition: 0.3s ease;
 }
 
 .inventario__tabla td:nth-child(1),
 .inventario__tabla td:nth-child(4),
-.inventario__tabla td:nth-child(6) {
+.inventario__tabla td:nth-child(6),
+.prod-tabla__tabla td:nth-child(1),
+.prod-tabla__tabla td:nth-child(4),
+.prod-tabla__tabla td:nth-child(6) {
   text-align: center;
 }
 
-.inventario__tabla td:nth-last-child(-n+2) {
+.inventario__tabla td:nth-last-child(-n+2),
+.prod-tabla__tabla td:nth-last-child(-n+2) {
   text-align: center;
   font-size: 0.9rem;
   color: #475569;
