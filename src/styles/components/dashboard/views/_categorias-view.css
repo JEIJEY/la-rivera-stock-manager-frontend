@@ -619,13 +619,15 @@
 
 /* ======================================================
    🎯 MODAL — BEM: cat-modal
-   @obsoleto: modal, modal-content, close-modal,
-              producto-form, form-row, form-group,
-              form-actions, btn, btn--primary, btn--secondary
+   @obsoleto: modal, modal-producto, modal-content, modal-contenido,
+              close-modal, cerrar-modal, modal-header,
+              producto-form, form-producto, form-row, form-group,
+              form-actions, modal-acciones, btn, btn--primary, btn--secondary
 ====================================================== */
 
 /* @obsoleto — reemplazado por .cat-modal */
 .modal,
+.modal-producto,
 .cat-modal {
   position: fixed;
   top: 0;
@@ -644,6 +646,7 @@
 
 /* @obsoleto — reemplazado por .cat-modal__contenido */
 .modal-content,
+.modal-contenido,
 .cat-modal__contenido {
   background: rgb(224, 7, 7);
   padding: 2rem;
@@ -660,6 +663,7 @@
 
 /* @obsoleto — reemplazado por .cat-modal__cerrar */
 .close-modal,
+.cerrar-modal,
 .cat-modal__cerrar {
   position: absolute;
   top: 1rem;
@@ -679,12 +683,24 @@
 }
 
 .close-modal:hover,
+.cerrar-modal:hover,
 .cat-modal__cerrar:hover {
   background-color: #f3f4f6;
   color: #374151;
 }
 
+/* @obsoleto — reemplazado por .cat-modal__header */
+.modal-header,
+.cat-modal__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding-right: 2rem;
+}
+
 .modal-content h2,
+.modal-contenido h2,
 .cat-modal__contenido h2 {
   margin: 0 0 1.5rem 0;
   color: #1f2937;
@@ -694,6 +710,7 @@
 
 /* @obsoleto — reemplazado por .cat-modal__formulario */
 .producto-form,
+.form-producto,
 .cat-modal__formulario {
   margin-top: 1rem;
 }
@@ -760,6 +777,7 @@
 
 /* @obsoleto — reemplazado por .cat-modal__acciones */
 .form-actions,
+.modal-acciones,
 .cat-modal__acciones {
   display: flex;
   gap: 1rem;
@@ -818,6 +836,7 @@
   }
 
   .modal-content,
+  .modal-contenido,
   .cat-modal__contenido {
     padding: 1.5rem;
     margin: 1rem;
@@ -825,6 +844,7 @@
   }
 
   .form-actions,
+  .modal-acciones,
   .cat-modal__acciones {
     flex-direction: column;
   }

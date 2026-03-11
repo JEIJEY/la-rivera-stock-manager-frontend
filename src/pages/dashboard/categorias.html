@@ -53,40 +53,40 @@
 </div>
 
 <!-- MODAL PRODUCTO -->
-<div id="modalProducto" class="modal-producto" style="display: none;" role="dialog" aria-modal="true">
-  <div class="modal-contenido">
-    <div class="modal-header">
+<div id="modalProducto" class="modal-producto cat-modal" style="display: none;" role="dialog" aria-modal="true">
+  <div class="modal-contenido cat-modal__contenido">
+    <div class="modal-header cat-modal__header">
       <h2 id="modalTitulo">🆕 Agregar Producto a <span id="modalCategoriaNombre"></span></h2>
-      <button type="button" class="cerrar-modal" data-action="cerrar-modal">&times;</button>
+      <button type="button" class="cerrar-modal cat-modal__cerrar" data-action="cerrar-modal">&times;</button>
     </div>
 
-    <form id="formProducto" class="form-producto" novalidate>
+    <form id="formProducto" class="form-producto cat-modal__formulario" novalidate>
       <input type="hidden" id="modalCategoriaId">
 
-      <div class="form-row">
-        <div class="form-group">
+      <div class="form-row cat-modal__fila">
+        <div class="form-group cat-modal__grupo">
           <label for="productoNombre">Nombre del Producto *</label>
           <input type="text" id="productoNombre" required placeholder="Ej: Gaseosa Coca-Cola 500ml">
         </div>
-        <div class="form-group">
+        <div class="form-group cat-modal__grupo">
           <label for="productoDescripcion">Descripción</label>
           <textarea id="productoDescripcion" placeholder="Descripción opcional" rows="3"></textarea>
         </div>
       </div>
 
-      <div class="form-row">
-        <div class="form-group">
+      <div class="form-row cat-modal__fila">
+        <div class="form-group cat-modal__grupo">
           <label for="productoPrecio">Precio Unitario *</label>
           <input type="number" id="productoPrecio" step="0.01" min="0" required placeholder="0.00">
         </div>
-        <div class="form-group">
+        <div class="form-group cat-modal__grupo">
           <label for="productoStock">Cantidad / Stock *</label>
           <input type="number" id="productoStock" min="1" value="1" required>
         </div>
       </div>
 
-      <div class="form-row">
-        <div class="form-group">
+      <div class="form-row cat-modal__fila">
+        <div class="form-group cat-modal__grupo">
           <label for="productoUnidad">Unidad de Medida *</label>
           <select id="productoUnidad" required>
             <option value="">Seleccionar...</option>
@@ -97,7 +97,7 @@
             <option value="caja">Caja</option>
           </select>
         </div>
-        <div class="form-group">
+        <div class="form-group cat-modal__grupo">
           <label for="productoMarca">Marca</label>
           <select id="productoMarca">
             <option value="">Sin marca</option>
@@ -105,14 +105,14 @@
         </div>
       </div>
 
-      <div class="form-row">
-        <div class="form-group">
+      <div class="form-row cat-modal__fila">
+        <div class="form-group cat-modal__grupo">
           <label for="productoProveedor">Proveedor</label>
           <select id="productoProveedor">
             <option value="">Sin proveedor</option>
           </select>
         </div>
-        <div class="form-group">
+        <div class="form-group cat-modal__grupo">
           <label for="productoEstado">Estado</label>
           <select id="productoEstado">
             <option value="1">Activo</option>
@@ -121,7 +121,7 @@
         </div>
       </div>
 
-      <div class="modal-acciones">
+      <div class="modal-acciones cat-modal__acciones">
         <button type="button" class="btn" data-action="cerrar-modal">Cancelar</button>
         <button type="submit" class="btn">➕ Agregar Producto</button>
       </div>
