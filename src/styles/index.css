@@ -1,76 +1,91 @@
-    /* === SETTINGS === */
-    @import "./settings/_variables.css";
-    @import "./settings/_themes.css";
-    @import "./settings/_auth-tokens.css";
-    @import "./settings/_lp-tokens.css";
-    @import "./settings/_lp-animations.css";
-    @import "./settings/_db-tokens.css";
+/*
+ * index.css — Punto de entrada CSS
+ * Arquitectura: ITCSS + Atomic Design + BEM (español)
+ *
+ * Capas (orden estricto de cascada):
+ *   1. settings   — tokens, variables, temas
+ *   2. generic    — reset, normalize
+ *   3. base       — tipografía, estilos de elemento
+ *   4. shared     — componentes reutilizables (atoms → molecules → organisms)
+ *   5. components — módulos específicos por contexto (website, auth, dashboard)
+ *   6. utilities  — clases de utilidad, helpers, responsive
+ */
 
-    /* === GENERIC === */
-    @import "./generic/_reset.css";
+/* ─── 1. SETTINGS ──────────────────────────────────────────────────────────── */
+@import "./settings/_variables.css";
+@import "./settings/_themes.css";
+@import "./settings/_auth-tokens.css";
+@import "./settings/_lp-tokens.css";
+@import "./settings/_lp-animations.css";
+@import "./settings/_db-tokens.css";
 
-    /* === BASE === */
-    @import "./base/_typography.css";
-    @import "./base/_base.css";
+/* ─── 2. GENERIC ───────────────────────────────────────────────────────────── */
+@import "./generic/_reset.css";
 
-    /* === SHARED - ATOMS === */
-    @import "./shared/atoms/_inputs.css";
-    @import "./shared/atoms/_labels.css";
-    @import "./shared/atoms/_logout-button.css";
+/* ─── 3. BASE ──────────────────────────────────────────────────────────────── */
+@import "./base/_typography.css";
+@import "./base/_base.css";
 
-    /* === SHARED - MOLECULES === */
-    @import "./shared/molecules/_cards.css";
-    @import "./shared/molecules/_forms.css";
-    @import "./shared/molecules/_navigation.css";
-    @import "./shared/molecules/_list-items.css";
+/* ─── 4. SHARED ────────────────────────────────────────────────────────────── */
+/* atoms */
+@import "./shared/atoms/_inputs.css";
+@import "./shared/atoms/_labels.css";
+@import "./shared/atoms/_logout-button.css";
 
-    /* === SHARED - ORGANISMS === */
-    @import "./shared/organisms/_header.css";
-    @import "./shared/organisms/_redirect-screen.css";
+/* molecules */
+@import "./shared/molecules/_cards.css";
+@import "./shared/molecules/_forms.css";
+@import "./shared/molecules/_navigation.css";
+@import "./shared/molecules/_list-items.css";
 
-    /* === COMPONENTS - WEBSITE === */
-    @import "./components/website/atoms/_lp-glow-orb.css";
-    @import "./components/website/atoms/_lp-buttons.css";
-    @import "./components/website/atoms/_lp-badge.css";
-    @import "./components/website/molecules/_lp-feature-card.css";
-    @import "./components/website/molecules/_lp-product-card.css";
-    @import "./components/website/molecules/_lp-step.css";
-    @import "./components/website/organisms/_lp-header.css";
-    @import "./components/website/organisms/_lp-hero.css";
-    @import "./components/website/organisms/_lp-features.css";
-    @import "./components/website/organisms/_lp-products.css";
-    @import "./components/website/organisms/_lp-sections.css";
-    @import "./components/website/_lp-responsive.css";
+/* organisms */
+@import "./shared/organisms/_header.css";
+@import "./shared/organisms/_redirect-screen.css";
 
-    /* === COMPONENTS - AUTH === */
-    @import "./components/auth/atoms/_auth-input.css";
-    @import "./components/auth/atoms/_auth-logo.css";
-    @import "./components/auth/atoms/_auth-title.css";
-    @import "./components/auth/molecules/_auth-separator.css";
-    @import "./components/auth/molecules/_auth-social.css";
-    @import "./components/auth/molecules/_auth-footer.css";
-    @import "./components/auth/organisms/_auth-page.css";
-    @import "./components/auth/organisms/_auth-card.css";
-    @import "./components/auth/organisms/_auth-form.css";
-    @import "./components/auth/_auth-responsive.css";
+/* ─── 5. COMPONENTS ─────────────────────────────────────────────────────────── */
+/* website */
+@import "./components/website/atoms/_lp-glow-orb.css";
+@import "./components/website/atoms/_lp-buttons.css";
+@import "./components/website/atoms/_lp-badge.css";
+@import "./components/website/molecules/_lp-feature-card.css";
+@import "./components/website/molecules/_lp-product-card.css";
+@import "./components/website/molecules/_lp-step.css";
+@import "./components/website/organisms/_lp-header.css";
+@import "./components/website/organisms/_lp-hero.css";
+@import "./components/website/organisms/_lp-features.css";
+@import "./components/website/organisms/_lp-products.css";
+@import "./components/website/organisms/_lp-sections.css";
+@import "./components/website/_lp-responsive.css";
 
-    /* === COMPONENTS - DASHBOARD === */
-    @import "./components/dashboard/atoms/_db-theme-toggle.css";
-    @import "./components/dashboard/atoms/_db-stats.css";
-    @import "./components/dashboard/molecules/_db-alerts.css";
-    @import "./components/dashboard/molecules/_db-inventory-item.css";
-    @import "./components/dashboard/organisms/_db-layout.css";
-    @import "./components/dashboard/organisms/_db-header.css";
-    @import "./components/dashboard/organisms/_db-sidebar.css";
-    @import "./components/dashboard/organisms/_db-main.css";
-    @import "./components/dashboard/views/_config-view.css";
-    @import "./components/dashboard/views/_inventory-view.css";
-    @import "./components/dashboard/views/_categorias-view.css";
-    @import "./components/dashboard/views/_productos-view.css";
-    @import "./components/dashboard/views/_modal-view.css";
-    @import "./components/dashboard/_db-responsive.css";
+/* auth */
+@import "./components/auth/atoms/_auth-input.css";
+@import "./components/auth/atoms/_auth-logo.css";
+@import "./components/auth/atoms/_auth-title.css";
+@import "./components/auth/molecules/_auth-separator.css";
+@import "./components/auth/molecules/_auth-social.css";
+@import "./components/auth/molecules/_auth-footer.css";
+@import "./components/auth/organisms/_auth-page.css";
+@import "./components/auth/organisms/_auth-card.css";
+@import "./components/auth/organisms/_auth-form.css";
+@import "./components/auth/_auth-responsive.css";
 
-    /* === UTILITIES === */
-    @import "./utilities/_spacing.css";
-    @import "./utilities/_responsive.css";
-    @import "./utilities/_loader.css";
+/* dashboard */
+@import "./components/dashboard/atoms/_db-theme-toggle.css";
+@import "./components/dashboard/atoms/_db-stats.css";
+@import "./components/dashboard/molecules/_db-alerts.css";
+@import "./components/dashboard/molecules/_db-inventory-item.css";
+@import "./components/dashboard/organisms/_db-layout.css";
+@import "./components/dashboard/organisms/_db-header.css";
+@import "./components/dashboard/organisms/_db-sidebar.css";
+@import "./components/dashboard/organisms/_db-main.css";
+@import "./components/dashboard/views/_config-view.css";
+@import "./components/dashboard/views/_inventory-view.css";
+@import "./components/dashboard/views/_categorias-view.css";
+@import "./components/dashboard/views/_productos-view.css";
+@import "./components/dashboard/views/_modal-view.css";
+@import "./components/dashboard/_db-responsive.css";
+
+/* ─── 6. UTILITIES ──────────────────────────────────────────────────────────── */
+@import "./utilities/_spacing.css";
+@import "./utilities/_responsive.css";
+@import "./utilities/_loader.css";
