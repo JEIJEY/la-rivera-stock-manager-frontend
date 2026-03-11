@@ -1,41 +1,51 @@
 /* ======================================================
-   🔤 ESCALA TIPOGRÁFICA LOCAL (solo dentro del dashboard)
-   Basada en referencia visual: h1=20px → h5=10px
+   📊 VISTA INVENTARIO — BEM: inv-*
+   @obsoleto: invp-*
 ====================================================== */
-.invp-dashboard-grid h1 {
+
+/* ── Escala tipográfica local ────────────────────────── */
+/* @obsoleto — reemplazado por .inv-view */
+.invp-dashboard-grid h1,
+.inv-view h1 {
   font-size: 20px;
   font-weight: 600;
   margin-bottom: 0.5rem;
 }
 
-.invp-dashboard-grid h2 {
+.invp-dashboard-grid h2,
+.inv-view h2 {
   font-size: 16px;
   font-weight: 600;
   margin-bottom: 0.4rem;
 }
 
-.invp-dashboard-grid h3 {
+.invp-dashboard-grid h3,
+.inv-view h3 {
   font-size: 14px;
   font-weight: 500;
   margin-bottom: 0.3rem;
 }
 
-.invp-dashboard-grid h4 {
+.invp-dashboard-grid h4,
+.inv-view h4 {
   font-size: 12px;
   font-weight: 500;
   margin-bottom: 0.3rem;
 }
 
-/* Para mantener consistencia con los párrafos del dashboard */
-.invp-dashboard-grid p {
+.invp-dashboard-grid p,
+.inv-view p {
   font-size: 12px;
   line-height: 1.5;
   color: #444;
   margin: 0.2rem 0;
 }
 
+/* ── Grid raíz ──────────────────────────────────────── */
 
-.invp-dashboard-grid {
+/* @obsoleto — reemplazado por .inv-view */
+.invp-dashboard-grid,
+.inv-view {
   display: grid;
   grid-template-columns: 1.2fr 1fr;
   grid-template-rows: auto;
@@ -49,31 +59,34 @@
   padding: 2rem 2.5rem;
 }
 
-/* En pantallas medianas: reducir padding */
 @media (max-width: 1400px) {
-  .invp-dashboard-grid {
+  .invp-dashboard-grid,
+  .inv-view {
     padding: 1.5rem;
     gap: 1.5rem;
   }
 }
 
-/* En pantallas pequeñas: 1 columna */
 @media (max-width: 900px) {
-  .invp-dashboard-grid {
+  .invp-dashboard-grid,
+  .inv-view {
     grid-template-columns: 1fr;
   }
 }
 
-/* ======================================================
-   📊 BLOQUE ABC
-====================================================== */
-.invp-abc-block {
+/* ── Bloque ABC ─────────────────────────────────────── */
+
+/* @obsoleto — reemplazado por .inv-abc */
+.invp-abc-block,
+.inv-abc {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
 }
 
-.invp-abc-block__header {
+/* @obsoleto — reemplazado por .inv-abc__header */
+.invp-abc-block__header,
+.inv-abc__header {
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -81,19 +94,25 @@
   padding-bottom: 0.5rem;
 }
 
-.invp-abc-block__title {
+/* @obsoleto — reemplazado por .inv-abc__title */
+.invp-abc-block__title,
+.inv-abc__titulo {
   font-size: 1.3rem;
   font-weight: 600;
 }
 
-.invp-abc-block__cards {
+/* @obsoleto — reemplazado por .inv-abc__cards */
+.invp-abc-block__cards,
+.inv-abc__tarjetas {
   display: flex;
   gap: 1rem;
   flex-wrap: wrap;
   justify-content: space-between;
 }
 
-.invp-abc-card {
+/* @obsoleto — reemplazado por .inv-abc__card */
+.invp-abc-card,
+.inv-abc__card {
   flex: 1;
   min-width: 120px;
   border-radius: 14px;
@@ -104,30 +123,41 @@
   transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
-.invp-abc-card:hover {
+.invp-abc-card:hover,
+.inv-abc__card:hover {
   transform: translateY(-3px);
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
 }
 
-/* Degradados */
-.invp-abc-card--A {
+/* @obsoleto — reemplazado por .inv-abc__card--a */
+.invp-abc-card--A,
+.inv-abc__card--a {
   background: linear-gradient(135deg, #22c55e, #16a34a);
 }
-.invp-abc-card--B {
+
+/* @obsoleto — reemplazado por .inv-abc__card--b */
+.invp-abc-card--B,
+.inv-abc__card--b {
   background: linear-gradient(135deg, #f97316, #ea580c);
 }
-.invp-abc-card--C {
+
+/* @obsoleto — reemplazado por .inv-abc__card--c */
+.invp-abc-card--C,
+.inv-abc__card--c {
   background: linear-gradient(135deg, #3b82f6, #1d4ed8);
 }
 
-/* Tarjetas secundarias */
-.invp-abc-block__extras {
+/* @obsoleto — reemplazado por .inv-abc__extras */
+.invp-abc-block__extras,
+.inv-abc__extras {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 1rem;
 }
 
-.invp-card {
+/* @obsoleto — reemplazado por .inv-extra-card */
+.invp-card,
+.inv-extra-card {
   background: #fff;
   border-radius: 14px;
   padding: 1.25rem;
@@ -135,40 +165,50 @@
   transition: all 0.2s ease;
 }
 
-.invp-card:hover {
+.invp-card:hover,
+.inv-extra-card:hover {
   transform: translateY(-3px);
   box-shadow: 0 8px 14px rgba(0, 0, 0, 0.1);
 }
 
-.invp-card__icon {
+/* @obsoleto — reemplazado por .inv-extra-card__icono */
+.invp-card__icon,
+.inv-extra-card__icono {
   font-size: 1.6rem;
   margin-bottom: 0.4rem;
   color: #2563eb;
 }
 
-/* ======================================================
-   🎯 BLOQUE DE ACCIONES INTELIGENTES
-====================================================== */
-.invp-dashboard__header h2 {
+/* ── Bloque acciones inteligentes ───────────────────── */
+
+/* @obsoleto — reemplazado por .inv-acciones__header h2 */
+.invp-dashboard__header h2,
+.inv-acciones__header h2 {
   font-size: 1.4rem;
   font-weight: 600;
   margin: 0;
 }
 
-.invp-dashboard__desc {
+/* @obsoleto — reemplazado por .inv-acciones__desc */
+.invp-dashboard__desc,
+.inv-acciones__desc {
   font-size: 0.95rem;
   color: #555;
   margin-top: 0.3rem;
   margin-bottom: 1.5rem;
 }
 
-.invp-actions-grid {
+/* @obsoleto — reemplazado por .inv-acciones__grid */
+.invp-actions-grid,
+.inv-acciones__grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 1.5rem;
 }
 
-.invp-action-card {
+/* @obsoleto — reemplazado por .inv-tarjeta-accion */
+.invp-action-card,
+.inv-tarjeta-accion {
   background: #fff;
   border-radius: 16px;
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
@@ -176,24 +216,33 @@
   transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
-.invp-action-card:hover {
+.invp-action-card:hover,
+.inv-tarjeta-accion:hover {
   transform: translateY(-3px);
   box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
 }
 
-/* Variantes */
-.invp-action-card--urgent {
+/* @obsoleto — reemplazado por .inv-tarjeta-accion--urgente */
+.invp-action-card--urgent,
+.inv-tarjeta-accion--urgente {
   border-left: 4px solid #dc2626;
 }
-.invp-action-card--info {
+
+/* @obsoleto — reemplazado por .inv-tarjeta-accion--info */
+.invp-action-card--info,
+.inv-tarjeta-accion--info {
   border-left: 4px solid #2563eb;
 }
-.invp-action-card--warning {
+
+/* @obsoleto — reemplazado por .inv-tarjeta-accion--advertencia */
+.invp-action-card--warning,
+.inv-tarjeta-accion--advertencia {
   border-left: 4px solid #d97706;
 }
 
-/* Botón */
-.invp-action-button {
+/* @obsoleto — reemplazado por .inv-boton-accion */
+.invp-action-button,
+.inv-boton-accion {
   border: 1px solid currentColor;
   border-radius: 8px;
   background: transparent;
@@ -202,15 +251,18 @@
   cursor: pointer;
   transition: all 0.25s ease;
 }
-.invp-action-button:hover {
+
+.invp-action-button:hover,
+.inv-boton-accion:hover {
   background: currentColor;
   color: white;
 }
 
-/* ======================================================
-   ⚠️ BLOQUE ALERTA CRÍTICA
-====================================================== */
-.invp-alert-block {
+/* ── Alerta crítica ──────────────────────────────────── */
+
+/* @obsoleto — reemplazado por .inv-alerta */
+.invp-alert-block,
+.inv-alerta {
   display: flex;
   gap: 1.2rem;
   background: #fff4f4;
@@ -221,11 +273,15 @@
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
 }
 
-.invp-alert-block__icon {
+/* @obsoleto — reemplazado por .inv-alerta__icono */
+.invp-alert-block__icon,
+.inv-alerta__icono {
   font-size: 1.8rem;
 }
 
-.invp-alert-block__action {
+/* @obsoleto — reemplazado por .inv-alerta__accion */
+.invp-alert-block__action,
+.inv-alerta__accion {
   background: #dc2626;
   color: white;
   border: none;
@@ -235,16 +291,18 @@
   cursor: pointer;
   transition: background 0.2s ease;
 }
-.invp-alert-block__action:hover {
+
+.invp-alert-block__action:hover,
+.inv-alerta__accion:hover {
   background: #b91c1c;
 }
 
-/* =========================================================
-🎨 ESTILOS DEL MÓDULO DE INVENTARIO
-Mantiene la coherencia con el dashboard La Rivera
-========================================================= */
+/* ======================================================
+   📋 VISTA PRODUCTOS (tabla) — BEM: prod-tabla-*
+   @obsoleto: inventario, inventario__*
+====================================================== */
 
-/* 🧱 Contenedor principal del inventario */
+/* @obsoleto — reemplazado por .prod-tabla */
 .inventario {
   padding: 20px;
   background-color: #ffffff;
@@ -253,7 +311,7 @@ Mantiene la coherencia con el dashboard La Rivera
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-/* 🧭 Cabecera del inventario */
+/* @obsoleto — reemplazado por .prod-tabla__header */
 .inventario__header {
   display: flex;
   justify-content: space-between;
@@ -275,7 +333,7 @@ Mantiene la coherencia con el dashboard La Rivera
   height: 32px;
 }
 
-/* 📋 Tabla principal */
+/* @obsoleto — reemplazado por .prod-tabla__tabla */
 .inventario__tabla {
   width: 100%;
   border-collapse: collapse;
@@ -285,7 +343,6 @@ Mantiene la coherencia con el dashboard La Rivera
   font-size: 0.95rem;
 }
 
-/* Encabezados */
 .inventario__tabla th {
   background-color: #0ea5e9;
   color: white;
@@ -296,7 +353,6 @@ Mantiene la coherencia con el dashboard La Rivera
   white-space: nowrap;
 }
 
-/* Celdas */
 .inventario__tabla td {
   padding: 12px 16px;
   border-bottom: 1px solid #e2e2e2;
@@ -304,34 +360,23 @@ Mantiene la coherencia con el dashboard La Rivera
   vertical-align: middle;
 }
 
-/* Filas alternadas */
 .inventario__tabla tr:nth-child(even) {
   background-color: #f8fafc;
 }
 
-/* Hover fila */
 .inventario__tabla tr:hover {
   background-color: #eaf6ff;
   transition: 0.3s ease;
 }
 
-/* 📊 Columnas numéricas alineadas */
 .inventario__tabla td:nth-child(1),
 .inventario__tabla td:nth-child(4),
 .inventario__tabla td:nth-child(6) {
   text-align: center;
 }
 
-/* 🟢 Estado activo/inactivo */
-
-/* 📅 Fechas */
 .inventario__tabla td:nth-last-child(-n+2) {
   text-align: center;
   font-size: 0.9rem;
   color: #475569;
 }
-
-
-
-
-

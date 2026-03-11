@@ -1,16 +1,16 @@
-<main class="invp-dashboard-grid">
+<main class="invp-dashboard-grid inv-view">
   <!-- ABC BLOCK -->
-  <section class="invp-abc-block">
-    <header class="invp-abc-block__header">
+  <section class="invp-abc-block inv-abc">
+    <header class="invp-abc-block__header inv-abc__header">
       <span class="invp-abc-block__icon">📊</span>
-      <h2 class="invp-abc-block__title">Análisis de Inventario</h2>
+      <h2 class="invp-abc-block__title inv-abc__titulo">Análisis de Inventario</h2>
       <button class="invp-abc-block__refresh" id="btnRecalcularABC">
         🔄 Actualizar ABC
       </button>
     </header>
 
-    <div class="invp-abc-block__cards">
-      <div class="invp-abc-card invp-abc-card--A" id="cardA">
+    <div class="invp-abc-block__cards inv-abc__tarjetas">
+      <div class="invp-abc-card invp-abc-card--A inv-abc__card inv-abc__card--a" id="cardA">
         <div class="invp-abc-card__icon">🅰️</div>
         <p class="invp-abc-card__label">Productos Clase A</p>
         <h3 class="invp-abc-card__value" id="count-A">0</h3>
@@ -18,7 +18,7 @@
         <div class="invp-abc-card__bar"><div class="fill" style="width: 0%"></div></div>
       </div>
 
-      <div class="invp-abc-card invp-abc-card--B" id="cardB">
+      <div class="invp-abc-card invp-abc-card--B inv-abc__card inv-abc__card--b" id="cardB">
         <div class="invp-abc-card__icon">🅱️</div>
         <p class="invp-abc-card__label">Productos Clase B</p>
         <h3 class="invp-abc-card__value" id="count-B">0</h3>
@@ -26,7 +26,7 @@
         <div class="invp-abc-card__bar"><div class="fill" style="width: 0%"></div></div>
       </div>
 
-      <div class="invp-abc-card invp-abc-card--C" id="cardC">
+      <div class="invp-abc-card invp-abc-card--C inv-abc__card inv-abc__card--c" id="cardC">
         <div class="invp-abc-card__icon">🅲</div>
         <p class="invp-abc-card__label">Productos Clase C</p>
         <h3 class="invp-abc-card__value" id="count-C">0</h3>
@@ -35,14 +35,14 @@
       </div>
     </div>
 
-    <div class="invp-abc-block__extras">
-      <div class="invp-card invp-card--small">
-        <div class="invp-card__icon">📈</div>
+    <div class="invp-abc-block__extras inv-abc__extras">
+      <div class="invp-card invp-card--small inv-extra-card">
+        <div class="invp-card__icon inv-extra-card__icono">📈</div>
         <h3 class="invp-card__title">Tendencias</h3>
         <p class="invp-card__text">Monitoreo de cambios recientes.</p>
       </div>
-      <div class="invp-card invp-card--small">
-        <div class="invp-card__icon">⚙️</div>
+      <div class="invp-card invp-card--small inv-extra-card">
+        <div class="invp-card__icon inv-extra-card__icono">⚙️</div>
         <h3 class="invp-card__title">Configuración rápida</h3>
         <p class="invp-card__text">Acceso directo a ajustes ABC.</p>
       </div>
@@ -50,18 +50,18 @@
   </section>
 
   <!-- ACCIONES INTELIGENTES -->
-  <section class="invp-dashboard">
-    <header class="invp-dashboard__header">
+  <section class="invp-dashboard inv-acciones">
+    <header class="invp-dashboard__header inv-acciones__header">
       <h2>Acciones Inteligentes</h2>
-      <p class="invp-dashboard__desc">
+      <p class="invp-dashboard__desc inv-acciones__desc">
         Detecta oportunidades, previene quiebres y optimiza tu inventario.
       </p>
     </header>
 
     <div class="alertas-dashboard"></div>
 
-    <div class="invp-actions-grid">
-      <div class="invp-action-card invp-action-card--urgent alert-card">
+    <div class="invp-actions-grid inv-acciones__grid">
+      <div class="invp-action-card invp-action-card--urgent inv-tarjeta-accion inv-tarjeta-accion--urgente alert-card">
         <div class="invp-action-card__header">
           <span class="invp-action-card__icon">🚨</span>
           <h4>Acciones Urgentes</h4>
@@ -72,7 +72,7 @@
         </div>
       </div>
 
-      <div class="invp-action-card invp-action-card--info">
+      <div class="invp-action-card invp-action-card--info inv-tarjeta-accion inv-tarjeta-accion--info">
         <div class="invp-action-card__header">
           <span class="invp-action-card__icon">🛒</span>
           <h4>Lista de Compra</h4>
@@ -83,7 +83,7 @@
         </div>
       </div>
 
-      <div class="invp-action-card invp-action-card--warning">
+      <div class="invp-action-card invp-action-card--warning inv-tarjeta-accion inv-tarjeta-accion--advertencia">
         <div class="invp-action-card__header">
           <span class="invp-action-card__icon">💰</span>
           <h4>Capital Optimizable</h4>
@@ -95,8 +95,8 @@
       </div>
     </div>
 
-    <div class="invp-alert-block invp-alert-block--critical">
-      <div class="invp-alert-block__icon">⚠️</div>
+    <div class="invp-alert-block invp-alert-block--critical inv-alerta">
+      <div class="invp-alert-block__icon inv-alerta__icono">⚠️</div>
       <div class="invp-alert-block__content">
         <h4>Stock Crítico en Productos Clave</h4>
         <p><strong>Aceite Premier:</strong> Solo 5 unidades (se acaba en 2 días)</p>
