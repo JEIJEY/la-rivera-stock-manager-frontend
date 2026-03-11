@@ -17,30 +17,16 @@
     @import "./shared/atoms/_inputs.css";
     @import "./shared/atoms/_labels.css";
     @import "./shared/atoms/_logout-button.css";
-    @import "./shared/atoms/_stats.css";
 
     /* === SHARED - MOLECULES === */
     @import "./shared/molecules/_cards.css";
     @import "./shared/molecules/_forms.css";
     @import "./shared/molecules/_navigation.css";
     @import "./shared/molecules/_list-items.css";
-    @import "./shared/molecules/_inventory-item.css";
 
     /* === SHARED - ORGANISMS === */
     @import "./shared/organisms/_header.css";
-    @import "./shared/organisms/_products-grid.css";
     @import "./shared/organisms/_redirect-screen.css";
-    @import "./shared/organisms/_dashboard.css";
-    @import "./shared/organisms/_dashboard-sidebar.css";
-    @import "./shared/organisms/_dashboard-header.css";
-    @import "./shared/organisms/_dashboard-main.css";
-    @import "./shared/organisms/_inventario.css";
-    @import "./shared/organisms/_categorias.css";
-    @import "./shared/organisms/inventario_dashboard.css";
-    @import "./shared/organisms/_modal-producto.css";
-    @import "./shared/organisms/_alerts.css";
-
-    /* === LAYOUTS === */
 
     /* === COMPONENTS - WEBSITE === */
     @import "./components/website/atoms/_lp-glow-orb.css";
@@ -68,9 +54,21 @@
     @import "./components/auth/organisms/_auth-form.css";
     @import "./components/auth/_auth-responsive.css";
 
-    /* === DASHBOARD === */
-    @import "./dashboard/atoms/_db-theme-toggle.css";
-    @import "./dashboard/views/_config-view.css";
+    /* === COMPONENTS - DASHBOARD === */
+    @import "./components/dashboard/atoms/_db-theme-toggle.css";
+    @import "./components/dashboard/atoms/_db-stats.css";
+    @import "./components/dashboard/molecules/_db-alerts.css";
+    @import "./components/dashboard/molecules/_db-inventory-item.css";
+    @import "./components/dashboard/organisms/_db-layout.css";
+    @import "./components/dashboard/organisms/_db-header.css";
+    @import "./components/dashboard/organisms/_db-sidebar.css";
+    @import "./components/dashboard/organisms/_db-main.css";
+    @import "./components/dashboard/views/_config-view.css";
+    @import "./components/dashboard/views/_inventory-view.css";
+    @import "./components/dashboard/views/_categorias-view.css";
+    @import "./components/dashboard/views/_productos-view.css";
+    @import "./components/dashboard/views/_modal-view.css";
+    @import "./components/dashboard/_db-responsive.css";
 
     /* === UTILITIES === */
     @import "./utilities/_spacing.css";
