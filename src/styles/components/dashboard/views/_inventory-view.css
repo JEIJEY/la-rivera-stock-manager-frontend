@@ -393,3 +393,38 @@
   font-size: 0.9rem;
   color: #475569;
 }
+
+/* ── Botones de acción de la cabecera ───────────────── */
+.inventario__acciones .btn-success,
+.prod-tabla__acciones .btn-success {
+  background-color: #16a34a;
+  color: #ffffff;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.inventario__acciones .btn-success:hover,
+.prod-tabla__acciones .btn-success:hover {
+  background-color: #15803d;
+}
+
+.inventario__acciones .btn-primary,
+.prod-tabla__acciones .btn-primary {
+  background-color: #2563eb;
+  color: #ffffff;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.inventario__acciones .btn-primary:hover,
+.prod-tabla__acciones .btn-primary:hover {
+  background-color: #1d4ed8;
+}
