@@ -1,3 +1,5 @@
+|-- [.claude]
+    |-- launch.json
 |-- [docs]
     |-- css_refactor.md
     |-- ESTRUCTURA.MD
@@ -80,6 +82,7 @@
                 |-- logout-button.js
             |-- [utils]
                 |-- debugGrid.js
+            |-- theme.js
     |-- [pages]
         |-- [dashboard]
             |-- categorias.html
@@ -93,12 +96,32 @@
         |-- dashboard-layout.html
     |-- [styles]
         |-- [auth]
+            |-- [atoms]
+                |-- _auth-input.css
+                |-- _auth-logo.css
+                |-- _auth-title.css
+            |-- [molecules]
+                |-- _auth-footer.css
+                |-- _auth-separator.css
+                |-- _auth-social.css
+            |-- [organisms]
+                |-- _auth-card.css
+                |-- _auth-form.css
+                |-- _auth-page.css
+            |-- [tokens]
+                |-- _auth-tokens.css
+            |-- _auth-responsive.css
         |-- [base]
             |-- _base.css
             |-- _reset.css
+            |-- _themes.css
             |-- _typography.css
             |-- _variables.css
         |-- [dashboard]
+            |-- [atoms]
+                |-- _db-theme-toggle.css
+            |-- [views]
+                |-- _config-view.css
         |-- [layouts]
         |-- [shared]
             |-- [atoms]
@@ -161,6 +184,8 @@
 |-- .gitignore
 |-- estructura.txt
 |-- index.html
+|-- mockup-auth.html
+|-- mockup-themes.html
 |-- package-lock.json
 |-- package.json
 |-- PROYECTO.HTML

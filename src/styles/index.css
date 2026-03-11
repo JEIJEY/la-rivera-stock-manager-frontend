@@ -1,11 +1,15 @@
+    /* === SETTINGS === */
+    @import "./settings/_variables.css";
+    @import "./settings/_themes.css";
+    @import "./settings/_auth-tokens.css";
+    @import "./settings/_lp-tokens.css";
+    @import "./settings/_lp-animations.css";
+    @import "./settings/_db-tokens.css";
+
     /* === BASE === */
     @import "./base/_reset.css";
-    @import "./base/_variables.css";
     @import "./base/_typography.css";
-    @import "./base/_themes.css";
     @import "./base/_base.css";
-
-    /* === TOKENS === */
 
     /* === SHARED - ATOMS === */
     @import "./shared/atoms/_inputs.css";
@@ -37,8 +41,6 @@
     /* === LAYOUTS === */
 
     /* === WEBSITE === */
-    @import "./website/tokens/_lp-tokens.css";
-    @import "./website/tokens/_lp-animations.css";
     @import "./website/atoms/_lp-glow-orb.css";
     @import "./website/atoms/_lp-buttons.css";
     @import "./website/atoms/_lp-badge.css";
@@ -53,7 +55,6 @@
     @import "./website/_lp-responsive.css";
 
     /* === AUTH === */
-    @import "./auth/tokens/_auth-tokens.css";
     @import "./auth/atoms/_auth-input.css";
     @import "./auth/atoms/_auth-logo.css";
     @import "./auth/atoms/_auth-title.css";
