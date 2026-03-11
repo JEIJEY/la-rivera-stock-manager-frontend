@@ -6,8 +6,10 @@
     @import "./settings/_lp-animations.css";
     @import "./settings/_db-tokens.css";
 
+    /* === GENERIC === */
+    @import "./generic/_reset.css";
+
     /* === BASE === */
-    @import "./base/_reset.css";
     @import "./base/_typography.css";
     @import "./base/_base.css";
 
