@@ -5,25 +5,25 @@ export const categoriasView = {
     container.innerHTML = "";
 
     if (!categorias?.length) {
-      container.innerHTML = '<li class="no-items">No hay categorías registradas</li>';
+      container.innerHTML = '<li class="no-items cat-vacio">No hay categorías registradas</li>';
       return;
     }
 
     categorias.forEach((cat) => {
       const li = document.createElement("li");
-      li.className = "categoria-card";
+      li.className = "categoria-card cat-tarjeta";
       li.dataset.id = cat.id_categoria;
       li.innerHTML = `
-        <div class="card" data-action="detalle" data-id="${cat.id_categoria}" data-nombre="${_safe(cat.nombre)}">
-          <div class="card-header">
+        <div class="card cat-tarjeta__card" data-action="detalle" data-id="${cat.id_categoria}" data-nombre="${_safe(cat.nombre)}">
+          <div class="card-header cat-tarjeta__header">
             <h3>${cat.nombre}</h3>
-            <span class="badge">${cat.parent_id ? "Subcategoría" : "Categoría"}</span>
+            <span class="badge cat-distintivo">${cat.parent_id ? "Subcategoría" : "Categoría"}</span>
           </div>
-          <p class="card-desc">${cat.descripcion?.trim() || "Sin descripción"}</p>
-          <div class="card-actions">
-            <button class="btn-small" data-action="subcategoria" data-id="${cat.id_categoria}" data-nombre="${_safe(cat.nombre)}">➕ Sub</button>
-            <button class="btn-small btn-edit" data-action="editar" data-id="${cat.id_categoria}" data-nombre="${_safe(cat.nombre)}" data-desc="${_safe(cat.descripcion || "")}">✏️</button>
-            <button class="btn-small btn-delete" data-action="eliminar" data-id="${cat.id_categoria}">🗑️</button>
+          <p class="card-desc cat-tarjeta__desc">${cat.descripcion?.trim() || "Sin descripción"}</p>
+          <div class="card-actions cat-tarjeta__acciones">
+            <button class="btn-small cat-btn" data-action="subcategoria" data-id="${cat.id_categoria}" data-nombre="${_safe(cat.nombre)}">➕ Sub</button>
+            <button class="btn-small btn-edit cat-btn cat-btn--editar" data-action="editar" data-id="${cat.id_categoria}" data-nombre="${_safe(cat.nombre)}" data-desc="${_safe(cat.descripcion || "")}">✏️</button>
+            <button class="btn-small btn-delete cat-btn cat-btn--eliminar" data-action="eliminar" data-id="${cat.id_categoria}">🗑️</button>
           </div>
         </div>
       `;
@@ -47,11 +47,11 @@ export const categoriasView = {
     if (!container) return;
     container.innerHTML = subcategorias.length
       ? subcategorias.map((s) => `
-          <div class="categoria-card small" data-action="detalle" data-id="${s.id_categoria}" data-nombre="${_safe(s.nombre)}">
+          <div class="categoria-card cat-tarjeta small" data-action="detalle" data-id="${s.id_categoria}" data-nombre="${_safe(s.nombre)}">
             <h4>${s.nombre}</h4>
             <p>${s.descripcion || "Sin descripción"}</p>
           </div>`).join("")
-      : '<p class="no-items">No hay subcategorías</p>';
+      : '<p class="no-items cat-vacio">No hay subcategorías</p>';
   },
 
   renderProductos(productos) {
@@ -64,16 +64,16 @@ export const categoriasView = {
             maximumFractionDigits: 2,
           });
           return `
-            <div class="producto-card">
-              <div class="card">
+            <div class="producto-card cat-producto">
+              <div class="card cat-tarjeta__card">
                 <img src="${p.imagen || "/src/assets/images/default-product.png"}" alt="${p.nombre}">
                 <h4>${p.nombre}</h4>
-                <p class="precio">$${precio}</p>
-                <p class="stock">Stock: ${p.stock || 0}</p>
+                <p class="precio cat-producto__precio">$${precio}</p>
+                <p class="stock cat-producto__stock">Stock: ${p.stock || 0}</p>
               </div>
             </div>`;
         }).join("")
-      : '<p class="no-items">No hay productos en esta categoría</p>';
+      : '<p class="no-items cat-vacio">No hay productos en esta categoría</p>';
   },
 
   mostrarVista(vista) {

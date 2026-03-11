@@ -2,7 +2,7 @@
 
   <!-- VISTA RAÍZ -->
   <div id="vistaRaiz" class="vista-raiz">
-    <form id="formCategoria" class="categoria-form">
+    <form id="formCategoria" class="categoria-form cat-formulario">
       <label for="nombre" class="label">Nombre</label>
       <input type="text" id="nombre" class="input" placeholder="Nombre de la categoría" required />
       <label for="descripcion" class="label">Descripción</label>
@@ -12,41 +12,41 @@
 
     <div class="categorias-container">
       <h2>Categorías</h2>
-      <ul id="listaCategorias" class="grid-categorias"></ul>
+      <ul id="listaCategorias" class="grid-categorias cat-grid"></ul>
     </div>
   </div>
 
   <!-- VISTA DETALLE -->
-  <div id="vistaDetalle" class="vista-detalle" style="display: none;">
-    <header class="detalle-header">
+  <div id="vistaDetalle" class="vista-detalle cat-detalle" style="display: none;">
+    <header class="detalle-header cat-detalle__header">
       <button class="btn" data-action="volver">⬅ Volver a la lista</button>
       <h2 id="detalleTitulo">Detalle de Categoría</h2>
     </header>
 
-    <div class="detalle-content">
-      <div class="detalle-info">
+    <div class="detalle-content cat-detalle__contenido">
+      <div class="detalle-info cat-detalle__info">
         <h3 id="detalleNombre"></h3>
         <p id="detalleDescripcion"></p>
-        <div class="detalle-stats">
-          <span class="stat">Subcategorías: <strong id="detalleSubcount">0</strong></span>
-          <span class="stat">Productos: <strong id="detalleProductos">0</strong></span>
+        <div class="detalle-stats cat-detalle__stats">
+          <span class="stat cat-estadistica">Subcategorías: <strong id="detalleSubcount">0</strong></span>
+          <span class="stat cat-estadistica">Productos: <strong id="detalleProductos">0</strong></span>
         </div>
       </div>
 
-      <div class="seccion-subcategorias">
-        <div class="seccion-header">
+      <div class="seccion-subcategorias cat-seccion">
+        <div class="seccion-header cat-seccion__header">
           <h4>Subcategorías</h4>
           <button class="btn" data-action="nueva-subcategoria">➕ Nueva Subcategoría</button>
         </div>
-        <div id="listaSubcategorias" class="grid-categorias"></div>
+        <div id="listaSubcategorias" class="grid-categorias cat-grid"></div>
       </div>
 
-      <div class="seccion-productos">
-        <div class="seccion-header">
+      <div class="seccion-productos cat-seccion">
+        <div class="seccion-header cat-seccion__header">
           <h4>Productos en esta categoría</h4>
           <button class="btn" data-action="agregar-producto">➕ Agregar Producto</button>
         </div>
-        <div id="listaProductos" class="grid-productos"></div>
+        <div id="listaProductos" class="grid-productos cat-grid-productos"></div>
       </div>
     </div>
   </div>
