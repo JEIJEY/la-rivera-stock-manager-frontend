@@ -100,33 +100,21 @@
   transform: translateY(-1px);
 }
 
-/* ── Variantes BEM (usadas en modal y auth) ───────── */
-.btn--primary {
-  background-color: #2563eb;
-  color: #ffffff;
-}
+/* ── Variantes BEM — colores definidos en _lp-buttons.css ────
+   Aquí solo se agregan efectos hover/focus que faltaban        */
 .btn--primary:hover:not(:disabled) {
-  background-color: #1d4ed8;
-  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4);
+  filter: brightness(1.1);
+  box-shadow: 0 4px 14px rgba(0, 217, 139, 0.45);
   transform: translateY(-1px);
 }
 
-.btn--secondary {
-  background-color: #64748b;
-  color: #ffffff;
-}
 .btn--secondary:hover:not(:disabled) {
-  background-color: #475569;
-  box-shadow: 0 4px 10px rgba(100, 116, 139, 0.3);
+  filter: brightness(1.1);
   transform: translateY(-1px);
 }
 
-.btn--danger {
-  background-color: #dc2626;
-  color: #ffffff;
-}
 .btn--danger:hover:not(:disabled) {
-  background-color: #b91c1c;
+  filter: brightness(1.1);
   box-shadow: 0 4px 12px rgba(220, 38, 38, 0.35);
   transform: translateY(-1px);
 }
