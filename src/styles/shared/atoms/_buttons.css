@@ -34,7 +34,7 @@
 }
 
 .btn:focus-visible {
-  outline: 2px solid #2563eb;
+  outline: 2px solid #16a34a;
   outline-offset: 3px;
 }
 
@@ -102,6 +102,11 @@
 
 /* ── Variantes BEM — colores definidos en _lp-buttons.css ────
    Aquí solo se agregan efectos hover/focus que faltaban        */
+.btn--secondary {
+  background-color: #e2e8f0;
+  color: #334155;
+}
+
 .btn--primary:hover:not(:disabled) {
   filter: brightness(1.1);
   box-shadow: 0 4px 14px rgba(0, 217, 139, 0.45);
