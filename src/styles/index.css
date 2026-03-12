@@ -28,6 +28,7 @@
 
 /* ─── 4. SHARED ────────────────────────────────────────────────────────────── */
 /* atoms */
+@import "./shared/atoms/_buttons.css";
 @import "./shared/atoms/_inputs.css";
 @import "./shared/atoms/_labels.css";
 @import "./shared/atoms/_logout-button.css";

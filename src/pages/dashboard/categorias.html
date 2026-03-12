@@ -7,7 +7,7 @@
       <input type="text" id="nombre" class="input" placeholder="Nombre de la categoría" required />
       <label for="descripcion" class="label">Descripción</label>
       <input type="text" id="descripcion" class="input" placeholder="Descripción (opcional)" />
-      <button type="submit" class="btn">Agregar Categoría</button>
+      <button type="submit" class="btn btn-success">Agregar Categoría</button>
     </form>
 
     <div class="categorias-container">
@@ -19,7 +19,7 @@
   <!-- VISTA DETALLE -->
   <div id="vistaDetalle" class="vista-detalle cat-detalle" style="display: none;">
     <header class="detalle-header cat-detalle__header">
-      <button class="btn" data-action="volver">⬅ Volver a la lista</button>
+      <button class="btn btn-secondary" data-action="volver">⬅ Volver a la lista</button>
       <h2 id="detalleTitulo">Detalle de Categoría</h2>
     </header>
 
@@ -36,7 +36,7 @@
       <div class="seccion-subcategorias cat-seccion">
         <div class="seccion-header cat-seccion__header">
           <h4>Subcategorías</h4>
-          <button class="btn" data-action="nueva-subcategoria">➕ Nueva Subcategoría</button>
+          <button class="btn btn-success btn--sm" data-action="nueva-subcategoria">➕ Nueva Subcategoría</button>
         </div>
         <div id="listaSubcategorias" class="grid-categorias cat-grid"></div>
       </div>
@@ -44,7 +44,7 @@
       <div class="seccion-productos cat-seccion">
         <div class="seccion-header cat-seccion__header">
           <h4>Productos en esta categoría</h4>
-          <button class="btn" data-action="agregar-producto">➕ Agregar Producto</button>
+          <button class="btn btn-success btn--sm" data-action="agregar-producto">➕ Agregar Producto</button>
         </div>
         <div id="listaProductos" class="grid-productos cat-grid-productos"></div>
       </div>
@@ -122,8 +122,8 @@
       </div>
 
       <div class="modal-acciones cat-modal__acciones">
-        <button type="button" class="btn" data-action="cerrar-modal">Cancelar</button>
-        <button type="submit" class="btn">➕ Agregar Producto</button>
+        <button type="button" class="btn btn--secondary" data-action="cerrar-modal">Cancelar</button>
+        <button type="submit" class="btn btn-success">➕ Agregar Producto</button>
       </div>
     </form>
   </div>

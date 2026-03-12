@@ -787,44 +787,42 @@
   border-top: 1px solid #e5e7eb;
 }
 
-/* @obsoleto — reemplazado por .cat-modal__btn */
-.btn,
+/* ── Alias BEM para botones del modal cat-* ─────────── */
+/* Los estilos base vienen de shared/atoms/_buttons.css  */
 .cat-modal__btn {
-  padding: 0.75rem 1.5rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  padding: 0.6rem 1.25rem;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 0.875rem;
   font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.2s ease, transform 0.1s ease;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease, transform 0.12s ease;
 }
 
-/* @obsoleto — reemplazado por .cat-modal__btn--primario */
-.btn--primary,
 .cat-modal__btn--primario {
-  background-color: #3b82f6;
-  color: white;
-}
-
-.btn--primary:hover,
-.cat-modal__btn--primario:hover {
   background-color: #2563eb;
-}
-
-/* @obsoleto — reemplazado por .cat-modal__btn--secundario */
-.btn--secondary,
-.cat-modal__btn--secundario {
-  background-color: #6b7280;
   color: white;
 }
-
-.btn--secondary:hover,
-.cat-modal__btn--secundario:hover {
-  background-color: #4b5563;
+.cat-modal__btn--primario:hover {
+  background-color: #1d4ed8;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4);
 }
 
-.btn:active,
+.cat-modal__btn--secundario {
+  background-color: #64748b;
+  color: white;
+}
+.cat-modal__btn--secundario:hover {
+  background-color: #475569;
+}
+
 .cat-modal__btn:active {
-  transform: scale(0.98);
+  transform: scale(0.96);
 }
 
 /* ── Responsive modal ───────────────────────────────── */
