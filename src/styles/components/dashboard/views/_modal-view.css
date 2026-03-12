@@ -25,6 +25,8 @@
 /* Contenido del modal */
 .modal-contenido {
   background-color: white;
+  color: #1e293b;
+  color-scheme: light;
   width: 100%;
   max-width: 600px;
   border-radius: 12px;
@@ -37,7 +39,7 @@
 
 /* Header del modal */
 .modal-header {
-  background: linear-gradient(135deg, #4361ee, #3a56d4);
+  background: linear-gradient(135deg, #16a34a, #15803d);
   color: white;
   padding: 20px 24px;
   display: flex;
@@ -96,15 +98,21 @@
   border-radius: 6px;
   font-size: 0.95rem;
   transition: all 0.2s ease;
-  background-color: white;
+  background-color: #ffffff;
+  color: #1e293b;
+}
+
+.form-producto select option {
+  background-color: #ffffff;
+  color: #1e293b;
 }
 
 .form-producto input:focus,
 .form-producto select:focus,
 .form-producto textarea:focus {
   outline: none;
-  border-color: #4361ee;
-  box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.1);
+  border-color: #16a34a;
+  box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.12);
 }
 
 .form-producto input::placeholder,
