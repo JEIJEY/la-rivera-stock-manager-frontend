@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__Claude_Preview__preview_start",
+      "Bash(find src/styles -type f -name \"*.css\" -exec wc -l {} +)",
+      "Read(//tmp/**)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:5173)",
+      "Bash(rmdir src/styles/auth/tokens)",
+      "Bash(rmdir src/styles/website/tokens)",
+      "Bash(node --version)",
+      "Bash(npm --version)"
+    ]
+  }
+}

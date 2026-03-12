@@ -1,12 +1,14 @@
 /* ======================================================
-   🎨 SIDEBAR GENERAL — Theme-aware
+   🎨 SIDEBAR — BEM: db-sidebar
+   @obsoleto: dashboard-sidebar, sidebar-profile*, sidebar-menu*, sidebar-footer, arrow
 ====================================================== */
 
-.dashboard-sidebar {
+/* @obsoleto — reemplazado por .db-sidebar */
+.dashboard-sidebar,
+.db-sidebar {
   position: fixed;
   top: 0;
   left: 0;
-
   grid-area: sidebar;
   width: 320px;
   height: 100vh;
@@ -25,7 +27,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  overflow: visible; /* deja ver submenús flotantes */
+  overflow: visible;
   z-index: 200;
   transition:
     background  0.35s ease,
@@ -34,10 +36,11 @@
     color       0.35s ease;
 }
 
-/* ======================================================
-   📸 PERFIL DE USUARIO
-====================================================== */
-.sidebar-profile {
+/* ── Perfil ─────────────────────────────────────────── */
+
+/* @obsoleto — reemplazado por .db-sidebar__profile */
+.sidebar-profile,
+.db-sidebar__profile {
   display: flex;
   align-items: center;
   gap: 12px;
@@ -46,7 +49,9 @@
   transition: border-color 0.35s ease;
 }
 
-.sidebar-profile__img {
+/* @obsoleto — reemplazado por .db-sidebar__avatar */
+.sidebar-profile__img,
+.db-sidebar__avatar {
   width: 50px;
   height: 50px;
   border-radius: 50%;
@@ -56,7 +61,9 @@
   transition: border-color 0.35s ease, box-shadow 0.35s ease;
 }
 
-.sidebar-profile__info {
+/* @obsoleto — reemplazado por .db-sidebar__profile-info */
+.sidebar-profile__info,
+.db-sidebar__profile-info {
   font-size: 14px;
   display: flex;
   flex-direction: column;
@@ -64,31 +71,40 @@
   transition: color 0.35s ease;
 }
 
-.sidebar-profile__info .sidebar-profile__name {
+/* @obsoleto — reemplazado por .db-sidebar__name */
+.sidebar-profile__info .sidebar-profile__name,
+.db-sidebar__profile-info .db-sidebar__name {
   font-weight: 600;
   color: var(--theme-sidebar-name, #ffffff);
   transition: color 0.35s ease;
 }
 
-/* ======================================================
-   🧭 MENÚ PRINCIPAL
-====================================================== */
-.sidebar-menu {
+/* ── Navegación ─────────────────────────────────────── */
+
+/* @obsoleto — reemplazado por .db-sidebar__nav */
+.sidebar-menu,
+.db-sidebar__nav {
   margin-top: 60px;
 }
 
-.sidebar-menu__list {
+/* @obsoleto — reemplazado por .db-sidebar__nav-list */
+.sidebar-menu__list,
+.db-sidebar__nav-list {
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
-.sidebar-menu__item {
+/* @obsoleto — reemplazado por .db-sidebar__nav-item */
+.sidebar-menu__item,
+.db-sidebar__nav-item {
   position: relative;
   margin-bottom: 12px;
 }
 
-.sidebar-menu__link {
+/* @obsoleto — reemplazado por .db-sidebar__nav-link */
+.sidebar-menu__link,
+.db-sidebar__nav-link {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -100,22 +116,27 @@
   transition: background 0.3s, color 0.3s, transform 0.2s;
 }
 
+/* @obsoleto — reemplazado por .db-sidebar__nav-item.is-active .db-sidebar__nav-link */
 .sidebar-menu__item.active .sidebar-menu__link,
-.sidebar-menu__link:hover {
+.db-sidebar__nav-item.is-active .db-sidebar__nav-link,
+.sidebar-menu__link:hover,
+.db-sidebar__nav-link:hover {
   background: var(--theme-sidebar-hover-bg, rgba(0, 217, 139, 0.12));
   color: var(--theme-sidebar-hover-color, #ffffff);
   transform: translateX(4px);
 }
 
-/* ======================================================
-   ⚙️ SUBMENÚ SUPERPUESTO (INVENTARIO)
-====================================================== */
+/* ── Submenú ────────────────────────────────────────── */
 
-.sidebar-menu__item.has-submenu {
+/* @obsoleto — reemplazado por .db-sidebar__nav-item--has-submenu */
+.sidebar-menu__item.has-submenu,
+.db-sidebar__nav-item--has-submenu {
   position: relative;
 }
 
-.sidebar-submenu {
+/* @obsoleto — reemplazado por .db-sidebar__submenu */
+.sidebar-submenu,
+.db-sidebar__submenu {
   list-style: none;
   position: absolute;
   left: 0;
@@ -132,13 +153,17 @@
   z-index: 9999;
 }
 
-.sidebar-menu__item.open .sidebar-submenu {
+/* @obsoleto — reemplazado por .db-sidebar__nav-item.is-open .db-sidebar__submenu */
+.sidebar-menu__item.open .sidebar-submenu,
+.db-sidebar__nav-item.open .db-sidebar__submenu,
+.db-sidebar__nav-item.is-open .db-sidebar__submenu {
   opacity: 1;
   pointer-events: auto;
   transform: translateY(0);
 }
 
-.sidebar-submenu li a {
+.sidebar-submenu li a,
+.db-sidebar__submenu li a {
   display: block;
   padding: 8px 16px;
   color: var(--theme-submenu-link, rgba(255, 255, 255, 0.72));
@@ -148,26 +173,34 @@
   transition: all 0.2s ease;
 }
 
-.sidebar-submenu li a:hover {
+.sidebar-submenu li a:hover,
+.db-sidebar__submenu li a:hover {
   background: var(--theme-submenu-hover-bg, rgba(0, 217, 139, 0.12));
   color: var(--theme-sidebar-hover-color, #ffffff);
 }
 
-/* Flecha ▼ */
-.sidebar-menu__link .arrow {
+/* ── Flecha ─────────────────────────────────────────── */
+
+/* @obsoleto — reemplazado por .db-sidebar__nav-link .db-sidebar__arrow */
+.sidebar-menu__link .arrow,
+.db-sidebar__nav-link .db-sidebar__arrow {
   margin-left: 8px;
   font-size: 0.9rem;
   transition: transform 0.3s ease;
 }
 
-.sidebar-menu__item.open .arrow {
+/* @obsoleto — reemplazado por .db-sidebar__nav-item.is-open .db-sidebar__arrow */
+.sidebar-menu__item.open .arrow,
+.db-sidebar__nav-item.open .db-sidebar__arrow,
+.db-sidebar__nav-item.is-open .db-sidebar__arrow {
   transform: rotate(180deg);
 }
 
-/* ======================================================
-   🦶 FOOTER DEL SIDEBAR
-====================================================== */
-.sidebar-footer {
+/* ── Pie ────────────────────────────────────────────── */
+
+/* @obsoleto — reemplazado por .db-sidebar__footer */
+.sidebar-footer,
+.db-sidebar__footer {
   margin-top: auto;
   padding-top: 20px;
   border-top: 1px solid var(--theme-sidebar-divider, rgba(255, 255, 255, 0.07));
@@ -177,37 +210,44 @@
   transition: border-color 0.35s ease;
 }
 
-/* ======================================================
-   📱 MEDIA QUERIES
-====================================================== */
+/* ── Responsive ─────────────────────────────────────── */
 @media (max-height: 800px) {
-  .sidebar-footer {
+  .sidebar-footer,
+  .db-sidebar__footer {
     position: relative;
     bottom: -60px;
   }
 }
 
 @media (max-width: 1440px) {
-  .dashboard-sidebar {
+  .dashboard-sidebar,
+  .db-sidebar {
     width: 256px;
     padding: 20px 14px;
   }
-  .sidebar-menu {
+
+  .sidebar-menu,
+  .db-sidebar__nav {
     margin-top: 24px;
   }
-  .sidebar-profile__img {
+
+  .sidebar-profile__img,
+  .db-sidebar__avatar {
     width: 38px;
     height: 38px;
   }
 }
 
-/* ======================================================
-   📏 ANCHOS INDIVIDUALES
-====================================================== */
+/* ── Anchos de enlace ───────────────────────────────── */
 .sidebar-menu__item:nth-child(1) .sidebar-menu__link,
 .sidebar-menu__item:nth-child(2) .sidebar-menu__link,
 .sidebar-menu__item:nth-child(3) .sidebar-menu__link,
 .sidebar-menu__item:nth-child(4) .sidebar-menu__link,
-.sidebar-menu__item:nth-child(5) .sidebar-menu__link {
+.sidebar-menu__item:nth-child(5) .sidebar-menu__link,
+.db-sidebar__nav-item:nth-child(1) .db-sidebar__nav-link,
+.db-sidebar__nav-item:nth-child(2) .db-sidebar__nav-link,
+.db-sidebar__nav-item:nth-child(3) .db-sidebar__nav-link,
+.db-sidebar__nav-item:nth-child(4) .db-sidebar__nav-link,
+.db-sidebar__nav-item:nth-child(5) .db-sidebar__nav-link {
   width: 220px;
 }

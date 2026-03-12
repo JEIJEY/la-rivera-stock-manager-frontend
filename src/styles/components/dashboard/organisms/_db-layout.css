@@ -1,0 +1,59 @@
+/* ======================================================
+   📐 ESTRUCTURA PRINCIPAL DEL DASHBOARD
+   BEM: db-layout (bloque raíz del grid)
+====================================================== */
+
+/* @obsoleto — reemplazado por .db-layout */
+.grid-container {
+  background: var(--theme-grid-bg, var(--color-neutral-950));
+  display: grid;
+  grid-template-areas:
+    "sidebar header"
+    "sidebar main";
+  grid-template-columns: 320px 1fr;
+  grid-template-rows: 125px 1fr;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  transition: background-color 0.35s ease;
+}
+
+.db-layout {
+  background: var(--theme-grid-bg, var(--color-neutral-950));
+  display: grid;
+  grid-template-areas:
+    "sidebar header"
+    "sidebar main";
+  grid-template-columns: 320px 1fr;
+  grid-template-rows: 125px 1fr;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  transition: background-color 0.35s ease;
+}
+
+/* ── Grid-area assignments ────────────────────────── */
+
+/* @obsoleto — reemplazado por .db-lateral */
+.dashboard-sidebar { grid-area: sidebar; }
+
+/* @obsoleto — reemplazado por .db-encabezado */
+.dashboard-header  { grid-area: header;  }
+
+.db-lateral      { grid-area: sidebar; }
+.db-encabezado   { grid-area: header;  }
+.db-principal    { grid-area: main;    }
+
+/* ── Laptop breakpoint ───────────────────────────── */
+@media (max-width: 1440px) {
+  /* @obsoleto — reemplazado por .db-layout */
+  .grid-container {
+    grid-template-columns: 256px 1fr;
+    grid-template-rows: 80px 1fr;
+  }
+
+  .db-layout {
+    grid-template-columns: 256px 1fr;
+    grid-template-rows: 80px 1fr;
+  }
+}

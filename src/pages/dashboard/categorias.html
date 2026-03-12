@@ -2,91 +2,91 @@
 
   <!-- VISTA RAÍZ -->
   <div id="vistaRaiz" class="vista-raiz">
-    <form id="formCategoria" class="categoria-form">
+    <form id="formCategoria" class="categoria-form cat-formulario">
       <label for="nombre" class="label">Nombre</label>
       <input type="text" id="nombre" class="input" placeholder="Nombre de la categoría" required />
       <label for="descripcion" class="label">Descripción</label>
       <input type="text" id="descripcion" class="input" placeholder="Descripción (opcional)" />
-      <button type="submit" class="btn">Agregar Categoría</button>
+      <button type="submit" class="btn btn-success">Agregar Categoría</button>
     </form>
 
     <div class="categorias-container">
       <h2>Categorías</h2>
-      <ul id="listaCategorias" class="grid-categorias"></ul>
+      <ul id="listaCategorias" class="grid-categorias cat-grid"></ul>
     </div>
   </div>
 
   <!-- VISTA DETALLE -->
-  <div id="vistaDetalle" class="vista-detalle" style="display: none;">
-    <header class="detalle-header">
-      <button class="btn" data-action="volver">⬅ Volver a la lista</button>
+  <div id="vistaDetalle" class="vista-detalle cat-detalle" style="display: none;">
+    <header class="detalle-header cat-detalle__header">
+      <button class="btn btn-secondary" data-action="volver">⬅ Volver a la lista</button>
       <h2 id="detalleTitulo">Detalle de Categoría</h2>
     </header>
 
-    <div class="detalle-content">
-      <div class="detalle-info">
+    <div class="detalle-content cat-detalle__contenido">
+      <div class="detalle-info cat-detalle__info">
         <h3 id="detalleNombre"></h3>
         <p id="detalleDescripcion"></p>
-        <div class="detalle-stats">
-          <span class="stat">Subcategorías: <strong id="detalleSubcount">0</strong></span>
-          <span class="stat">Productos: <strong id="detalleProductos">0</strong></span>
+        <div class="detalle-stats cat-detalle__stats">
+          <span class="stat cat-estadistica">Subcategorías: <strong id="detalleSubcount">0</strong></span>
+          <span class="stat cat-estadistica">Productos: <strong id="detalleProductos">0</strong></span>
         </div>
       </div>
 
-      <div class="seccion-subcategorias">
-        <div class="seccion-header">
+      <div class="seccion-subcategorias cat-seccion">
+        <div class="seccion-header cat-seccion__header">
           <h4>Subcategorías</h4>
-          <button class="btn" data-action="nueva-subcategoria">➕ Nueva Subcategoría</button>
+          <button class="btn btn-success btn--sm" data-action="nueva-subcategoria">➕ Nueva Subcategoría</button>
         </div>
-        <div id="listaSubcategorias" class="grid-categorias"></div>
+        <div id="listaSubcategorias" class="grid-categorias cat-grid"></div>
       </div>
 
-      <div class="seccion-productos">
-        <div class="seccion-header">
+      <div class="seccion-productos cat-seccion">
+        <div class="seccion-header cat-seccion__header">
           <h4>Productos en esta categoría</h4>
-          <button class="btn" data-action="agregar-producto">➕ Agregar Producto</button>
+          <button class="btn btn-success btn--sm" data-action="agregar-producto">➕ Agregar Producto</button>
         </div>
-        <div id="listaProductos" class="grid-productos"></div>
+        <div id="listaProductos" class="grid-productos cat-grid-productos"></div>
       </div>
     </div>
   </div>
 </div>
 
 <!-- MODAL PRODUCTO -->
-<div id="modalProducto" class="modal-producto" style="display: none;" role="dialog" aria-modal="true">
-  <div class="modal-contenido">
-    <div class="modal-header">
+<div id="modalProducto" class="modal-producto cat-modal" style="display: none;" role="dialog" aria-modal="true">
+  <div class="modal-contenido cat-modal__contenido">
+    <div class="modal-header cat-modal__header">
       <h2 id="modalTitulo">🆕 Agregar Producto a <span id="modalCategoriaNombre"></span></h2>
-      <button type="button" class="cerrar-modal" data-action="cerrar-modal">&times;</button>
+      <button type="button" class="cerrar-modal cat-modal__cerrar" data-action="cerrar-modal">&times;</button>
     </div>
 
-    <form id="formProducto" class="form-producto" novalidate>
+    <form id="formProducto" class="form-producto cat-modal__formulario" novalidate>
       <input type="hidden" id="modalCategoriaId">
 
-      <div class="form-row">
-        <div class="form-group">
+      <div class="form-row cat-modal__fila">
+        <div class="form-group cat-modal__grupo">
           <label for="productoNombre">Nombre del Producto *</label>
           <input type="text" id="productoNombre" required placeholder="Ej: Gaseosa Coca-Cola 500ml">
         </div>
-        <div class="form-group">
+        <div class="form-group cat-modal__grupo">
           <label for="productoDescripcion">Descripción</label>
           <textarea id="productoDescripcion" placeholder="Descripción opcional" rows="3"></textarea>
         </div>
       </div>
 
-      <div class="form-row">
-        <div class="form-group">
+      <div class="form-row cat-modal__fila">
+        <div class="form-group cat-modal__grupo">
           <label for="productoPrecio">Precio Unitario *</label>
           <input type="number" id="productoPrecio" step="0.01" min="0" required placeholder="0.00">
         </div>
-        <div class="form-group">
+        <div class="form-group cat-modal__grupo">
           <label for="productoStock">Cantidad / Stock *</label>
           <input type="number" id="productoStock" min="1" value="1" required>
         </div>
       </div>
 
-      <div class="form-row">
-        <div class="form-group">
+      <div class="form-row cat-modal__fila">
+        <div class="form-group cat-modal__grupo">
           <label for="productoUnidad">Unidad de Medida *</label>
           <select id="productoUnidad" required>
             <option value="">Seleccionar...</option>
@@ -97,7 +97,7 @@
             <option value="caja">Caja</option>
           </select>
         </div>
-        <div class="form-group">
+        <div class="form-group cat-modal__grupo">
           <label for="productoMarca">Marca</label>
           <select id="productoMarca">
             <option value="">Sin marca</option>
@@ -105,14 +105,14 @@
         </div>
       </div>
 
-      <div class="form-row">
-        <div class="form-group">
+      <div class="form-row cat-modal__fila">
+        <div class="form-group cat-modal__grupo">
           <label for="productoProveedor">Proveedor</label>
           <select id="productoProveedor">
             <option value="">Sin proveedor</option>
           </select>
         </div>
-        <div class="form-group">
+        <div class="form-group cat-modal__grupo">
           <label for="productoEstado">Estado</label>
           <select id="productoEstado">
             <option value="1">Activo</option>
@@ -121,9 +121,9 @@
         </div>
       </div>
 
-      <div class="modal-acciones">
-        <button type="button" class="btn" data-action="cerrar-modal">Cancelar</button>
-        <button type="submit" class="btn">➕ Agregar Producto</button>
+      <div class="modal-acciones cat-modal__acciones">
+        <button type="button" class="btn btn--secondary" data-action="cerrar-modal">Cancelar</button>
+        <button type="submit" class="btn btn-success">➕ Agregar Producto</button>
       </div>
     </form>
   </div>

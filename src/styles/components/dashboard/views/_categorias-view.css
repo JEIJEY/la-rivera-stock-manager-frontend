@@ -1,0 +1,864 @@
+/* ======================================================
+   🎨 VISTA DE CATEGORÍAS — BEM: cat-*
+   @obsoleto: categoria-form, grid-categorias, categoria-card,
+              card-header, badge, card-desc, card-actions,
+              btn-small, btn-edit, btn-delete, vista-detalle,
+              detalle-header, detalle-content, seccion-*, stat,
+              grid-productos, producto-card, no-items, btn-volver,
+              modal, modal-content, close-modal, producto-form,
+              form-row, form-group, form-actions, btn, btn--*
+====================================================== */
+
+/* ── Formulario de categorías ───────────────────────── */
+
+/* @obsoleto — reemplazado por .cat-formulario */
+.categoria-form,
+.cat-formulario {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 400px;
+  margin-bottom: 2rem;
+}
+
+/* @obsoleto — reemplazado por .cat-formulario label */
+.categoria-form label,
+.cat-formulario label {
+  color: var(--text-color, #222);
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+/* @obsoleto — reemplazado por .cat-formulario input */
+.categoria-form input,
+.cat-formulario input {
+  color: #222;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 8px;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.categoria-form input::placeholder,
+.cat-formulario input::placeholder {
+  color: #777;
+}
+
+.categoria-form input:focus,
+.cat-formulario input:focus {
+  border-color: var(--primary-color, #007bff);
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+/* @obsoleto — reemplazado por .cat-formulario input.is-error */
+.categoria-form input.error,
+.cat-formulario input.is-error {
+  border-color: #ef4444;
+  background-color: #fef2f2;
+}
+
+.categoria-form button,
+.cat-formulario button {
+  margin-top: 10px;
+  background-color: var(--primary-color, #007bff);
+  color: #fff;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.2s ease;
+}
+
+.categoria-form button:hover,
+.cat-formulario button:hover {
+  background-color: var(--primary-hover, #0056b3);
+}
+
+.categoria-form button:focus,
+.cat-formulario button:focus {
+  outline: 2px solid var(--primary-hover, #0056b3);
+  outline-offset: 2px;
+}
+
+/* ── Grid de categorías ─────────────────────────────── */
+
+/* @obsoleto — reemplazado por .cat-grid */
+.grid-categorias,
+.cat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1rem;
+  list-style: none;
+  padding: 0;
+}
+
+/* ── Tarjeta de categoría ───────────────────────────── */
+
+/* @obsoleto — reemplazado por .cat-tarjeta .cat-tarjeta__card */
+.categoria-card .card,
+.cat-tarjeta .cat-tarjeta__card {
+  border: 1px solid #e1e5e9;
+  border-radius: 12px;
+  padding: 1.25rem;
+  background: #fff;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  animation: fadeInUp 0.4s ease-out;
+}
+
+.categoria-card .card:hover,
+.cat-tarjeta .cat-tarjeta__card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
+  border-color: #3b82f6;
+}
+
+/* @obsoleto — reemplazado por .cat-tarjeta .cat-tarjeta__card.is-success */
+.categoria-card .card.success,
+.cat-tarjeta .cat-tarjeta__card.is-success {
+  border-color: #10b981;
+  box-shadow: 0 0 0 1px #10b981;
+}
+
+/* @obsoleto — reemplazado por .cat-tarjeta.is-loading .cat-tarjeta__card */
+.categoria-card.loading .card,
+.cat-tarjeta.is-loading .cat-tarjeta__card {
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ── Encabezado de tarjeta ──────────────────────────── */
+
+/* @obsoleto — reemplazado por .cat-tarjeta__header */
+.card-header,
+.cat-tarjeta__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.card-header h3,
+.cat-tarjeta__header h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  color: #1f2937;
+}
+
+/* ── Distintivos (badges) ───────────────────────────── */
+
+/* @obsoleto — reemplazado por .cat-distintivo */
+.badge,
+.cat-distintivo {
+  background: #3b82f6;
+  color: #fff;
+  padding: 0.25rem 0.5rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+/* @obsoleto — reemplazado por .cat-distintivo--categoria */
+.badge.categoria,
+.cat-distintivo--categoria {
+  background: #3b82f6;
+}
+
+/* @obsoleto — reemplazado por .cat-distintivo--producto */
+.badge.producto,
+.cat-distintivo--producto {
+  background: #10b981;
+}
+
+/* ── Descripción de tarjeta ─────────────────────────── */
+
+/* @obsoleto — reemplazado por .cat-tarjeta__desc */
+.card-desc,
+.cat-tarjeta__desc {
+  color: #6b7280;
+  margin-bottom: 1rem;
+  line-height: 1.4;
+  flex-grow: 1;
+}
+
+/* ── Acciones de tarjeta ────────────────────────────── */
+
+/* @obsoleto — reemplazado por .cat-tarjeta__acciones */
+.card-actions,
+.cat-tarjeta__acciones {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+/* ── Botones pequeños ───────────────────────────────── */
+
+/* @obsoleto — reemplazado por .cat-btn */
+.btn-small,
+.cat-btn {
+  background: #f3f4f6;
+  padding: 0.375rem 0.75rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.875rem;
+  transition: background 0.2s;
+  color: #374151;
+}
+
+.btn-small:hover,
+.cat-btn:hover {
+  background: #e5e7eb;
+}
+
+.btn-small:focus,
+.cat-btn:focus {
+  outline: 2px solid #3b82f6;
+  outline-offset: 1px;
+}
+
+.btn-small:active,
+.cat-btn:active {
+  transform: scale(0.98);
+}
+
+.btn-small:disabled,
+.cat-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn-small:disabled:hover,
+.cat-btn:disabled:hover {
+  background: #f3f4f6;
+}
+
+/* @obsoleto — reemplazado por .cat-btn--editar */
+.btn-edit,
+.cat-btn--editar {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+.btn-edit:hover,
+.cat-btn--editar:hover {
+  background: #bfdbfe;
+}
+
+/* @obsoleto — reemplazado por .cat-btn--eliminar */
+.btn-delete,
+.cat-btn--eliminar {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+.btn-delete:hover,
+.cat-btn--eliminar:hover {
+  background: #fecaca;
+}
+
+/* ── Vista detalle ──────────────────────────────────── */
+
+/* @obsoleto — reemplazado por .cat-detalle */
+.vista-detalle,
+.cat-detalle {
+  padding: 1.5rem;
+}
+
+/* @obsoleto — reemplazado por .cat-detalle__header */
+.detalle-header,
+.cat-detalle__header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+/* @obsoleto — reemplazado por .cat-detalle__contenido */
+.detalle-content,
+.cat-detalle__contenido {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* @obsoleto — reemplazado por .cat-seccion */
+.seccion-subcategorias,
+.seccion-productos,
+.cat-seccion {
+  margin-top: 2rem;
+}
+
+/* @obsoleto — reemplazado por .cat-seccion__header */
+.seccion-header,
+.cat-seccion__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.detalle-info h3,
+.cat-detalle__info h3 {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  color: #1f2937;
+}
+
+.detalle-info p,
+.cat-detalle__info p {
+  color: #6b7280;
+  margin-bottom: 0.5rem;
+}
+
+/* @obsoleto — reemplazado por .cat-detalle__stats */
+.detalle-stats,
+.cat-detalle__stats {
+  margin-top: 0.75rem;
+  display: flex;
+  gap: 1rem;
+}
+
+/* @obsoleto — reemplazado por .cat-estadistica */
+.stat,
+.cat-estadistica {
+  color: #6b7280;
+  font-size: 0.875rem;
+}
+
+.stat strong,
+.cat-estadistica strong {
+  color: #111827;
+  font-size: 1rem;
+}
+
+/* ── Grid de productos ──────────────────────────────── */
+
+/* @obsoleto — reemplazado por .cat-grid-productos */
+.grid-productos,
+.cat-grid-productos {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+/* ── Tarjeta de producto ────────────────────────────── */
+
+/* @obsoleto — reemplazado por .cat-producto .cat-tarjeta__card */
+.producto-card .card,
+.cat-producto .cat-tarjeta__card {
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 1rem;
+  text-align: center;
+  background: #fff;
+  transition: 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.producto-card .card:hover,
+.cat-producto .cat-tarjeta__card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+}
+
+/* @obsoleto — reemplazado por .cat-producto img */
+.producto-card img,
+.cat-producto img {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 0.5rem;
+}
+
+.producto-card h4,
+.cat-producto h4 {
+  margin: 0.5rem 0 0.25rem 0;
+  color: #111827;
+  font-size: 1rem;
+}
+
+/* @obsoleto — reemplazado por .cat-producto__precio */
+.producto-card .precio,
+.cat-producto__precio {
+  color: #16a34a;
+  font-weight: bold;
+  margin: 0.25rem 0;
+}
+
+/* @obsoleto — reemplazado por .cat-producto__stock */
+.producto-card .stock,
+.cat-producto__stock {
+  font-size: 0.875rem;
+  color: #6b7280;
+  margin: 0.25rem 0;
+}
+
+/* ── Botón volver ───────────────────────────────────── */
+
+/* @obsoleto — reemplazado por .cat-btn--volver */
+.btn-volver,
+.cat-btn--volver {
+  background: #e5e7eb;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.2s;
+  color: #374151;
+  font-weight: 500;
+}
+
+.btn-volver:hover,
+.cat-btn--volver:hover {
+  background: #d1d5db;
+}
+
+.btn-volver:focus,
+.cat-btn--volver:focus {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+.btn-volver:active,
+.cat-btn--volver:active {
+  transform: scale(0.98);
+}
+
+.btn-volver:disabled,
+.cat-btn--volver:disabled {
+  background: #9ca3af;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.btn-volver:disabled:hover,
+.cat-btn--volver:disabled:hover {
+  background: #9ca3af;
+  transform: none;
+}
+
+/* ── Estado vacío ───────────────────────────────────── */
+
+/* @obsoleto — reemplazado por .cat-vacio */
+.no-items,
+.cat-vacio {
+  color: #6b7280;
+  font-style: italic;
+  text-align: center;
+  padding: 3rem 1rem;
+  border: 2px dashed #e5e7eb;
+  border-radius: 8px;
+  background: #f9fafb;
+  grid-column: 1 / -1;
+}
+
+/* ── Keyframes ──────────────────────────────────────── */
+
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* ── Accesibilidad ──────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .categoria-card .card,
+  .cat-tarjeta .cat-tarjeta__card,
+  .btn-small,
+  .cat-btn,
+  .btn-volver,
+  .cat-btn--volver {
+    transition: none;
+    animation: none;
+  }
+}
+
+.categoria-card .card:focus-visible,
+.cat-tarjeta .cat-tarjeta__card:focus-visible {
+  outline: 3px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+/* Mejor contraste para textos importantes */
+.stat strong,
+.cat-estadistica strong,
+.detalle-info h3,
+.cat-detalle__info h3,
+.card-header h3,
+.cat-tarjeta__header h3 {
+  color: #111827;
+}
+
+/* ── Micro-interacciones ────────────────────────────── */
+
+.categoria-card .card:active,
+.cat-tarjeta .cat-tarjeta__card:active {
+  transform: scale(0.99);
+}
+
+/* ── Responsive móvil ───────────────────────────────── */
+
+@media (max-width: 768px) {
+  .grid-categorias,
+  .cat-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .grid-productos,
+  .cat-grid-productos {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  }
+
+  .detalle-header,
+  .cat-detalle__header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .seccion-header,
+  .cat-seccion__header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .card-actions,
+  .cat-tarjeta__acciones {
+    flex-wrap: wrap;
+  }
+
+  .vista-detalle,
+  .cat-detalle {
+    padding: 1rem;
+  }
+
+  .detalle-stats,
+  .cat-detalle__stats {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
+
+/* ── Responsive tablet ──────────────────────────────── */
+
+@media (max-width: 1024px) and (min-width: 769px) {
+  .grid-categorias,
+  .cat-grid {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  }
+
+  .grid-productos,
+  .cat-grid-productos {
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  }
+}
+
+/* ── Responsive escritorio grande ───────────────────── */
+
+@media (min-width: 1200px) {
+  .grid-categorias,
+  .cat-grid {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  }
+
+  .detalle-content,
+  .cat-detalle__contenido {
+    max-width: 1400px;
+  }
+}
+
+/* ── Hover táctil ───────────────────────────────────── */
+
+@media (hover: none) {
+  .categoria-card .card:hover,
+  .cat-tarjeta .cat-tarjeta__card:hover {
+    transform: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .btn-small:hover,
+  .cat-btn:hover,
+  .btn-volver:hover,
+  .cat-btn--volver:hover {
+    transform: none;
+  }
+}
+
+/* ======================================================
+   🎯 MODAL — BEM: cat-modal
+   @obsoleto: modal, modal-producto, modal-content, modal-contenido,
+              close-modal, cerrar-modal, modal-header,
+              producto-form, form-producto, form-row, form-group,
+              form-actions, modal-acciones, btn, btn--primary, btn--secondary
+====================================================== */
+
+/* @obsoleto — reemplazado por .cat-modal */
+.modal,
+.cat-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal[style*="flex"],
+.cat-modal[style*="flex"] {
+  display: flex !important;
+}
+
+/* @obsoleto — reemplazado por .cat-modal__contenido */
+.modal-content,
+.modal-contenido,
+.cat-modal__contenido {
+  background: #ffffff;
+  color: #1e293b;
+  color-scheme: light;
+  padding: 2rem;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 600px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  position: relative;
+  transform: translateY(-20px);
+  transition: transform 0.3s ease;
+}
+
+/* @obsoleto — reemplazado por .cat-modal__cerrar */
+.close-modal,
+.cerrar-modal,
+.cat-modal__cerrar {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #6b7280;
+  background: none;
+  border: none;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.close-modal:hover,
+.cerrar-modal:hover,
+.cat-modal__cerrar:hover {
+  background-color: #f3f4f6;
+  color: #374151;
+}
+
+/* @obsoleto — reemplazado por .cat-modal__header */
+.modal-header,
+.cat-modal__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding-right: 2rem;
+}
+
+.modal-content h2,
+.modal-contenido h2,
+.cat-modal__contenido h2 {
+  margin: 0 0 1.5rem 0;
+  color: #1f2937;
+  font-size: 1.5rem;
+  padding-right: 2rem;
+}
+
+/* @obsoleto — reemplazado por .cat-modal__formulario */
+.producto-form,
+.form-producto,
+.cat-modal__formulario {
+  margin-top: 1rem;
+}
+
+/* @obsoleto — reemplazado por .cat-modal__fila */
+.form-row,
+.cat-modal__fila {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+/* @obsoleto — reemplazado por .cat-modal__grupo */
+.form-group,
+.cat-modal__grupo {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label,
+.cat-modal__grupo label {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #374151;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea,
+.cat-modal__grupo input,
+.cat-modal__grupo select,
+.cat-modal__grupo textarea {
+  padding: 0.75rem;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  background-color: #ffffff;
+  color: #1e293b;
+}
+
+.cat-modal__grupo select option {
+  background-color: #ffffff;
+  color: #1e293b;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus,
+.cat-modal__grupo input:focus,
+.cat-modal__grupo select:focus,
+.cat-modal__grupo textarea:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.form-group textarea,
+.cat-modal__grupo textarea {
+  min-height: 80px;
+  resize: vertical;
+}
+
+.form-group small,
+.cat-modal__grupo small {
+  margin-top: 0.25rem;
+  color: #6b7280;
+  font-size: 0.875rem;
+}
+
+/* @obsoleto — reemplazado por .cat-modal__acciones */
+.form-actions,
+.modal-acciones,
+.cat-modal__acciones {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid #e5e7eb;
+}
+
+/* ── Alias BEM para botones del modal cat-* ─────────── */
+/* Los estilos base vienen de shared/atoms/_buttons.css  */
+.cat-modal__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  padding: 0.6rem 1.25rem;
+  border: none;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease, transform 0.12s ease;
+}
+
+.cat-modal__btn--primario {
+  background-color: #2563eb;
+  color: white;
+}
+.cat-modal__btn--primario:hover {
+  background-color: #1d4ed8;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4);
+}
+
+.cat-modal__btn--secundario {
+  background-color: #64748b;
+  color: white;
+}
+.cat-modal__btn--secundario:hover {
+  background-color: #475569;
+}
+
+.cat-modal__btn:active {
+  transform: scale(0.96);
+}
+
+/* ── Responsive modal ───────────────────────────────── */
+
+@media (max-width: 768px) {
+  .form-row,
+  .cat-modal__fila {
+    grid-template-columns: 1fr;
+  }
+
+  .modal-content,
+  .modal-contenido,
+  .cat-modal__contenido {
+    padding: 1.5rem;
+    margin: 1rem;
+    width: calc(100% - 2rem);
+  }
+
+  .form-actions,
+  .modal-acciones,
+  .cat-modal__acciones {
+    flex-direction: column;
+  }
+
+  .btn,
+  .cat-modal__btn {
+    width: 100%;
+  }
+}

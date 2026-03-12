@@ -1,0 +1,101 @@
+/* ======================================================
+   🧱 ÍTEM DE INVENTARIO — BEM: inv-elemento
+   @obsoleto: inventory-item*
+====================================================== */
+
+/* @obsoleto — reemplazado por .inv-elemento */
+.inventory-item,
+.inv-elemento {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.8rem 1rem;
+  background: var(--color-neutral-800);
+  border-radius: var(--radius-lg);
+  transition: all 0.25s ease;
+}
+
+.inventory-item:hover,
+.inv-elemento:hover {
+  background: var(--color-neutral-700);
+  transform: translateX(4px);
+}
+
+/* @obsoleto — reemplazado por .inv-elemento__icono */
+.inventory-item__icon,
+.inv-elemento__icono {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+/* @obsoleto — reemplazado por .inv-elemento__icono--verde */
+.inventory-item__icon--green,
+.inv-elemento__icono--verde {
+  background: rgba(0, 217, 139, 0.15);
+}
+
+/* @obsoleto — reemplazado por .inv-elemento__icono--azul */
+.inventory-item__icon--blue,
+.inv-elemento__icono--azul {
+  background: rgba(52, 152, 219, 0.15);
+}
+
+/* @obsoleto — reemplazado por .inv-elemento__icono--naranja */
+.inventory-item__icon--orange,
+.inv-elemento__icono--naranja {
+  background: rgba(245, 166, 35, 0.15);
+}
+
+/* @obsoleto — reemplazado por .inv-elemento__info */
+.inventory-item__info,
+.inv-elemento__info {
+  flex: 1;
+}
+
+/* @obsoleto — reemplazado por .inv-elemento__nombre */
+.inventory-item__name,
+.inv-elemento__nombre {
+  font-size: 0.9rem;
+  font-weight: var(--font-medium);
+  margin-bottom: 0.15rem;
+  color: var(--color-neutral-50);
+}
+
+/* @obsoleto — reemplazado por .inv-elemento__meta */
+.inventory-item__meta,
+.inv-elemento__meta {
+  font-size: 0.75rem;
+  color: var(--color-neutral-500);
+}
+
+/* @obsoleto — reemplazado por .inv-elemento__stock */
+.inventory-item__stock,
+.inv-elemento__stock {
+  font-family: var(--font-display, "Syne", sans-serif);
+  font-weight: var(--font-bold);
+  font-size: 0.95rem;
+}
+
+/* @obsoleto — reemplazado por .inv-elemento__stock--ok */
+.inventory-item__stock--ok,
+.inv-elemento__stock--ok {
+  color: var(--color-primary-400);
+}
+
+/* @obsoleto — reemplazado por .inv-elemento__stock--bajo */
+.inventory-item__stock--low,
+.inv-elemento__stock--bajo {
+  color: #f5a623;
+}
+
+/* @obsoleto — reemplazado por .inv-elemento__stock--critico */
+.inventory-item__stock--crit,
+.inv-elemento__stock--critico {
+  color: #e74c3c;
+}
