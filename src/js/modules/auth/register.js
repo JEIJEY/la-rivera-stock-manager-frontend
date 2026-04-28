@@ -12,8 +12,8 @@ export function renderRegister() {
 
       <article class="login-card">
         <header class="login-card__header">
-          <img src="/src/assets/images/logo.png" alt="Logo" class="login-card__logo" />
-          <img src="/src/assets/images/La_Rivera.png" alt="La Rivera" class="login-card__brand" />
+          <img src="/assets/images/logo.png" alt="Logo" class="login-card__logo" />
+          <img src="/assets/images/La_Rivera.png" alt="La Rivera" class="login-card__brand" />
         </header>
 
         <div class="login-card__hero">
@@ -68,13 +68,13 @@ export function renderRegister() {
 
         <nav class="login-card__social">
           <a href="#" class="social-login__link">
-            <img src="/src/assets/images/google.png" alt="Google" class="social-login__icon" />
+            <img src="/assets/images/google.png" alt="Google" class="social-login__icon" />
           </a>
           <a href="#" class="social-login__link">
-            <img src="/src/assets/images/facebook.png" alt="Facebook" class="social-login__icon" />
+            <img src="/assets/images/facebook.png" alt="Facebook" class="social-login__icon" />
           </a>
           <a href="#" class="social-login__link">
-            <img src="/src/assets/images/linkedin.png" alt="LinkedIn" class="social-login__icon" />
+            <img src="/assets/images/linkedin.png" alt="LinkedIn" class="social-login__icon" />
           </a>
         </nav>
 

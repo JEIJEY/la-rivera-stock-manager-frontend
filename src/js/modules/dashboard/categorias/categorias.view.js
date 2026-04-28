@@ -66,7 +66,7 @@ export const categoriasView = {
           return `
             <div class="producto-card cat-producto">
               <div class="card cat-tarjeta__card">
-                <img src="${p.imagen || "/src/assets/images/default-product.png"}" alt="${p.nombre}">
+                <img src="${p.imagen || "/assets/images/default-product.png"}" alt="${p.nombre}">
                 <h4>${p.nombre}</h4>
                 <p class="precio cat-producto__precio">$${precio}</p>
                 <p class="stock cat-producto__stock">Stock: ${p.stock || 0}</p>

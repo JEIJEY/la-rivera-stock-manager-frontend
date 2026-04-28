@@ -64,7 +64,7 @@ async function abrirModal(hostModal, onSuccess) {
 
   if (!document.getElementById(modalId)) {
     try {
-      const res = await fetch("/src/pages/dashboard/modal-producto.html");
+      const res = await fetch("/pages/dashboard/modal-producto.html");
       if (!res.ok) throw new Error("No se encontró modal-producto.html");
       hostModal.innerHTML = await res.text();
     } catch (err) {

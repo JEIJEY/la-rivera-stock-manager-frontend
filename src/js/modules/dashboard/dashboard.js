@@ -4,56 +4,65 @@ import { appEvents } from "../../core/EventBus.js";
 import { initLogoutButton } from "../../shared/components/logout-button.js";
 import { initTheme, initThemeToggle } from "../../shared/theme.js";
 
+// Importar módulos estáticamente
+import * as inventarioModule from "./inventario/inventario.entry.js";
+import * as productosModule from "./productos/productos.entry.js";
+import * as categoriasModule from "./categorias/categorias.entry.js";
+import * as usuariosModule from "./usuarios/usuarios.entry.js";
+import * as reportesModule from "./reportes/reportes.entry.js";
+import * as movimientosModule from "./movimientos/movimientos.entry.js";
+import * as configuracionModule from "./configuracion/configuracion.entry.js";
+import { inicializarABC } from "./abc/abc.entry.js";
+
 const main = document.querySelector(".dashboard-main");
 
 const viewManager = new SPAViewManager({
   container: main,
-  pagesBase: "/src/pages/dashboard/",
+  pagesBase: "/pages/dashboard/",
 });
 
 viewManager.register("inventario", {
   html: "inventario_dashboard.html",
-  module: "./inventario/inventario.entry.js",
+  module: inventarioModule,
   initExport: "inicializarInventario",
   afterLoad: async () => {
-    const { inicializarABC } = await import("./abc/abc.entry.js");
     await inicializarABC();
   },
 });
 
 viewManager.register("productos", {
   html: "productos.html",
-  module: "./productos/productos.entry.js",
+  module: productosModule,
   initExport: "inicializarInventario",
 });
 
 viewManager.register("categorias", {
   html: "categorias.html",
-  module: "./categorias/categorias.entry.js",
+  module: categoriasModule,
   initExport: "inicializarCategorias",
 });
 
 viewManager.register("usuarios", {
   html: "usuarios.html",
-  module: "./usuarios/usuarios.entry.js",
+  module: usuariosModule,
   initExport: "inicializarUsuarios",
 });
 
 viewManager.register("reportes", {
   html: "reportes.html",
-  module: "./reportes/reportes.entry.js",
+  module: reportesModule,
   initExport: "inicializarReportes",
 });
 
 viewManager.register("movimientos", {
   html: "movimientos.html",
-  module: "./movimientos/movimientos.entry.js",
+  module: movimientosModule,
   initExport: "inicializarMovimientos",
 });
 
 viewManager.register("configuracion", {
   html: "configuracion.html",
-  module: "./configuracion/configuracion.entry.js",
+  module: configuracionModule,
   initExport: "inicializarConfiguracion",
 });
 

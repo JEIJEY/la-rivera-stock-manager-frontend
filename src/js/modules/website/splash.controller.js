@@ -87,7 +87,7 @@ export function renderSplash() {
             </g>
           </g>
         </svg>
-        <img src="/src/assets/images/logo.png" alt="La Rivera" class="splash__img" />
+        <img src="/assets/images/logo.png" alt="La Rivera" class="splash__img" />
       </div>
     </div>
   `;

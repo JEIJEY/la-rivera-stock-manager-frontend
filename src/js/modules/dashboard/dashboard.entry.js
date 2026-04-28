@@ -1,7 +1,7 @@
 export async function renderDashboard() {
   const app = document.getElementById("app");
 
-  const response = await fetch("/src/pages/dashboard-layout.html");
+  const response = await fetch("/pages/dashboard-layout.html");
   const html = await response.text();
 
   app.innerHTML = html;

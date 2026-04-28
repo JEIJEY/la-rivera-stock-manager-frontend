@@ -16,7 +16,7 @@ export function renderLanding() {
     <header class="header">
       <div class="header__brand">
   <span class="header__brand-dot"></span>
-  <img src="/src/assets/images/logo.png" alt="Logo" class="header__brand-img" />
+  <img src="/assets/images/logo.png" alt="Logo" class="header__brand-img" />
   La Rivera
 </div>
 
@@ -209,8 +209,8 @@ export function renderLanding() {
       <div class="products__grid">
         <div class="product-card animate-in delay-1">
           <div class="product-card__image-wrap">
-            <img src="/src/assets/images/fondo_coca.jpg" alt="Fondo Coca" class="product-card__bg" />
-            <img src="/src/assets/images/coca.png" alt="Coca-Cola" class="product-card__fg" />
+            <img src="/assets/images/fondo_coca.jpg" alt="Fondo Coca" class="product-card__bg" />
+            <img src="/assets/images/coca.png" alt="Coca-Cola" class="product-card__fg" />
             <div class="product-card__overlay"></div>
             <span class="badge badge--stock">48 uds</span>
           </div>
@@ -222,8 +222,8 @@ export function renderLanding() {
 
         <div class="product-card animate-in delay-2">
           <div class="product-card__image-wrap">
-            <img src="/src/assets/images/fondo-mym.jpg" alt="Fondo M&M" class="product-card__bg" />
-            <img src="/src/assets/images/m&m-rojo.png" alt="M&M" class="product-card__fg" />
+            <img src="/assets/images/fondo-mym.jpg" alt="Fondo M&M" class="product-card__bg" />
+            <img src="/assets/images/m&m-rojo.png" alt="M&M" class="product-card__fg" />
             <div class="product-card__overlay"></div>
             <span class="badge badge--stock">12 uds</span>
           </div>
@@ -235,8 +235,8 @@ export function renderLanding() {
 
         <div class="product-card animate-in delay-3">
           <div class="product-card__image-wrap">
-            <img src="/src/assets/images/nutella-fondo.jpg" alt="Fondo Nutella" class="product-card__bg" />
-            <img src="/src/assets/images/nutella.png" alt="Nutella" class="product-card__fg" />
+            <img src="/assets/images/nutella-fondo.jpg" alt="Fondo Nutella" class="product-card__bg" />
+            <img src="/assets/images/nutella.png" alt="Nutella" class="product-card__fg" />
             <div class="product-card__overlay"></div>
             <span class="badge badge--stock">3 uds</span>
           </div>
@@ -330,16 +330,16 @@ export function renderLanding() {
           </p>
           <div class="footer__socials">
             <a href="#" class="footer__social">
-              <img src="/src/assets/images/facebook.png" alt="Facebook" />
+              <img src="/assets/images/facebook.png" alt="Facebook" />
             </a>
             <a href="#" class="footer__social">
-              <img src="/src/assets/images/gmail.png" alt="Gmail" />
+              <img src="/assets/images/gmail.png" alt="Gmail" />
             </a>
             <a href="#" class="footer__social">
-              <img src="/src/assets/images/icons8-whatsapp-48.png" alt="WhatsApp" />
+              <img src="/assets/images/icons8-whatsapp-48.png" alt="WhatsApp" />
             </a>
             <a href="#" class="footer__social">
-              <img src="/src/assets/images/linkedin.png" alt="LinkedIn" />
+              <img src="/assets/images/linkedin.png" alt="LinkedIn" />
             </a>
           </div>
         </div>
