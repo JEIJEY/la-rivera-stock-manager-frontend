@@ -84,6 +84,7 @@
 @import "./components/dashboard/views/_categorias-view.css";
 @import "./components/dashboard/views/_productos-view.css";
 @import "./components/dashboard/views/_modal-view.css";
+@import "./components/dashboard/views/_en-construccion-view.css";
 @import "./components/dashboard/_db-responsive.css";
 
 /* ─── 6. UTILITIES ──────────────────────────────────────────────────────────── */

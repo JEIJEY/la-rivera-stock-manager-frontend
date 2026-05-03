@@ -52,19 +52,19 @@ export async function inicializarDashboard() {
   });
 
   viewManager.register("usuarios", {
-    html: "usuarios.html",
+    html: "en-construccion.html",
     module: usuariosModule,
     initExport: "inicializarUsuarios",
   });
 
   viewManager.register("reportes", {
-    html: "reportes.html",
+    html: "en-construccion.html",
     module: reportesModule,
     initExport: "inicializarReportes",
   });
 
   viewManager.register("movimientos", {
-    html: "movimientos.html",
+    html: "en-construccion.html",
     module: movimientosModule,
     initExport: "inicializarMovimientos",
   });
