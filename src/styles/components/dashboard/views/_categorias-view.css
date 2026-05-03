@@ -167,8 +167,7 @@
 
 /* ── Distintivos (badges) ───────────────────────────── */
 
-/* @obsoleto — reemplazado por .cat-distintivo */
-.badge,
+/* Distintivos de categorías */
 .cat-distintivo {
   background: #3b82f6;
   color: #fff;
@@ -179,14 +178,10 @@
   white-space: nowrap;
 }
 
-/* @obsoleto — reemplazado por .cat-distintivo--categoria */
-.badge.categoria,
 .cat-distintivo--categoria {
   background: #3b82f6;
 }
 
-/* @obsoleto — reemplazado por .cat-distintivo--producto */
-.badge.producto,
 .cat-distintivo--producto {
   background: #10b981;
 }
