@@ -37,6 +37,21 @@ export default defineConfig({
           } catch { /* no-op */ }
           next();
         });
+
+        // Sirve src/pages/ en /pages/ para dev (templates HTML del dashboard)
+        server.middlewares.use("/pages", (req, res, next) => {
+          const filePath = path.resolve("src/pages", "." + (req.url || "/"));
+          try {
+            if (fs.existsSync(filePath) && fs.statSync(filePath).isFile()) {
+              const ext = path.extname(filePath).toLowerCase();
+              const contentType = ext === ".html" ? "text/html" : (MIME[ext] || "application/octet-stream");
+              res.setHeader("Content-Type", contentType);
+              fs.createReadStream(filePath).pipe(res);
+              return;
+            }
+          } catch { /* no-op */ }
+          next();
+        });
       },
     },
   ],

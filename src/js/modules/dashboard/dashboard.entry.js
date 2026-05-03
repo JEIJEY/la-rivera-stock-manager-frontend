@@ -6,6 +6,7 @@ export async function renderDashboard() {
 
   app.innerHTML = html;
 
-  // Import dinámico del SPA interno
-  const module = await import("./dashboard.js");
+  // Importa e inicializa el dashboard SPA DESPUÉS de renderizar el HTML
+  const { inicializarDashboard } = await import("./dashboard.js");
+  await inicializarDashboard();
 }
