@@ -178,6 +178,96 @@ class ApiClient {
     }
 
     // ======================
+    // 📊 MOVIMIENTOS
+    // ======================
+
+    async getMovimientos(filtros = {}) {
+        const qs = new URLSearchParams();
+        for (const [k, v] of Object.entries(filtros)) {
+            if (v !== undefined && v !== null && v !== '') qs.set(k, v);
+        }
+        const suffix = qs.toString() ? `?${qs}` : '';
+        return this.request(`/movimientos${suffix}`);
+    }
+
+    async getMovimientoById(id) {
+        return this.request(`/movimientos/${id}`);
+    }
+
+    async getMovimientosPorProducto(id_producto) {
+        return this.request(`/movimientos/producto/${id_producto}`);
+    }
+
+    async registrarEntrada(data) {
+        return this.request('/movimientos/entrada', { method: 'POST', body: data });
+    }
+
+    async registrarSalida(data) {
+        return this.request('/movimientos/salida', { method: 'POST', body: data });
+    }
+
+    async registrarBaja(data) {
+        return this.request('/movimientos/baja', { method: 'POST', body: data });
+    }
+
+    // ======================
+    // 👥 EMPLEADOS
+    // ======================
+
+    async getEmpleados(filtros = {}) {
+        const qs = new URLSearchParams();
+        for (const [k, v] of Object.entries(filtros)) {
+            if (v !== undefined && v !== null && v !== '') qs.set(k, v);
+        }
+        const suffix = qs.toString() ? `?${qs}` : '';
+        return this.request(`/empleados${suffix}`);
+    }
+
+    async getEmpleadoById(id) {
+        return this.request(`/empleados/${id}`);
+    }
+
+    async getEmpleadoPorEmail(email) {
+        return this.request(`/empleados/email/${encodeURIComponent(email)}`);
+    }
+
+    async actualizarEmpleado(id, data) {
+        return this.request(`/empleados/${id}`, { method: 'PUT', body: data });
+    }
+
+    async cambiarRolEmpleado(id, id_rol) {
+        return this.request(`/empleados/${id}/rol`, { method: 'PUT', body: { id_rol } });
+    }
+
+    async cambiarEstadoEmpleado(id, estado) {
+        return this.request(`/empleados/${id}/estado`, { method: 'PUT', body: { estado } });
+    }
+
+    // ======================
+    // 🛡️ ROLES
+    // ======================
+
+    async getRoles() {
+        return this.request('/roles');
+    }
+
+    async getRolById(id) {
+        return this.request(`/roles/${id}`);
+    }
+
+    async crearRol(data) {
+        return this.request('/roles', { method: 'POST', body: data });
+    }
+
+    async actualizarRol(id, data) {
+        return this.request(`/roles/${id}`, { method: 'PUT', body: data });
+    }
+
+    async desactivarRol(id) {
+        return this.request(`/roles/${id}`, { method: 'DELETE' });
+    }
+
+    // ======================
     // 🌐 MÉTODOS GENÉRICOS
     // ======================
 

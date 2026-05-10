@@ -18,6 +18,7 @@
 @import "./settings/_lp-tokens.css";
 @import "./settings/_lp-animations.css";
 @import "./settings/_db-tokens.css";
+@import "./settings/_lr-tokens.css";
 
 /* ─── 2. GENERIC ───────────────────────────────────────────────────────────── */
 @import "./generic/_reset.css";
@@ -73,18 +74,33 @@
 /* dashboard */
 @import "./components/dashboard/atoms/_db-theme-toggle.css";
 @import "./components/dashboard/atoms/_db-stats.css";
+/* dashboard atoms — movimientos y empleados */
+@import "./components/dashboard/atoms/_db-indicador.css";
+@import "./components/dashboard/atoms/_db-etiqueta.css";
+@import "./components/dashboard/atoms/_db-avatar-empleado.css";
+@import "./components/dashboard/atoms/_db-control-cantidad.css";
+@import "./components/dashboard/atoms/_db-campo.css";
 @import "./components/dashboard/molecules/_db-alerts.css";
 @import "./components/dashboard/molecules/_db-inventory-item.css";
+/* dashboard molecules — movimientos y empleados */
+@import "./components/dashboard/molecules/_db-barra-filtros.css";
+@import "./components/dashboard/molecules/_db-tabla-datos.css";
+@import "./components/dashboard/molecules/_db-celda-empleado.css";
+@import "./components/dashboard/molecules/_db-delta-stock.css";
 @import "./components/dashboard/organisms/_db-layout.css";
 @import "./components/dashboard/organisms/_db-header.css";
 @import "./components/dashboard/organisms/_db-sidebar.css";
 @import "./components/dashboard/organisms/_db-main.css";
+/* dashboard organisms — tarjeta de vista */
+@import "./components/dashboard/organisms/_db-tarjeta-vista.css";
 @import "./components/dashboard/views/_config-view.css";
 @import "./components/dashboard/views/_inventory-view.css";
 @import "./components/dashboard/views/_categorias-view.css";
 @import "./components/dashboard/views/_productos-view.css";
 @import "./components/dashboard/views/_modal-view.css";
 @import "./components/dashboard/views/_en-construccion-view.css";
+@import "./components/dashboard/views/_movimientos-view.css";
+@import "./components/dashboard/views/_usuarios-view.css";
 @import "./components/dashboard/_db-responsive.css";
 
 /* ─── 6. UTILITIES ──────────────────────────────────────────────────────────── */

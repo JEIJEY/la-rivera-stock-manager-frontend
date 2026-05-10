@@ -16,6 +16,12 @@ export async function inicializarInventario() {
     return;
   }
 
+  // ── Restricciones por rol ────────────────────────────────────────────
+  const ROLES_ADMIN = ["admin", "propietario"];
+  const puedeEditar = ROLES_ADMIN.includes(obtenerRolDesdeToken());
+
+  if (!puedeEditar && btnCrear) btnCrear.style.display = "none";
+
   await cargarProductos();
 
   if (btnRecargar && !btnRecargar.dataset.listener) {
@@ -23,7 +29,7 @@ export async function inicializarInventario() {
     btnRecargar.addEventListener("click", cargarProductos);
   }
 
-  if (btnCrear && !btnCrear.dataset.listener) {
+  if (puedeEditar && btnCrear && !btnCrear.dataset.listener) {
     btnCrear.dataset.listener = "true";
     btnCrear.addEventListener("click", () => abrirModal(hostModal, cargarProductos));
   }
@@ -38,6 +44,15 @@ export async function inicializarInventario() {
       productosView.setEstado(estado, "💥 Error al conectar con el servidor.");
     }
   }
+}
+
+/** Lee el campo `rol` del JWT en localStorage sin verificar firma. */
+function obtenerRolDesdeToken() {
+  try {
+    const token = localStorage.getItem("authToken");
+    if (!token) return null;
+    return JSON.parse(atob(token.split(".")[1])).rol ?? null;
+  } catch { return null; }
 }
 
 async function abrirModal(hostModal, onSuccess) {

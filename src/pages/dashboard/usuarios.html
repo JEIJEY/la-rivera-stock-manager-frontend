@@ -1,4 +1,152 @@
-<section class="usuarios">
-  <h1>👥 Usuarios</h1>
-  <p>Módulo en construcción...</p>
+<!-- ============================================================
+     Empleados (Usuarios) — vista SPA
+     BEM root: .empleados
+     IDs JS: tablaEmpleados, estadoCargaEmpleados,
+             btnRecargarEmpleados, btnAplicarFiltrosEmpleados,
+             btnLimpiarFiltrosEmpleados, filtroRolEmpleado,
+             filtroEstadoEmpleado, filtroSoloPendientes,
+             modalEmpleado, formEmpleado, empId, empRol, empEstado,
+             empNombreLabel, empEmailLabel, btnCancelarEmpleado
+     ============================================================ -->
+
+<!-- Tarjeta vista principal -->
+<section class="db-tarjeta-vista empleados">
+  <header class="db-tarjeta-vista__encabezado empleados__header">
+    <div class="db-tarjeta-vista__grupo-titulo">
+      <div class="db-tarjeta-vista__icono">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      </div>
+      <div>
+        <h1 class="db-tarjeta-vista__titulo">Empleados</h1>
+        <p class="db-tarjeta-vista__subtitulo">Gestiona los roles y el acceso de tu equipo a La Rivera</p>
+      </div>
+    </div>
+    <div class="db-tarjeta-vista__acciones">
+      <button class="btn btn--outline" id="btnRecargarEmpleados">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+        Recargar
+      </button>
+    </div>
+  </header>
+
+  <div class="db-tarjeta-vista__cuerpo empleados__body">
+
+    <!-- Barra de filtros -->
+    <div class="db-barra-filtros empleados__filtros">
+      <div class="db-barra-filtros__grupo">
+        <span class="db-barra-filtros__etiqueta">Rol</span>
+        <select class="db-campo__control" id="filtroRolEmpleado">
+          <option value="">Todos</option>
+        </select>
+      </div>
+      <div class="db-barra-filtros__separador"></div>
+      <div class="db-barra-filtros__grupo">
+        <span class="db-barra-filtros__etiqueta">Estado</span>
+        <select class="db-campo__control" id="filtroEstadoEmpleado">
+          <option value="">Todos</option>
+          <option value="1">Activo</option>
+          <option value="0">Inactivo</option>
+        </select>
+      </div>
+      <div class="db-barra-filtros__separador"></div>
+      <label class="db-barra-filtros__grupo" style="cursor:pointer;gap:8px;font-size:var(--lr-text-sm);color:var(--lr-fg-secondary)">
+        <input type="checkbox" id="filtroSoloPendientes" style="accent-color:var(--lr-accent);width:16px;height:16px;" />
+        Solo pendientes de asignación
+      </label>
+      <div class="db-barra-filtros__espacio"></div>
+      <button class="btn btn--ghost btn--sm" id="btnLimpiarFiltrosEmpleados">Limpiar</button>
+      <button class="btn btn-success btn--sm" id="btnAplicarFiltrosEmpleados">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+        Aplicar
+      </button>
+    </div>
+
+    <!-- Tabla de empleados -->
+    <div class="db-tabla-datos__contenedor empleados__table-wrap">
+      <table class="db-tabla-datos empleados__table">
+        <thead>
+          <tr>
+            <th style="width:80px">ID</th>
+            <th>Nombre</th>
+            <th>Email</th>
+            <th>Cédula</th>
+            <th>Rol</th>
+            <th>Estado</th>
+            <th>Creado</th>
+            <th class="actions">Acciones</th>
+          </tr>
+        </thead>
+        <tbody id="tablaEmpleados"></tbody>
+      </table>
+      <div class="db-tabla-datos__pie">
+        <div class="db-tabla-datos__conteo">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--lr-accent);width:14px;height:14px"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          <p id="estadoCargaEmpleados" class="empleados__estado"></p>
+        </div>
+      </div>
+    </div>
+
+  </div>
 </section>
+
+<!-- ============================================================
+     Modal — Editar empleado
+     JS usa: modal.style.display = "flex" para abrir
+             modal.style.display = "none" para cerrar
+     ============================================================ -->
+<div id="modalEmpleado"
+     class="emp-dialogo"
+     style="display:none;"
+     role="dialog"
+     aria-modal="true"
+     aria-labelledby="empModalTitle">
+  <div class="emp-dialogo__contenido">
+    <header class="emp-dialogo__encabezado">
+      <div>
+        <h2 class="emp-dialogo__titulo" id="empModalTitle">Editar empleado</h2>
+        <p style="font-size:var(--lr-text-sm);color:var(--lr-fg-muted);margin:2px 0 0">Cambia el rol o desactiva el acceso al sistema</p>
+      </div>
+      <button class="emp-dialogo__cerrar" id="btnCancelarEmpleado" aria-label="Cerrar">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </header>
+
+    <div class="emp-dialogo__cuerpo">
+      <!-- Strip con datos del empleado -->
+      <div class="emp-dialogo__perfil">
+        <div class="db-avatar-empleado db-avatar-empleado--pendiente" id="empAvatarLabel">?</div>
+        <div>
+          <div class="db-celda-empleado__nombre" id="empNombreLabel"></div>
+          <div class="db-celda-empleado__email" id="empEmailLabel"></div>
+        </div>
+      </div>
+
+      <form id="formEmpleado">
+        <input type="hidden" id="empId" />
+
+        <div class="db-campo" style="margin-bottom: 16px;">
+          <label class="db-campo__etiqueta" for="empRol">Rol</label>
+          <select class="db-campo__control" id="empRol" required></select>
+          <span class="db-campo__pista">El rol define qué puede hacer este empleado en el sistema.</span>
+        </div>
+
+        <div class="db-campo">
+          <label class="db-campo__etiqueta" for="empEstado">Estado</label>
+          <select class="db-campo__control" id="empEstado" required>
+            <option value="1">Activo</option>
+            <option value="0">Inactivo</option>
+          </select>
+          <span class="db-campo__pista">Un empleado inactivo no podrá iniciar sesión.</span>
+        </div>
+
+        <footer class="emp-dialogo__pie" style="margin-top: 8px;">
+          <button type="button" class="btn btn--ghost" onclick="document.getElementById('btnCancelarEmpleado').click()">Cancelar</button>
+          <button type="submit" class="btn btn-success">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px"><polyline points="20 6 9 17 4 12"/></svg>
+            Guardar cambios
+          </button>
+        </footer>
+      </form>
+    </div>
+  </div>
+</div>

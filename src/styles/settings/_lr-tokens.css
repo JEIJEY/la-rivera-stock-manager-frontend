@@ -1,0 +1,171 @@
+/* settings/_lr-tokens.css
+ * Design System tokens — La Rivera Stock
+ * Fuente: colors_and_type.css del prototipo
+ * NOTA: Se omite @import de Google Fonts (Geist). Se usan fuentes del sistema.
+ */
+
+:root {
+  /* ── Superficies shell (sidebar oscuro) ── */
+  --lr-bg-shell:       #0c1612;
+  --lr-bg-shell-hi:    #14211c;
+  --lr-shell-fg:       #ecf0f5;
+  --lr-shell-fg-mute:  #8a9994;
+  --lr-shell-border:   #1f2c26;
+
+  /* ── Superficies canvas (contenido claro) ── */
+  --lr-bg-base:        #f4f5f7;
+  --lr-bg-canvas:      #f4f5f7;
+  --lr-bg-card:        #ffffff;
+  --lr-bg-card-hi:     #f9fafb;
+  --lr-bg-input:       #ffffff;
+  --lr-bg-muted:       #eef0f3;
+  --lr-bg-strong:      #e2e6eb;
+
+  /* ── Bordes ── */
+  --lr-border-subtle:  #eef0f3;
+  --lr-border:         #d8dde3;
+  --lr-border-strong:  #9aa3af;
+  --lr-border-accent:  #00b574;
+
+  /* ── Texto ── */
+  --lr-fg-primary:     #0f1419;
+  --lr-fg-secondary:   #4b5563;
+  --lr-fg-muted:       #7b8595;
+  --lr-fg-disabled:    #b4bcc7;
+  --lr-fg-on-accent:   #052b1a;
+
+  /* ── Acento verde ── */
+  --lr-accent:         #00b574;
+  --lr-accent-bright:  #00d98b;
+  --lr-accent-hover:   #00a268;
+  --lr-accent-press:   #008f5b;
+  --lr-accent-dim:     #e3f9ed;
+  --lr-accent-tint:    #cdf2dd;
+  --lr-accent-glow:    rgba(0, 181, 116, 0.22);
+
+  /* ── Estados semánticos ── */
+  --lr-success:        #047a4f;
+  --lr-success-bg:     #e3f9ed;
+  --lr-success-fg:     #066a44;
+  --lr-success-border: #b6ebcb;
+
+  --lr-warning:        #b86e08;
+  --lr-warning-bg:     #fdf3df;
+  --lr-warning-fg:     #92560b;
+  --lr-warning-border: #f3d99a;
+
+  --lr-danger:         #b91c1c;
+  --lr-danger-bg:      #fde7e7;
+  --lr-danger-fg:      #a01515;
+  --lr-danger-border:  #f5c2c2;
+
+  --lr-info:           #0c5cab;
+  --lr-info-bg:        #eaf4fd;
+  --lr-info-fg:        #0c5cab;
+  --lr-info-border:    #b9dcf6;
+
+  --lr-violet:         #5b3bb8;
+  --lr-violet-bg:      #f1ecfd;
+  --lr-violet-fg:      #5b3bb8;
+  --lr-violet-border:  #d8c8fa;
+
+  /* ── Roles ── */
+  --lr-role-admin-fg:  var(--lr-info-fg);
+  --lr-role-admin-bg:  var(--lr-info-bg);
+  --lr-role-admin-bd:  var(--lr-info-border);
+
+  --lr-role-prop-fg:   var(--lr-violet-fg);
+  --lr-role-prop-bg:   var(--lr-violet-bg);
+  --lr-role-prop-bd:   var(--lr-violet-border);
+
+  --lr-role-bodeg-fg:  var(--lr-warning-fg);
+  --lr-role-bodeg-bg:  var(--lr-warning-bg);
+  --lr-role-bodeg-bd:  var(--lr-warning-border);
+
+  --lr-role-vend-fg:   var(--lr-success-fg);
+  --lr-role-vend-bg:   var(--lr-success-bg);
+  --lr-role-vend-bd:   var(--lr-success-border);
+
+  --lr-role-pend-fg:   #4b5563;
+  --lr-role-pend-bg:   #eef0f3;
+  --lr-role-pend-bd:   #d8dde3;
+
+  /* ── Colores de movimientos ── */
+  --lr-mov-entrada:    var(--lr-success);
+  --lr-mov-salida:     var(--lr-warning);
+  --lr-mov-baja:       var(--lr-danger);
+  --lr-mov-historial:  var(--lr-info);
+
+  /* ── Tipografía — hereda las fuentes del proyecto ── */
+  --lr-font-sans: var(--font-primary);   /* Poppins — definido en settings/_variables.css */
+  --lr-font-mono: ui-monospace, 'SF Mono', Menlo, Consolas, 'Courier New', monospace;
+
+  /* ── Escala de texto ── */
+  --lr-text-xs:   11px;
+  --lr-text-sm:   13px;
+  --lr-text-base: 14px;
+  --lr-text-md:   15px;
+  --lr-text-lg:   17px;
+  --lr-text-xl:   22px;
+  --lr-text-2xl:  28px;
+  --lr-text-3xl:  36px;
+
+  /* ── Line height ── */
+  --lr-leading-tight:  1.15;
+  --lr-leading-snug:   1.35;
+  --lr-leading-normal: 1.5;
+
+  /* ── Letter spacing ── */
+  --lr-tracking-tight:  -0.015em;
+  --lr-tracking-normal: 0;
+  --lr-tracking-wide:   0.04em;
+  --lr-tracking-caps:   0.08em;
+
+  /* ── Pesos ── */
+  --lr-weight-regular: 400;
+  --lr-weight-medium:  500;
+  --lr-weight-semi:    600;
+  --lr-weight-bold:    700;
+
+  /* ── Espaciado ── */
+  --lr-space-1:  4px;
+  --lr-space-2:  8px;
+  --lr-space-3:  12px;
+  --lr-space-4:  16px;
+  --lr-space-5:  20px;
+  --lr-space-6:  24px;
+  --lr-space-8:  32px;
+  --lr-space-10: 40px;
+  --lr-space-12: 48px;
+  --lr-space-16: 64px;
+
+  /* ── Radios ── */
+  --lr-radius-xs:   4px;
+  --lr-radius-sm:   6px;
+  --lr-radius-md:   8px;
+  --lr-radius-lg:   12px;
+  --lr-radius-xl:   16px;
+  --lr-radius-pill: 999px;
+
+  /* ── Sombras ── */
+  --lr-shadow-xs:   0 1px 0 rgba(15, 20, 25, .04);
+  --lr-shadow-sm:   0 1px 2px rgba(15, 20, 25, .06), 0 0 0 1px rgba(15, 20, 25, .04);
+  --lr-shadow-md:   0 6px 16px rgba(15, 20, 25, .08), 0 1px 2px rgba(15, 20, 25, .06);
+  --lr-shadow-lg:   0 24px 48px rgba(15, 20, 25, .14), 0 8px 16px rgba(15, 20, 25, .06);
+  --lr-shadow-glow: 0 0 0 4px var(--lr-accent-glow);
+
+  /* ── Easing ── */
+  --lr-ease-out:    cubic-bezier(.2, .7, .2, 1);
+  --lr-ease-in-out: cubic-bezier(.65, 0, .35, 1);
+
+  /* ── Duraciones ── */
+  --lr-dur-fast: 120ms;
+  --lr-dur-base: 180ms;
+  --lr-dur-slow: 280ms;
+
+  /* ── Dimensiones de control ── */
+  --lr-row-h:       52px;
+  --lr-control-h:   38px;
+  --lr-button-h:    38px;
+  --lr-button-h-sm: 30px;
+}

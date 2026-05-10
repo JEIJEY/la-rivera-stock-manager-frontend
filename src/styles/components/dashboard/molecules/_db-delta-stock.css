@@ -1,0 +1,40 @@
+/* 🧱 MOLÉCULA — components/dashboard/molecules/_db-delta-stock.css
+ *
+ * Visualizador de cambio de stock: muestra el valor anterior,
+ * una flecha de dirección y el valor nuevo del inventario.
+ * Se usa en la columna de historial de movimientos.
+ *
+ * BEM root: .db-delta-stock
+ *
+ * Modificadores de dirección:
+ *   .db-delta-stock--suma   → el stock aumentó (entrada): valor nuevo en verde
+ *   .db-delta-stock--resta  → el stock disminuyó (salida): valor nuevo en warning
+ *   .db-delta-stock--baja   → baja/pérdida total: valor nuevo en rojo
+ *
+ * Elementos:
+ *   __antes    → valor numérico antes del movimiento (color muted)
+ *   __flecha   → símbolo de dirección "→" (color muted)
+ *   __despues  → valor numérico después del movimiento (coloreado por modificador)
+ *
+ * Tokens usados: --lr-* definidos en settings/_lr-tokens.css
+ */
+
+/* ── Contenedor inline ── */
+.db-delta-stock {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--lr-font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: 14px;
+}
+
+/* ── Elementos ── */
+.db-delta-stock__antes  { color: var(--lr-fg-muted); }
+.db-delta-stock__flecha { color: var(--lr-fg-muted); }
+.db-delta-stock__despues { font-weight: var(--lr-weight-semi); }
+
+/* ── Color del valor resultante por tipo ── */
+.db-delta-stock--suma  .db-delta-stock__despues { color: var(--lr-success-fg); }
+.db-delta-stock--resta .db-delta-stock__despues { color: var(--lr-warning-fg); }
+.db-delta-stock--baja  .db-delta-stock__despues { color: var(--lr-danger-fg); }

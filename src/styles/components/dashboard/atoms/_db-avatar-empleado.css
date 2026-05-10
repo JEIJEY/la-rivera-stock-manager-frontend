@@ -1,0 +1,37 @@
+/* ⚛️ ÁTOMO — components/dashboard/atoms/_db-avatar-empleado.css
+ *
+ * Avatar circular para representar un empleado, coloreado por rol.
+ * Se usa en celdas de tabla, modales y strips de usuario.
+ *
+ * BEM root: .db-avatar-empleado
+ *
+ * Modificadores de rol:
+ *   .db-avatar-empleado--admin       → administrador (azul)
+ *   .db-avatar-empleado--propietario → dueño de la tienda (violet)
+ *   .db-avatar-empleado--bodeguero   → gestiona inventario físico (warning)
+ *   .db-avatar-empleado--vendedor    → opera en mostrador (verde)
+ *   .db-avatar-empleado--pendiente   → sin rol asignado (neutro)
+ *
+ * Tokens usados: --lr-* definidos en settings/_lr-tokens.css
+ */
+
+/* ── Avatar base ── */
+.db-avatar-empleado {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 12px;
+  font-weight: var(--lr-weight-semi);
+  background: var(--lr-bg-muted);
+  border: 1px solid var(--lr-border);
+  flex-shrink: 0;
+}
+
+/* ── Modificadores de rol ── */
+.db-avatar-empleado--admin       { background: var(--lr-role-admin-bg); color: var(--lr-role-admin-fg); border-color: var(--lr-role-admin-bd); }
+.db-avatar-empleado--propietario { background: var(--lr-role-prop-bg);  color: var(--lr-role-prop-fg);  border-color: var(--lr-role-prop-bd); }
+.db-avatar-empleado--bodeguero   { background: var(--lr-role-bodeg-bg); color: var(--lr-role-bodeg-fg); border-color: var(--lr-role-bodeg-bd); }
+.db-avatar-empleado--vendedor    { background: var(--lr-role-vend-bg);  color: var(--lr-role-vend-fg);  border-color: var(--lr-role-vend-bd); }
+.db-avatar-empleado--pendiente   { background: var(--lr-role-pend-bg);  color: var(--lr-role-pend-fg);  border-color: var(--lr-role-pend-bd); }

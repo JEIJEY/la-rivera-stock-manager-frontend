@@ -52,7 +52,7 @@ export async function inicializarDashboard() {
   });
 
   viewManager.register("usuarios", {
-    html: "en-construccion.html",
+    html: "usuarios.html",
     module: usuariosModule,
     initExport: "inicializarUsuarios",
   });
@@ -64,7 +64,7 @@ export async function inicializarDashboard() {
   });
 
   viewManager.register("movimientos", {
-    html: "en-construccion.html",
+    html: "movimientos.html",
     module: movimientosModule,
     initExport: "inicializarMovimientos",
   });
@@ -88,6 +88,22 @@ export async function inicializarDashboard() {
     });
   });
 
+  // ── Poblar perfil del sidebar con datos reales del token ────────────
+  actualizarPerfilSidebar();
+
+  // ── Ocultar secciones del sidebar según rol ──────────────────────────
+  const SECCIONES_OCULTAS_POR_ROL = {
+    vendedor:  ["usuarios", "reportes", "configuracion"],
+    bodeguero: ["usuarios", "configuracion"],
+    pendiente: ["usuarios", "reportes", "configuracion"],
+  };
+  const rolActual = obtenerRolDesdeToken();
+  const seccionesOcultas = SECCIONES_OCULTAS_POR_ROL[rolActual] ?? [];
+  seccionesOcultas.forEach((seccion) => {
+    const link = document.querySelector(`.sidebar-menu__link[data-seccion="${seccion}"]`);
+    if (link) link.closest(".sidebar-menu__item").style.display = "none";
+  });
+
   logger.info("Cargando vista inicial...");
   await viewManager.load("inventario");
   initLogoutButton();
@@ -99,6 +115,49 @@ export async function inicializarDashboard() {
     logger.info({ vista }, "Vista activa");
     inicializarToggleInventario();
   });
+}
+
+/** Actualiza nombre y rol del perfil en el sidebar usando el JWT. */
+function actualizarPerfilSidebar() {
+  const ETIQUETA_ROL = {
+    admin:       "Administrador",
+    propietario: "Propietario",
+    bodeguero:   "Bodeguero",
+    vendedor:    "Vendedor",
+    pendiente:   "Sin rol asignado",
+  };
+
+  const payload = obtenerPayloadToken();
+  if (!payload) return;
+
+  const elNombre = document.querySelector(".db-sidebar__name");
+  const elRol    = document.querySelector(".db-sidebar__role");
+
+  if (elNombre && payload.nombre) {
+    elNombre.textContent = payload.nombre.toUpperCase();
+  } else if (elNombre && payload.email) {
+    elNombre.textContent = payload.email;
+  }
+
+  if (elRol && payload.rol) {
+    elRol.textContent = ETIQUETA_ROL[payload.rol] ?? payload.rol;
+  }
+}
+
+/** Lee el payload completo del JWT en localStorage sin verificar firma. */
+function obtenerPayloadToken() {
+  try {
+    const token = localStorage.getItem("authToken");
+    if (!token) return null;
+    return JSON.parse(atob(token.split(".")[1]));
+  } catch {
+    return null;
+  }
+}
+
+/** Lee el campo `rol` del JWT en localStorage sin verificar firma. */
+function obtenerRolDesdeToken() {
+  return obtenerPayloadToken()?.rol ?? null;
 }
 
 function inicializarToggleInventario() {

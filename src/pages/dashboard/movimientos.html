@@ -1,4 +1,412 @@
-<section class="movimientos">
-  <h1>➕ Movimientos</h1>
-  <p>Módulo en construcción...</p>
+<!-- ============================================================
+     Movimientos de Inventario — vista SPA
+     BEM root: .movimientos
+     IDs JS: formEntrada, formSalida, formBaja, tablaMovimientos,
+             estadoCargaMovimientos, filtroTipoMovimiento,
+             filtroProductoMovimiento, filtroEmpleadoMovimiento,
+             filtroFechaDesde, filtroFechaHasta,
+             btnAplicarFiltros, btnLimpiarFiltros, btnRecargarMovimientos,
+             kpiEntradas, kpiSalidas, kpiBajas, kpiStockTotal
+     ============================================================ -->
+
+<!-- Fila de indicadores KPI -->
+<div class="mov-fila-indicadores movimientos__kpis" style="margin-bottom: 4px;">
+  <div class="db-indicador db-indicador--entrada">
+    <div class="db-indicador__icono">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 17V3"/><path d="m6 11 6 6 6-6"/><path d="M19 21H5"/></svg>
+    </div>
+    <span class="db-indicador__etiqueta">Entradas hoy</span>
+    <span class="db-indicador__valor" id="kpiEntradas">—</span>
+    <span class="db-indicador__delta">movimientos de entrada</span>
+  </div>
+  <div class="db-indicador db-indicador--salida">
+    <div class="db-indicador__icono">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 7v14"/><path d="m6 13 6-6 6 6"/><path d="M19 3H5"/></svg>
+    </div>
+    <span class="db-indicador__etiqueta">Salidas hoy</span>
+    <span class="db-indicador__valor" id="kpiSalidas">—</span>
+    <span class="db-indicador__delta">movimientos de salida</span>
+  </div>
+  <div class="db-indicador db-indicador--baja">
+    <div class="db-indicador__icono">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4h6v2"/></svg>
+    </div>
+    <span class="db-indicador__etiqueta">Bajas hoy</span>
+    <span class="db-indicador__valor" id="kpiBajas">—</span>
+    <span class="db-indicador__delta">bajas de inventario</span>
+  </div>
+  <div class="db-indicador db-indicador--total">
+    <div class="db-indicador__icono">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16.5 9.4l-9-5.19M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+    </div>
+    <span class="db-indicador__etiqueta">Stock total</span>
+    <span class="db-indicador__valor" id="kpiStockTotal">—</span>
+    <span class="db-indicador__delta">unidades en inventario</span>
+  </div>
+</div>
+
+<!-- Tarjeta vista principal -->
+<section class="db-tarjeta-vista movimientos">
+  <header class="db-tarjeta-vista__encabezado">
+    <div class="db-tarjeta-vista__grupo-titulo">
+      <div class="db-tarjeta-vista__icono">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+      </div>
+      <div>
+        <h1 class="db-tarjeta-vista__titulo">Movimientos de inventario</h1>
+        <p class="db-tarjeta-vista__subtitulo">Registra entradas, salidas y bajas. Toda acción queda con trazabilidad.</p>
+      </div>
+    </div>
+    <div class="db-tarjeta-vista__acciones">
+      <button class="btn btn--outline btn--sm">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Exportar
+      </button>
+      <button class="btn btn--outline btn--sm" id="btnRecargarMovimientos">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+        Recargar
+      </button>
+    </div>
+  </header>
+
+  <div class="db-tarjeta-vista__cuerpo">
+
+    <!-- Tabs -->
+    <nav class="mov-tabs movimientos__tabs" role="tablist">
+      <button class="mov-tab mov-tab--entrada" data-tab="entrada">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px"><path d="M12 17V3"/><path d="m6 11 6 6 6-6"/><path d="M19 21H5"/></svg>
+        Entrada
+        <span class="mov-tab__conteo">+ nuevo</span>
+      </button>
+      <button class="mov-tab mov-tab--salida" data-tab="salida">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px"><path d="M12 7v14"/><path d="m6 13 6-6 6 6"/><path d="M19 3H5"/></svg>
+        Salida
+        <span class="mov-tab__conteo">+ nuevo</span>
+      </button>
+      <button class="mov-tab mov-tab--baja" data-tab="baja">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4h6v2"/></svg>
+        Baja
+        <span class="mov-tab__conteo">+ nuevo</span>
+      </button>
+      <button class="mov-tab mov-tab--historial is-active" data-tab="historial">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px"><path d="M3 3v5h5"/><path d="M3.05 13A9 9 0 1 0 6 5.3L3 8"/><path d="M12 7v5l4 2"/></svg>
+        Historial
+        <span class="mov-tab__conteo">0</span>
+      </button>
+    </nav>
+
+    <!-- ─── Panel: Entrada ─────────────────────────────────────────────── -->
+    <div class="mov-panel" data-panel="entrada" hidden>
+      <div class="mov-resumen-tipo mov-resumen-tipo--entrada">
+        <div class="mov-resumen-tipo__icono">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 17V3"/><path d="m6 11 6 6 6-6"/><path d="M19 21H5"/></svg>
+        </div>
+        <div class="mov-resumen-tipo__texto">
+          Las <strong>entradas</strong> suman producto al inventario. Úsalas para registrar compras a proveedores, devoluciones de clientes o ajustes positivos.
+        </div>
+      </div>
+
+      <article class="mov-tarjeta-registro mov-tarjeta-registro--entrada">
+        <header class="mov-tarjeta-registro__encabezado">
+          <div class="mov-tarjeta-registro__grupo-titulo">
+            <div class="mov-tarjeta-registro__icono mov-tarjeta-registro__icono--entrada">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 17V3"/><path d="m6 11 6 6 6-6"/><path d="M19 21H5"/></svg>
+            </div>
+            <div>
+              <h2 class="mov-tarjeta-registro__titulo">Registrar entrada</h2>
+              <p class="mov-tarjeta-registro__subtitulo">Suma producto al inventario.</p>
+            </div>
+          </div>
+          <span class="db-etiqueta db-etiqueta--entrada"><span class="db-etiqueta__punto"></span>Suma stock</span>
+        </header>
+
+        <form id="formEntrada">
+          <div class="mov-cuadricula-campos">
+            <div class="db-campo">
+              <label class="db-campo__etiqueta">Producto</label>
+              <div class="mov-selector-producto">
+                <select class="db-campo__control" name="id_producto" required>
+                  <option value="">Seleccione un producto</option>
+                </select>
+                <span class="mov-selector-producto__stock">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16.5 9.4l-9-5.19M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+                  Stock: <strong style="color:var(--lr-fg-primary)" data-stock-actual>—</strong>
+                </span>
+              </div>
+            </div>
+            <div class="db-campo">
+              <label class="db-campo__etiqueta">Cantidad</label>
+              <div class="db-control-cantidad">
+                <button type="button" class="db-control-cantidad__decremento" onclick="this.parentElement.querySelector('input').stepDown()">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px"><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                </button>
+                <input type="number" class="db-control-cantidad__valor" name="cantidad" value="1" step="0.01" min="0.01" required />
+                <button type="button" class="db-control-cantidad__incremento" onclick="this.parentElement.querySelector('input').stepUp()">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                </button>
+              </div>
+            </div>
+            <div class="db-campo">
+              <label class="db-campo__etiqueta">Observación <span style="color:var(--lr-fg-muted);font-weight:400">(opcional)</span></label>
+              <input class="db-campo__control" type="text" name="observacion" maxlength="255" placeholder="Ej: Compra factura #1234" />
+            </div>
+          </div>
+
+          <footer class="mov-tarjeta-registro__pie">
+            <span class="mov-tarjeta-registro__pista">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              El stock se actualiza inmediatamente al guardar.
+            </span>
+            <div style="display:flex;align-items:center;gap:8px">
+              <button type="reset" class="btn btn--ghost">Limpiar</button>
+              <button type="submit" class="btn btn-success">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px"><polyline points="20 6 9 17 4 12"/></svg>
+                Registrar entrada
+              </button>
+            </div>
+          </footer>
+        </form>
+      </article>
+    </div>
+
+    <!-- ─── Panel: Salida ──────────────────────────────────────────────── -->
+    <div class="mov-panel" data-panel="salida" hidden>
+      <div class="mov-resumen-tipo mov-resumen-tipo--salida">
+        <div class="mov-resumen-tipo__icono">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 7v14"/><path d="m6 13 6-6 6 6"/><path d="M19 3H5"/></svg>
+        </div>
+        <div class="mov-resumen-tipo__texto">
+          Las <strong>salidas</strong> restan producto por venta, traslado o consumo interno.
+        </div>
+      </div>
+
+      <article class="mov-tarjeta-registro mov-tarjeta-registro--salida">
+        <header class="mov-tarjeta-registro__encabezado">
+          <div class="mov-tarjeta-registro__grupo-titulo">
+            <div class="mov-tarjeta-registro__icono mov-tarjeta-registro__icono--salida">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 7v14"/><path d="m6 13 6-6 6 6"/><path d="M19 3H5"/></svg>
+            </div>
+            <div>
+              <h2 class="mov-tarjeta-registro__titulo">Registrar salida</h2>
+              <p class="mov-tarjeta-registro__subtitulo">Resta producto por venta o entrega.</p>
+            </div>
+          </div>
+          <span class="db-etiqueta db-etiqueta--salida"><span class="db-etiqueta__punto"></span>Resta stock</span>
+        </header>
+
+        <form id="formSalida">
+          <div class="mov-cuadricula-campos">
+            <div class="db-campo">
+              <label class="db-campo__etiqueta">Producto</label>
+              <div class="mov-selector-producto">
+                <select class="db-campo__control" name="id_producto" required>
+                  <option value="">Seleccione un producto</option>
+                </select>
+                <span class="mov-selector-producto__stock">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16.5 9.4l-9-5.19M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+                  Stock: <strong style="color:var(--lr-fg-primary)" data-stock-actual>—</strong>
+                </span>
+              </div>
+            </div>
+            <div class="db-campo">
+              <label class="db-campo__etiqueta">Cantidad</label>
+              <div class="db-control-cantidad">
+                <button type="button" class="db-control-cantidad__decremento" onclick="this.parentElement.querySelector('input').stepDown()">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px"><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                </button>
+                <input type="number" class="db-control-cantidad__valor" name="cantidad" value="1" step="0.01" min="0.01" required />
+                <button type="button" class="db-control-cantidad__incremento" onclick="this.parentElement.querySelector('input').stepUp()">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                </button>
+              </div>
+            </div>
+            <div class="db-campo">
+              <label class="db-campo__etiqueta">Observación <span style="color:var(--lr-fg-muted);font-weight:400">(opcional)</span></label>
+              <input class="db-campo__control" type="text" name="observacion" maxlength="255" placeholder="Ej: Venta mostrador" />
+            </div>
+          </div>
+
+          <footer class="mov-tarjeta-registro__pie">
+            <span class="mov-tarjeta-registro__pista">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              El stock se actualiza al guardar.
+            </span>
+            <div style="display:flex;align-items:center;gap:8px">
+              <button type="reset" class="btn btn--ghost">Limpiar</button>
+              <button type="submit" class="btn btn-success">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px"><polyline points="20 6 9 17 4 12"/></svg>
+                Registrar salida
+              </button>
+            </div>
+          </footer>
+        </form>
+      </article>
+    </div>
+
+    <!-- ─── Panel: Baja ────────────────────────────────────────────────── -->
+    <div class="mov-panel" data-panel="baja" hidden>
+      <div class="mov-resumen-tipo mov-resumen-tipo--baja">
+        <div class="mov-resumen-tipo__icono">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4h6v2"/></svg>
+        </div>
+        <div class="mov-resumen-tipo__texto">
+          Las <strong>bajas</strong> registran pérdida por caducidad, daño o robo. Quedan en el historial para auditoría.
+        </div>
+      </div>
+
+      <article class="mov-tarjeta-registro mov-tarjeta-registro--baja">
+        <header class="mov-tarjeta-registro__encabezado">
+          <div class="mov-tarjeta-registro__grupo-titulo">
+            <div class="mov-tarjeta-registro__icono mov-tarjeta-registro__icono--baja">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4h6v2"/></svg>
+            </div>
+            <div>
+              <h2 class="mov-tarjeta-registro__titulo">Registrar baja</h2>
+              <p class="mov-tarjeta-registro__subtitulo">Producto que se descarta del inventario.</p>
+            </div>
+          </div>
+          <span class="db-etiqueta db-etiqueta--baja"><span class="db-etiqueta__punto"></span>Pérdida</span>
+        </header>
+
+        <form id="formBaja">
+          <div class="mov-cuadricula-campos">
+            <div class="db-campo">
+              <label class="db-campo__etiqueta">Producto</label>
+              <div class="mov-selector-producto">
+                <select class="db-campo__control" name="id_producto" required>
+                  <option value="">Seleccione un producto</option>
+                </select>
+                <span class="mov-selector-producto__stock">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16.5 9.4l-9-5.19M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+                  Stock: <strong style="color:var(--lr-fg-primary)" data-stock-actual>—</strong>
+                </span>
+              </div>
+            </div>
+            <div class="db-campo">
+              <label class="db-campo__etiqueta">Cantidad</label>
+              <div class="db-control-cantidad">
+                <button type="button" class="db-control-cantidad__decremento" onclick="this.parentElement.querySelector('input').stepDown()">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px"><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                </button>
+                <input type="number" class="db-control-cantidad__valor" name="cantidad" value="1" step="0.01" min="0.01" required />
+                <button type="button" class="db-control-cantidad__incremento" onclick="this.parentElement.querySelector('input').stepUp()">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                </button>
+              </div>
+            </div>
+            <div class="db-campo">
+              <label class="db-campo__etiqueta">Motivo</label>
+              <select class="db-campo__control" name="motivo" required>
+                <option value="">Seleccione un motivo</option>
+                <option value="caducidad">Caducidad</option>
+                <option value="daño">Daño</option>
+                <option value="robo">Robo</option>
+                <option value="otro">Otro</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="mov-cuadricula-campos mov-cuadricula-campos--completa" style="margin-top: 14px;">
+            <div class="db-campo">
+              <label class="db-campo__etiqueta">Observación <span style="color:var(--lr-fg-muted);font-weight:400">(mínimo 5 caracteres, obligatorio)</span></label>
+              <textarea class="db-campo__control" name="observacion" rows="3" minlength="5" maxlength="255" required placeholder="Describe lo ocurrido para tener trazabilidad…"></textarea>
+            </div>
+          </div>
+
+          <footer class="mov-tarjeta-registro__pie">
+            <span class="mov-tarjeta-registro__pista" style="color: var(--lr-warning-fg);">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+              Acción irreversible · queda en el historial
+            </span>
+            <div style="display:flex;align-items:center;gap:8px">
+              <button type="reset" class="btn btn--ghost">Limpiar</button>
+              <button type="submit" class="btn btn-success">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px"><polyline points="20 6 9 17 4 12"/></svg>
+                Registrar baja
+              </button>
+            </div>
+          </footer>
+        </form>
+      </article>
+    </div>
+
+    <!-- ─── Panel: Historial ───────────────────────────────────────────── -->
+    <div class="mov-panel" data-panel="historial">
+
+      <!-- Barra de filtros -->
+      <div class="db-barra-filtros movimientos__filtros">
+        <div class="db-barra-filtros__grupo">
+          <span class="db-barra-filtros__etiqueta">Tipo</span>
+          <select class="db-campo__control" id="filtroTipoMovimiento">
+            <option value="">Todos</option>
+            <option value="entrada">Entrada</option>
+            <option value="salida">Salida</option>
+            <option value="baja">Baja</option>
+          </select>
+        </div>
+        <div class="db-barra-filtros__separador"></div>
+        <div class="db-barra-filtros__grupo">
+          <span class="db-barra-filtros__etiqueta">Producto</span>
+          <select class="db-campo__control" id="filtroProductoMovimiento">
+            <option value="">Todos</option>
+          </select>
+        </div>
+        <div class="db-barra-filtros__separador"></div>
+        <div class="db-barra-filtros__grupo">
+          <span class="db-barra-filtros__etiqueta">Empleado</span>
+          <select class="db-campo__control" id="filtroEmpleadoMovimiento">
+            <option value="">Todos</option>
+          </select>
+        </div>
+        <div class="db-barra-filtros__separador"></div>
+        <div class="db-barra-filtros__grupo">
+          <span class="db-barra-filtros__etiqueta">Desde</span>
+          <input type="date" class="db-campo__control" id="filtroFechaDesde" />
+          <span class="db-barra-filtros__etiqueta">Hasta</span>
+          <input type="date" class="db-campo__control" id="filtroFechaHasta" />
+        </div>
+        <div class="db-barra-filtros__espacio"></div>
+        <button class="btn btn--ghost btn--sm" id="btnLimpiarFiltros">Limpiar</button>
+        <button class="btn btn-success btn--sm" id="btnAplicarFiltros">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+          Aplicar
+        </button>
+      </div>
+
+      <!-- Tabla de historial -->
+      <div class="db-tabla-datos__contenedor">
+        <table class="db-tabla-datos">
+          <thead>
+            <tr>
+              <th style="width:64px">ID</th>
+              <th style="width:110px">Tipo</th>
+              <th>Producto</th>
+              <th class="num">Cantidad</th>
+              <th>Motivo</th>
+              <th>Stock</th>
+              <th>Fecha</th>
+              <th>Observación</th>
+              <th>Empleado</th>
+            </tr>
+          </thead>
+          <tbody id="tablaMovimientos"></tbody>
+        </table>
+        <div class="db-tabla-datos__pie">
+          <div class="db-tabla-datos__conteo">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--lr-info-fg);width:14px;height:14px"><path d="M3 3v5h5"/><path d="M3.05 13A9 9 0 1 0 6 5.3L3 8"/><path d="M12 7v5l4 2"/></svg>
+            <p id="estadoCargaMovimientos" class="movimientos__estado"></p>
+          </div>
+          <div class="mov-leyenda">
+            <span class="mov-leyenda--entrada">↓ entradas</span>
+            <span class="mov-leyenda--salida">↑ salidas</span>
+            <span class="mov-leyenda--baja">✕ bajas</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <!-- /panel historial -->
+
+  </div>
+  <!-- /db-tarjeta-vista__cuerpo -->
 </section>

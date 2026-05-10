@@ -1,0 +1,24 @@
+/* 🧱 MOLÉCULA — components/dashboard/molecules/_db-celda-empleado.css
+ *
+ * Celda compuesta de tabla para mostrar un empleado:
+ * avatar circular + nombre + email en una fila.
+ *
+ * BEM root: .db-celda-empleado
+ *
+ * Elementos:
+ *   __nombre  → nombre completo del empleado (texto primario en negrita)
+ *   __email   → correo electrónico del empleado (texto secundario pequeño)
+ *
+ * Se combina con .db-avatar-empleado para el avatar.
+ *
+ * Tokens usados: --lr-* definidos en settings/_lr-tokens.css
+ */
+
+/* ── Celda fila ── */
+.db-celda-empleado { display: flex; align-items: center; gap: 12px; }
+
+/* ── Nombre del empleado ── */
+.db-celda-empleado__nombre  { font-weight: var(--lr-weight-medium); color: var(--lr-fg-primary); }
+
+/* ── Email del empleado ── */
+.db-celda-empleado__email { color: var(--lr-fg-muted); font-size: 12.5px; }

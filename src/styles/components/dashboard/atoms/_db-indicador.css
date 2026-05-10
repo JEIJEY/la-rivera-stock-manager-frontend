@@ -1,0 +1,78 @@
+/* ⚛️ ÁTOMO — components/dashboard/atoms/_db-indicador.css
+ *
+ * Tarjeta KPI (indicador de negocio) del dashboard.
+ * Muestra un valor numérico clave con etiqueta, delta y ícono coloreado por tipo.
+ *
+ * BEM root: .db-indicador
+ *
+ * Modificadores de tipo de movimiento:
+ *   .db-indicador--entrada  → entradas al inventario (verde)
+ *   .db-indicador--salida   → salidas del inventario (amarillo/warning)
+ *   .db-indicador--baja     → bajas/pérdidas (rojo/danger)
+ *   .db-indicador--total    → stock total acumulado (azul/info)
+ *
+ * Elementos:
+ *   __etiqueta  → texto descriptivo en mayúsculas (p.ej. "Entradas hoy")
+ *   __valor     → número principal en fuente mono
+ *   __delta     → texto secundario de contexto (p.ej. "movimientos de entrada")
+ *   __icono     → ícono flotante en esquina superior derecha, coloreado por modificador
+ *
+ * Tokens usados: --lr-* definidos en settings/_lr-tokens.css
+ */
+
+/* ── Tarjeta base ── */
+.db-indicador {
+  background: var(--lr-bg-card);
+  border: 1px solid var(--lr-border-subtle);
+  border-radius: var(--lr-radius-md);
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* ── Etiqueta (label del KPI) ── */
+.db-indicador__etiqueta {
+  font-size: 11px;
+  font-weight: var(--lr-weight-semi);
+  letter-spacing: var(--lr-tracking-caps);
+  text-transform: uppercase;
+  color: var(--lr-fg-muted);
+}
+
+/* ── Valor numérico principal ── */
+.db-indicador__valor {
+  font-family: var(--lr-font-mono);
+  font-size: 26px;
+  font-weight: var(--lr-weight-semi);
+  color: var(--lr-fg-primary);
+  letter-spacing: -0.01em;
+}
+
+/* ── Delta / contexto secundario ── */
+.db-indicador__delta {
+  font-size: 12px;
+  color: var(--lr-fg-muted);
+}
+
+/* ── Ícono flotante ── */
+.db-indicador__icono {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  border-radius: 6px;
+}
+
+.db-indicador__icono svg { width: 14px; height: 14px; }
+
+/* ── Modificadores de tipo ── */
+.db-indicador--entrada .db-indicador__icono { background: var(--lr-success-bg); color: var(--lr-success-fg); }
+.db-indicador--salida  .db-indicador__icono { background: var(--lr-warning-bg); color: var(--lr-warning-fg); }
+.db-indicador--baja    .db-indicador__icono { background: var(--lr-danger-bg);  color: var(--lr-danger-fg); }
+.db-indicador--total   .db-indicador__icono { background: var(--lr-info-bg);    color: var(--lr-info-fg); }

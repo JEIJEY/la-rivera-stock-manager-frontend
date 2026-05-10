@@ -1,0 +1,307 @@
+/* 📊 VISTA — components/dashboard/views/_movimientos-view.css
+ *
+ * Estilos ESPECÍFICOS de la vista de Movimientos de Inventario.
+ * Solo composición de layout y elementos únicos de esta vista.
+ *
+ * Los átomos y moléculas usados en esta vista están definidos en:
+ *   atoms/  → _db-indicador.css, _db-etiqueta.css, _db-campo.css, _db-control-cantidad.css
+ *   molecules/ → _db-barra-filtros.css, _db-tabla-datos.css, _db-delta-stock.css
+ *   organisms/ → _db-tarjeta-vista.css
+ *   shared/atoms/ → _buttons.css (.btn, .btn-success, .btn--ghost, .btn--outline, .btn--sm)
+ *
+ * BEM roots de esta vista:
+ *   .mov-vista             → contenedor raíz de la sección
+ *   .mov-fila-indicadores  → grid de 4 KPIs en la parte superior
+ *   .mov-tabs              → barra de pestañas (entrada / salida / baja / historial)
+ *   .mov-tab               → pestaña individual (también usada por JS para selección)
+ *   .mov-resumen-tipo      → card descriptiva de cada tipo de movimiento
+ *   .mov-tarjeta-registro  → formulario de registro con borde de color lateral
+ *   .mov-selector-producto → combo select + stock inline
+ *   .mov-cuadricula-campos → grid de campos del formulario
+ *   .mov-vista-previa      → caja de previsualización del resultado del movimiento
+ *   .mov-leyenda           → leyenda de tipos en el historial
+ *
+ * Prefijo de módulo: mov-
+ * Tokens usados: --lr-* definidos en settings/_lr-tokens.css
+ *
+ * @obsoleto: .lr-btn, .lr-badge, .lr-input, .lr-select, .lr-tabs, .lr-tab,
+ *            .lr-filterbar, .lr-table, .lr-empty, .page-card, .kpi (renombrados)
+ */
+
+/* ── Fila de indicadores KPI ── */
+.mov-fila-indicadores {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+/* ── Barra de pestañas (tabs) ── */
+.mov-tabs {
+  display: flex;
+  gap: 4px;
+  border-bottom: 1px solid var(--lr-border-subtle);
+  padding: 0;
+  margin-bottom: 4px;
+}
+
+/* ── Pestaña individual ── */
+.mov-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  background: transparent;
+  border: 0;
+  color: var(--lr-fg-secondary);
+  font-family: var(--lr-font-sans);
+  font-size: var(--lr-text-sm);
+  font-weight: var(--lr-weight-medium);
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  transition: color var(--lr-dur-fast), border-color var(--lr-dur-fast), background var(--lr-dur-fast);
+  border-radius: 6px 6px 0 0;
+  cursor: pointer;
+}
+
+.mov-tab svg { width: 15px; height: 15px; }
+
+/* ── Contador dentro de la pestaña ── */
+.mov-tab__conteo {
+  font-family: var(--lr-font-mono);
+  font-size: 11px;
+  padding: 1px 7px;
+  border-radius: var(--lr-radius-pill);
+  background: var(--lr-bg-muted);
+  color: var(--lr-fg-muted);
+  margin-left: 2px;
+}
+
+.mov-tab:hover { color: var(--lr-fg-primary); background: var(--lr-bg-card-hi); }
+
+/* Estados activos por tipo de movimiento */
+.mov-tab--entrada.is-active { color: var(--lr-success-fg); border-bottom-color: var(--lr-mov-entrada); background: var(--lr-success-bg); }
+.mov-tab--salida.is-active  { color: var(--lr-warning-fg); border-bottom-color: var(--lr-mov-salida);  background: var(--lr-warning-bg); }
+.mov-tab--baja.is-active    { color: var(--lr-danger-fg);  border-bottom-color: var(--lr-mov-baja);    background: var(--lr-danger-bg); }
+.mov-tab--historial.is-active { color: var(--lr-info-fg);  border-bottom-color: var(--lr-mov-historial); background: var(--lr-info-bg); }
+
+/* Conteo en pestaña activa */
+.mov-tab--entrada.is-active .mov-tab__conteo  { background: white; color: var(--lr-success-fg); }
+.mov-tab--salida.is-active  .mov-tab__conteo  { background: white; color: var(--lr-warning-fg); }
+.mov-tab--baja.is-active    .mov-tab__conteo  { background: white; color: var(--lr-danger-fg); }
+.mov-tab--historial.is-active .mov-tab__conteo { background: white; color: var(--lr-info-fg); }
+
+/* ── Resumen de tipo (card descriptiva) ── */
+.mov-resumen-tipo {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--lr-bg-card-hi);
+  border: 1px solid var(--lr-border-subtle);
+  border-radius: var(--lr-radius-md);
+  padding: 12px 16px;
+  margin-bottom: 14px;
+}
+
+/* Ícono del resumen coloreado por tipo */
+.mov-resumen-tipo__icono {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+
+.mov-resumen-tipo__icono svg { width: 16px; height: 16px; }
+
+.mov-resumen-tipo--entrada .mov-resumen-tipo__icono { background: var(--lr-success-bg); color: var(--lr-success-fg); }
+.mov-resumen-tipo--salida  .mov-resumen-tipo__icono { background: var(--lr-warning-bg); color: var(--lr-warning-fg); }
+.mov-resumen-tipo--baja    .mov-resumen-tipo__icono { background: var(--lr-danger-bg);  color: var(--lr-danger-fg); }
+
+/* Texto del resumen */
+.mov-resumen-tipo__texto {
+  flex: 1;
+  font-size: 13.5px;
+  color: var(--lr-fg-secondary);
+}
+
+.mov-resumen-tipo__texto strong {
+  color: var(--lr-fg-primary);
+  font-weight: var(--lr-weight-semi);
+}
+
+/* ── Tarjeta de registro de movimiento (formulario con borde lateral de color) ── */
+.mov-tarjeta-registro {
+  background: var(--lr-bg-card);
+  border: 1px solid var(--lr-border-subtle);
+  border-radius: var(--lr-radius-md);
+  padding: 24px;
+  position: relative;
+}
+
+/* Borde lateral coloreado por tipo de movimiento */
+.mov-tarjeta-registro::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  border-radius: var(--lr-radius-md) 0 0 var(--lr-radius-md);
+}
+
+.mov-tarjeta-registro--entrada::before { background: var(--lr-mov-entrada); }
+.mov-tarjeta-registro--salida::before  { background: var(--lr-mov-salida); }
+.mov-tarjeta-registro--baja::before    { background: var(--lr-mov-baja); }
+
+/* Encabezado de la tarjeta de registro */
+.mov-tarjeta-registro__encabezado {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+
+.mov-tarjeta-registro__grupo-titulo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.mov-tarjeta-registro__titulo {
+  font-size: var(--lr-text-lg);
+  font-weight: var(--lr-weight-semi);
+  margin: 0;
+}
+
+.mov-tarjeta-registro__subtitulo {
+  font-size: var(--lr-text-sm);
+  color: var(--lr-fg-muted);
+  margin: 2px 0 0;
+}
+
+/* Ícono coloreado por tipo */
+.mov-tarjeta-registro__icono {
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  border-radius: var(--lr-radius-md);
+}
+
+.mov-tarjeta-registro__icono svg { width: 18px; height: 18px; }
+
+.mov-tarjeta-registro__icono--entrada { background: var(--lr-success-bg); color: var(--lr-success-fg); }
+.mov-tarjeta-registro__icono--salida  { background: var(--lr-warning-bg); color: var(--lr-warning-fg); }
+.mov-tarjeta-registro__icono--baja    { background: var(--lr-danger-bg);  color: var(--lr-danger-fg); }
+
+/* Pie del formulario de registro */
+.mov-tarjeta-registro__pie {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 18px;
+  padding-top: 16px;
+  border-top: 1px solid var(--lr-border-subtle);
+}
+
+/* Pista informativa en el pie */
+.mov-tarjeta-registro__pista {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: var(--lr-text-sm);
+  color: var(--lr-fg-muted);
+}
+
+.mov-tarjeta-registro__pista svg { width: 14px; height: 14px; }
+
+/* ── Cuadrícula de campos del formulario ── */
+.mov-cuadricula-campos {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1.5fr;
+  gap: 14px;
+  align-items: end;
+}
+
+.mov-cuadricula-campos--completa { grid-template-columns: 1fr; }
+
+/* ── Selector de producto (select + indicador de stock inline) ── */
+.mov-selector-producto {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0;
+  border: 1px solid var(--lr-border);
+  border-radius: var(--lr-radius-md);
+  background: var(--lr-bg-input);
+  overflow: hidden;
+}
+
+/* El select interno no tiene borde propio */
+.mov-selector-producto .db-campo__control {
+  border: 0;
+  box-shadow: none;
+  border-radius: 0;
+}
+
+/* Indicador de stock actual */
+.mov-selector-producto__stock {
+  padding: 0 14px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border-left: 1px solid var(--lr-border);
+  background: var(--lr-bg-card-hi);
+  font-family: var(--lr-font-mono);
+  font-size: 12.5px;
+  color: var(--lr-fg-secondary);
+  white-space: nowrap;
+}
+
+.mov-selector-producto__stock svg {
+  width: 13px;
+  height: 13px;
+}
+
+/* ── Caja de previsualización del movimiento ── */
+.mov-vista-previa {
+  margin-top: 14px;
+  padding: 14px 16px;
+  border: 1px dashed var(--lr-border);
+  border-radius: var(--lr-radius-md);
+  background: var(--lr-bg-card-hi);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 13px;
+  color: var(--lr-fg-secondary);
+}
+
+.mov-vista-previa strong {
+  color: var(--lr-fg-primary);
+  font-weight: var(--lr-weight-semi);
+}
+
+.mov-vista-previa svg { color: var(--lr-success-fg); width: 14px; height: 14px; }
+
+.mov-vista-previa__separador { color: var(--lr-fg-muted); }
+
+/* ── Leyenda del historial ── */
+.mov-leyenda {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  font-size: 12px;
+  color: var(--lr-fg-muted);
+}
+
+.mov-leyenda strong { font-family: var(--lr-font-mono); font-weight: var(--lr-weight-semi); }
+.mov-leyenda--entrada strong { color: var(--lr-success-fg); }
+.mov-leyenda--salida  strong { color: var(--lr-warning-fg); }
+.mov-leyenda--baja    strong { color: var(--lr-danger-fg); }
+
+/* ── Animaciones de la vista ── */
+@keyframes mov-fade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}

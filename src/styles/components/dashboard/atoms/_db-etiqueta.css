@@ -1,0 +1,69 @@
+/* ⚛️ ÁTOMO — components/dashboard/atoms/_db-etiqueta.css
+ *
+ * Badge/etiqueta pill para indicar tipo de movimiento, rol de empleado o estado.
+ * Se usa en celdas de tabla, formularios y modales del dashboard.
+ *
+ * BEM root: .db-etiqueta
+ *
+ * Modificadores — tipo de movimiento:
+ *   .db-etiqueta--entrada      → mercancía que entra al inventario (verde)
+ *   .db-etiqueta--salida       → producto que sale del inventario (warning)
+ *   .db-etiqueta--baja         → pérdida no recuperable: caducidad, daño, robo (danger)
+ *
+ * Modificadores — rol del empleado:
+ *   .db-etiqueta--admin        → administrador del sistema (azul)
+ *   .db-etiqueta--propietario  → dueño de la tienda (violet)
+ *   .db-etiqueta--bodeguero    → gestiona inventario físico (warning)
+ *   .db-etiqueta--vendedor     → opera en mostrador (verde)
+ *   .db-etiqueta--pendiente    → sin rol asignado, no puede operar (neutro)
+ *
+ * Modificadores — estado:
+ *   .db-etiqueta--activo       → empleado activo en el sistema
+ *   .db-etiqueta--inactivo     → empleado sin acceso al sistema
+ *
+ * Elemento:
+ *   __punto   → dot indicator circular (usa currentColor)
+ *
+ * Tokens usados: --lr-* definidos en settings/_lr-tokens.css
+ */
+
+/* ── Base pill ── */
+.db-etiqueta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 10px 3px 8px;
+  border-radius: var(--lr-radius-pill);
+  font-size: 12px;
+  font-weight: var(--lr-weight-medium);
+  line-height: 1.4;
+  border: 1px solid transparent;
+  white-space: nowrap;
+}
+
+/* ── Dot indicator ── */
+.db-etiqueta__punto {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  box-shadow: 0 0 0 3px currentColor;
+  margin-left: 2px;
+  margin-right: 2px;
+}
+
+/* ── Tipos de movimiento ── */
+.db-etiqueta--entrada { color: var(--lr-success-fg); background: var(--lr-success-bg); border-color: var(--lr-success-border); }
+.db-etiqueta--salida  { color: var(--lr-warning-fg); background: var(--lr-warning-bg); border-color: var(--lr-warning-border); }
+.db-etiqueta--baja    { color: var(--lr-danger-fg);  background: var(--lr-danger-bg);  border-color: var(--lr-danger-border); }
+
+/* ── Roles de empleado ── */
+.db-etiqueta--admin       { color: var(--lr-role-admin-fg); background: var(--lr-role-admin-bg); border-color: var(--lr-role-admin-bd); }
+.db-etiqueta--propietario { color: var(--lr-role-prop-fg);  background: var(--lr-role-prop-bg);  border-color: var(--lr-role-prop-bd); }
+.db-etiqueta--bodeguero   { color: var(--lr-role-bodeg-fg); background: var(--lr-role-bodeg-bg); border-color: var(--lr-role-bodeg-bd); }
+.db-etiqueta--vendedor    { color: var(--lr-role-vend-fg);  background: var(--lr-role-vend-bg);  border-color: var(--lr-role-vend-bd); }
+.db-etiqueta--pendiente   { color: var(--lr-role-pend-fg);  background: var(--lr-role-pend-bg);  border-color: var(--lr-role-pend-bd); }
+
+/* ── Estado de empleado ── */
+.db-etiqueta--activo   { color: var(--lr-success-fg); background: var(--lr-success-bg); border-color: var(--lr-success-border); }
+.db-etiqueta--inactivo { color: #6b7280; background: #eef0f3; border-color: #d8dde3; }

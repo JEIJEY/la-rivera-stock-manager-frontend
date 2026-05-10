@@ -1,0 +1,88 @@
+/* 🏛️ ORGANISMO — components/dashboard/organisms/_db-tarjeta-vista.css
+ *
+ * Card principal de cada vista del dashboard.
+ * Envuelve encabezado (título + acciones) y cuerpo de cada página SPA.
+ *
+ * BEM root: .db-tarjeta-vista
+ *
+ * Elementos:
+ *   __encabezado    → barra superior con título y acciones
+ *   __grupo-titulo  → flex row con ícono + textos
+ *   __icono         → cuadro de ícono con acento verde
+ *   __titulo        → h1/h2 principal de la vista
+ *   __subtitulo     → descripción corta bajo el título
+ *   __acciones      → área de botones en la esquina derecha del encabezado
+ *   __cuerpo        → área de contenido principal (columna con gap)
+ *
+ * Tokens usados: --lr-* definidos en settings/_lr-tokens.css
+ */
+
+/* ── Tarjeta contenedora ── */
+.db-tarjeta-vista {
+  background: var(--lr-bg-card);
+  border: 1px solid var(--lr-border-subtle);
+  border-radius: var(--lr-radius-lg);
+  box-shadow: var(--lr-shadow-sm);
+  overflow: hidden;
+}
+
+/* ── Encabezado ── */
+.db-tarjeta-vista__encabezado {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px 28px;
+  border-bottom: 1px solid var(--lr-border-subtle);
+  background: var(--lr-bg-card);
+}
+
+/* ── Grupo título + ícono ── */
+.db-tarjeta-vista__grupo-titulo {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+/* ── Ícono de la vista ── */
+.db-tarjeta-vista__icono {
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  background: var(--lr-accent-dim);
+  color: var(--lr-accent);
+  border-radius: var(--lr-radius-md);
+}
+
+.db-tarjeta-vista__icono svg { width: 22px; height: 22px; }
+
+/* ── Título ── */
+.db-tarjeta-vista__titulo {
+  font-size: var(--lr-text-2xl);
+  font-weight: var(--lr-weight-semi);
+  letter-spacing: var(--lr-tracking-tight);
+  margin: 0;
+  color: var(--lr-fg-primary);
+}
+
+/* ── Subtítulo ── */
+.db-tarjeta-vista__subtitulo {
+  font-size: var(--lr-text-sm);
+  color: var(--lr-fg-muted);
+  margin: 3px 0 0;
+}
+
+/* ── Acciones ── */
+.db-tarjeta-vista__acciones {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+/* ── Cuerpo de la vista ── */
+.db-tarjeta-vista__cuerpo {
+  padding: 20px 28px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}

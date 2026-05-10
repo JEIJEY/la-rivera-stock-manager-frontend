@@ -1,0 +1,79 @@
+/* ⚛️ ÁTOMO — components/dashboard/atoms/_db-campo.css
+ *
+ * Campos de formulario para superficies claras (light surface) del dashboard.
+ * Distintos del `.input` de autenticación (fondo oscuro).
+ * Se usa dentro de cards y modales del dashboard donde el fondo es blanco/claro.
+ *
+ * BEM root: .db-campo
+ *
+ * Elementos:
+ *   __etiqueta  → label del campo (texto descriptivo sobre el control)
+ *   __pista     → texto de ayuda bajo el control (hint/helper text)
+ *   __control   → el input, select o textarea en sí
+ *                 Aplica a: input, select, textarea dentro de .db-campo
+ *
+ * Tokens usados: --lr-* definidos en settings/_lr-tokens.css
+ */
+
+/* ── Contenedor del campo ── */
+.db-campo {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* ── Etiqueta ── */
+.db-campo__etiqueta {
+  font-size: var(--lr-text-sm);
+  font-weight: var(--lr-weight-medium);
+  color: var(--lr-fg-secondary);
+}
+
+/* ── Pista / helper ── */
+.db-campo__pista {
+  font-size: 12px;
+  color: var(--lr-fg-muted);
+}
+
+/* ── Control: input, select y textarea ── */
+.db-campo__control {
+  height: var(--lr-control-h);
+  padding: 0 12px;
+  background: var(--lr-bg-input);
+  border: 1px solid var(--lr-border);
+  border-radius: var(--lr-radius-md);
+  color: var(--lr-fg-primary);
+  font-family: var(--lr-font-sans);
+  font-size: var(--lr-text-md);
+  transition: border-color var(--lr-dur-fast), box-shadow var(--lr-dur-fast), background var(--lr-dur-fast);
+  width: 100%;
+  box-shadow: var(--lr-shadow-xs);
+}
+
+/* textarea mantiene altura propia */
+textarea.db-campo__control {
+  height: auto;
+  padding: 10px 12px;
+  min-height: 78px;
+  resize: vertical;
+  line-height: 1.5;
+}
+
+.db-campo__control::placeholder { color: var(--lr-fg-muted); }
+
+.db-campo__control:hover { border-color: var(--lr-border-strong); }
+
+.db-campo__control:focus {
+  outline: none;
+  border-color: var(--lr-border-accent);
+  box-shadow: var(--lr-shadow-glow);
+}
+
+/* select — flecha personalizada */
+select.db-campo__control {
+  appearance: none;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%237b8595' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  padding-right: 32px;
+}

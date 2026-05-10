@@ -1,0 +1,145 @@
+/* 📊 VISTA — components/dashboard/views/_usuarios-view.css
+ *
+ * Estilos ESPECÍFICOS de la vista de Empleados.
+ * Solo composición de layout y elementos únicos de esta vista.
+ *
+ * Los átomos y moléculas usados en esta vista están definidos en:
+ *   atoms/  → _db-etiqueta.css, _db-avatar-empleado.css, _db-campo.css
+ *   molecules/ → _db-barra-filtros.css, _db-tabla-datos.css, _db-celda-empleado.css
+ *   organisms/ → _db-tarjeta-vista.css
+ *   shared/atoms/ → _buttons.css (.btn, .btn-success, .btn--ghost, .btn--sm)
+ *
+ * BEM roots de esta vista:
+ *   .emp-vista          → contenedor raíz de la sección empleados
+ *   .emp-dialogo        → overlay del modal de edición de empleado
+ *   .emp-fila--pendiente → highlight de fila de empleado sin rol asignado
+ *
+ * Prefijo de módulo: emp-
+ * Tokens usados: --lr-* definidos en settings/_lr-tokens.css
+ *
+ * @obsoleto: .lr-modal-overlay, .lr-modal, .lr-modal__*, .lr-avatar, .lr-badge--*rol*,
+ *            .lr-user-cell, .lr-filterbar, .lr-table, .page-card (renombrados)
+ */
+
+/* ── Overlay del diálogo (modal) ── */
+.emp-dialogo {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 20, 25, 0.42);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  /* display controlado por JS: flex para abrir, none para cerrar */
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+  animation: emp-fade var(--lr-dur-base) var(--lr-ease-out);
+}
+
+/* ── Contenido del diálogo ── */
+.emp-dialogo__contenido {
+  width: 100%;
+  max-width: 480px;
+  background: var(--lr-bg-card);
+  border-radius: var(--lr-radius-lg);
+  box-shadow: var(--lr-shadow-lg);
+  overflow: hidden;
+  animation: emp-pop 220ms var(--lr-ease-out);
+}
+
+/* ── Encabezado del diálogo ── */
+.emp-dialogo__encabezado {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px 16px;
+  border-bottom: 1px solid var(--lr-border-subtle);
+}
+
+/* ── Título del diálogo ── */
+.emp-dialogo__titulo {
+  font-size: var(--lr-text-lg);
+  font-weight: var(--lr-weight-semi);
+  margin: 0;
+}
+
+/* ── Botón de cierre ── */
+.emp-dialogo__cerrar {
+  background: transparent;
+  border: 0;
+  color: var(--lr-fg-muted);
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  border-radius: var(--lr-radius-sm);
+  cursor: pointer;
+}
+
+.emp-dialogo__cerrar:hover {
+  color: var(--lr-fg-primary);
+  background: var(--lr-bg-muted);
+}
+
+/* ── Cuerpo del diálogo ── */
+.emp-dialogo__cuerpo {
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* ── Pie del diálogo ── */
+.emp-dialogo__pie {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  padding: 14px 24px 20px;
+  border-top: 1px solid var(--lr-border-subtle);
+}
+
+/* ── Strip de perfil del empleado (en el modal) ── */
+.emp-dialogo__perfil {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  background: var(--lr-bg-card-hi);
+  border: 1px solid var(--lr-border-subtle);
+  border-radius: var(--lr-radius-md);
+}
+
+/* Texto de email dentro del perfil */
+.emp-dialogo__perfil .db-celda-empleado__email { font-size: 12px; }
+
+/* ── Checkbox nativo en la barra de filtros ── */
+.emp-vista .db-barra-filtros__grupo--checkbox {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: var(--lr-text-sm);
+  color: var(--lr-fg-secondary);
+  cursor: pointer;
+}
+
+/* ── Fila de empleado pendiente (sin rol asignado) ── */
+/* .empleados__fila--pendiente conservado para compatibilidad con JS existente */
+.emp-fila--pendiente,
+.empleados__fila--pendiente {
+  background: var(--lr-role-pend-bg);
+}
+
+.emp-fila--pendiente:hover,
+.empleados__fila--pendiente:hover {
+  background: #e6e8ec;
+}
+
+/* ── Animaciones de la vista ── */
+@keyframes emp-fade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes emp-pop {
+  from { opacity: 0; transform: scale(.96) translateY(6px); }
+  to   { opacity: 1; transform: scale(1)   translateY(0); }
+}

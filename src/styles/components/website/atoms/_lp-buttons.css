@@ -1,8 +1,14 @@
 /* ============================
-   ATOM — Button (BEM)
+   ATOM — Button (BEM) — Landing page
+   SCOPE: Todos los selectores están limitados a los contenedores
+   exclusivos de la landing (.header, .hero, .cta__actions).
+   No deben afectar botones del dashboard ni de auth.
    ============================ */
 
-.btn {
+/* ── Base (solo en landing) ──────────────────────────── */
+.header .btn,
+.hero .btn,
+.cta__actions .btn {
   font-family: var(--font-body);
   font-weight: 600;
   font-size: 0.9rem;
@@ -17,30 +23,43 @@
   text-decoration: none;
 }
 
-.btn--primary {
+/* ── Variante primaria (landing) ─────────────────────── */
+.header .btn--primary,
+.hero .btn--primary,
+.cta__actions .btn--primary {
   background: var(--color-primary-400);
   color: var(--color-neutral-950);
 }
 
-.btn--primary:hover {
+.header .btn--primary:hover,
+.hero .btn--primary:hover,
+.cta__actions .btn--primary:hover {
   background: var(--color-primary-300);
   transform: translateY(-2px);
   box-shadow: var(--shadow-glow);
 }
 
-.btn--ghost {
+/* ── Variante ghost (landing — fondo oscuro → texto blanco) ── */
+.header .btn--ghost,
+.hero .btn--ghost,
+.cta__actions .btn--ghost {
   background: transparent;
   color: var(--color-neutral-50);
   border: 1px solid var(--color-neutral-700);
 }
 
-.btn--ghost:hover {
+.header .btn--ghost:hover,
+.hero .btn--ghost:hover,
+.cta__actions .btn--ghost:hover {
   border-color: var(--color-primary-400);
   color: var(--color-primary-400);
   transform: translateY(-2px);
 }
 
-.btn--lg {
+/* ── Tamaño lg (landing) ──────────────────────────────── */
+.header .btn--lg,
+.hero .btn--lg,
+.cta__actions .btn--lg {
   padding: 1rem 2.2rem;
   font-size: 1rem;
 }

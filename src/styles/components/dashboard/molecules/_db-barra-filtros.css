@@ -1,0 +1,60 @@
+/* 🧱 MOLÉCULA — components/dashboard/molecules/_db-barra-filtros.css
+ *
+ * Barra de filtros horizontal para vistas del dashboard.
+ * Agrupa controles de búsqueda y filtrado (selects, inputs, botones).
+ *
+ * BEM root: .db-barra-filtros
+ *
+ * Elementos:
+ *   __grupo      → grupo de controles relacionados (label + control)
+ *   __etiqueta   → texto label del grupo (p.ej. "Tipo", "Rol", "Desde")
+ *   __separador  → divisor vertical entre grupos
+ *   __espacio    → flex spacer que empuja el resto a la derecha
+ *
+ * Los controles internos usan .db-campo__control (select, input)
+ * redimensionados para ajustarse a la barra compacta.
+ *
+ * Tokens usados: --lr-* definidos en settings/_lr-tokens.css
+ */
+
+/* ── Contenedor de la barra ── */
+.db-barra-filtros {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  background: var(--lr-bg-card-hi);
+  border: 1px solid var(--lr-border-subtle);
+  border-radius: var(--lr-radius-md);
+  flex-wrap: wrap;
+}
+
+/* ── Grupo de controles ── */
+.db-barra-filtros__grupo { display: flex; align-items: center; gap: 8px; }
+
+/* ── Etiqueta de grupo ── */
+.db-barra-filtros__etiqueta {
+  font-size: var(--lr-text-sm);
+  color: var(--lr-fg-muted);
+  font-weight: var(--lr-weight-medium);
+}
+
+/* ── Divisor vertical ── */
+.db-barra-filtros__separador {
+  width: 1px;
+  height: 22px;
+  background: var(--lr-border);
+}
+
+/* ── Spacer ── */
+.db-barra-filtros__espacio { flex: 1; }
+
+/* ── Controles dentro de la barra (compactos) ── */
+.db-barra-filtros .db-campo__control,
+.db-barra-filtros select.db-campo__control,
+.db-barra-filtros input.db-campo__control {
+  width: auto;
+  min-width: 130px;
+  height: 34px;
+  font-size: var(--lr-text-sm);
+}

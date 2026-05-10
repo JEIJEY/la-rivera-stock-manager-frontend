@@ -1,0 +1,135 @@
+/* 🧱 MOLÉCULA — components/dashboard/molecules/_db-tabla-datos.css
+ *
+ * Tabla de datos del dashboard con encabezados, filas alternadas,
+ * pie de tabla con conteo y estado vacío.
+ *
+ * BEM root: .db-tabla-datos
+ *
+ * Contenedor:
+ *   .db-tabla-datos__contenedor  → wrapper con borde y overflow hidden
+ *
+ * Elementos de celda:
+ *   __id          → columna ID en fuente mono
+ *   __principal   → texto primario de la celda (negrita)
+ *   __secundario  → texto secundario (color muted)
+ *   __mono        → valor numérico en fuente mono tabular
+ *   __acciones    → celda de acciones (alineada a la derecha)
+ *
+ * Pie de tabla:
+ *   __pie         → barra inferior con conteo y controles de paginación
+ *   __conteo      → texto "N registros" con ícono
+ *
+ * Estado vacío:
+ *   __vacio       → contenedor centrado cuando no hay datos
+ *   __vacio-titulo → título del estado vacío
+ *   __vacio-pista  → sugerencia de acción al usuario
+ *
+ * Tokens usados: --lr-* definidos en settings/_lr-tokens.css
+ */
+
+/* ── Contenedor de la tabla ── */
+.db-tabla-datos__contenedor {
+  background: var(--lr-bg-card);
+  border: 1px solid var(--lr-border-subtle);
+  border-radius: var(--lr-radius-md);
+  overflow: hidden;
+}
+
+/* ── Tabla base ── */
+.db-tabla-datos {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--lr-text-base);
+}
+
+/* ── Encabezados ── */
+.db-tabla-datos thead th {
+  text-align: left;
+  padding: 11px 16px;
+  font-size: var(--lr-text-xs);
+  font-weight: var(--lr-weight-semi);
+  color: var(--lr-fg-muted);
+  letter-spacing: var(--lr-tracking-caps);
+  text-transform: uppercase;
+  background: var(--lr-bg-card-hi);
+  border-bottom: 1px solid var(--lr-border-subtle);
+  white-space: nowrap;
+}
+
+/* ── Filas de datos ── */
+.db-tabla-datos tbody tr {
+  border-bottom: 1px solid var(--lr-border-subtle);
+  transition: background 100ms;
+}
+
+.db-tabla-datos tbody tr:hover { background: var(--lr-bg-card-hi); }
+.db-tabla-datos tbody tr:last-child { border-bottom: 0; }
+
+/* ── Celdas ── */
+.db-tabla-datos tbody td {
+  padding: 0 16px;
+  height: var(--lr-row-h);
+  vertical-align: middle;
+  color: var(--lr-fg-primary);
+}
+
+/* columnas numéricas */
+.db-tabla-datos td.num,
+.db-tabla-datos th.num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum' 1;
+}
+
+/* columna de acciones */
+.db-tabla-datos td.actions { text-align: right; }
+
+/* ── Modificadores de celda ── */
+.db-tabla-datos__id {
+  font-family: var(--lr-font-mono);
+  color: var(--lr-fg-muted);
+  font-size: 12px;
+}
+
+.db-tabla-datos__principal { font-weight: var(--lr-weight-medium); color: var(--lr-fg-primary); }
+.db-tabla-datos__secundario { color: var(--lr-fg-secondary); }
+
+.db-tabla-datos__mono {
+  font-family: var(--lr-font-mono);
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum' 1;
+  color: var(--lr-fg-secondary);
+  font-size: 13px;
+}
+
+.db-tabla-datos__acciones { text-align: right; }
+
+/* ── Pie de tabla ── */
+.db-tabla-datos__pie {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  background: var(--lr-bg-card-hi);
+  border-top: 1px solid var(--lr-border-subtle);
+  font-size: var(--lr-text-sm);
+  color: var(--lr-fg-muted);
+}
+
+.db-tabla-datos__conteo { display: flex; align-items: center; gap: 8px; }
+.db-tabla-datos__conteo strong { color: var(--lr-fg-primary); font-weight: var(--lr-weight-semi); }
+
+/* ── Estado vacío ── */
+.db-tabla-datos__vacio {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 56px 20px;
+  color: var(--lr-fg-muted);
+  text-align: center;
+}
+
+.db-tabla-datos__vacio svg { width: 32px; height: 32px; opacity: .5; }
+.db-tabla-datos__vacio-titulo { font-size: var(--lr-text-base); color: var(--lr-fg-secondary); }
+.db-tabla-datos__vacio-pista  { font-size: var(--lr-text-sm); color: var(--lr-fg-muted); }

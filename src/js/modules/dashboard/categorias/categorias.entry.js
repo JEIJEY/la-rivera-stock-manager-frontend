@@ -5,6 +5,17 @@ import { appEvents } from "../../../core/EventBus.js";
 
 let categoriaActualId = null;
 
+const ROLES_ADMIN = ["admin", "propietario"];
+
+/** Lee el campo `rol` del JWT en localStorage sin verificar firma. */
+function obtenerRolDesdeToken() {
+  try {
+    const token = localStorage.getItem("authToken");
+    if (!token) return null;
+    return JSON.parse(atob(token.split(".")[1])).rol ?? null;
+  } catch { return null; }
+}
+
 export async function inicializarCategorias() {
   logger.info("Inicializando categorías...");
 
@@ -14,10 +25,18 @@ export async function inicializarCategorias() {
     return;
   }
 
+  const puedeEditar = ROLES_ADMIN.includes(obtenerRolDesdeToken());
+
+  // Ocultar formulario de crear categoría para roles sin permiso
+  if (!puedeEditar) {
+    const formCategoria = document.getElementById("formCategoria");
+    if (formCategoria) formCategoria.style.display = "none";
+  }
+
   await cargarCategorias();
-  conectarFormulario();
-  conectarEventosDelegados();
-  conectarModal();
+  if (puedeEditar) conectarFormulario();
+  conectarEventosDelegados(puedeEditar);
+  if (puedeEditar) conectarModal();
 
   logger.info("Categorías inicializadas correctamente");
 }
@@ -114,9 +133,18 @@ function conectarFormulario() {
   });
 }
 
-function conectarEventosDelegados() {
+function conectarEventosDelegados(puedeEditar = true) {
   const lista = document.getElementById("listaCategorias");
   const detalleContainer = document.getElementById("vistaDetalle");
+
+  // Ocultar botones de editar/eliminar/subcategoria en la lista renderizada
+  if (!puedeEditar) {
+    const observer = new MutationObserver(() => {
+      lista?.querySelectorAll('.cat-btn--editar, .cat-btn--eliminar, [data-action="subcategoria"]')
+        .forEach(btn => { btn.style.display = "none"; });
+    });
+    if (lista) observer.observe(lista, { childList: true, subtree: true });
+  }
 
   lista?.addEventListener("click", async (e) => {
     const btn = e.target.closest("[data-action]");
@@ -125,6 +153,8 @@ function conectarEventosDelegados() {
     const { action, id, nombre, desc } = btn.dataset;
 
     if (action === "detalle") await abrirDetalle(id, nombre);
+
+    if (!puedeEditar && ["subcategoria","editar","eliminar"].includes(action)) return;
 
     if (action === "subcategoria") {
       const subNombre = prompt(`Nombre de la subcategoría dentro de "${nombre}":`);
@@ -176,6 +206,8 @@ function conectarEventosDelegados() {
     if (action === "detalle") await abrirDetalle(id, nombre);
 
     if (action === "volver") categoriasView.mostrarVista("raiz");
+
+    if (!puedeEditar && ["nueva-subcategoria","agregar-producto"].includes(action)) return;
 
     if (action === "nueva-subcategoria") {
       const subNombre = prompt("Nombre de la subcategoría:");

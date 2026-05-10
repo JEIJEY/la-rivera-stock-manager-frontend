@@ -1,0 +1,57 @@
+/* ⚛️ ÁTOMO — components/dashboard/atoms/_db-control-cantidad.css
+ *
+ * Stepper numérico para ingresar cantidades de movimiento de inventario.
+ * Botones ± más campo numérico central, en una fila compacta.
+ *
+ * BEM root: .db-control-cantidad
+ *
+ * Elementos:
+ *   __decremento  → botón "–" (reducir cantidad)
+ *   __valor       → input numérico central
+ *   __incremento  → botón "+" (aumentar cantidad)
+ *
+ * Tokens usados: --lr-* definidos en settings/_lr-tokens.css
+ */
+
+/* ── Contenedor stepper ── */
+.db-control-cantidad {
+  display: inline-flex;
+  border: 1px solid var(--lr-border);
+  border-radius: var(--lr-radius-md);
+  background: var(--lr-bg-input);
+  overflow: hidden;
+  height: 38px;
+  align-items: stretch;
+}
+
+/* ── Botones ─/+ ── */
+.db-control-cantidad__decremento,
+.db-control-cantidad__incremento {
+  background: transparent;
+  border: 0;
+  width: 36px;
+  display: grid;
+  place-items: center;
+  color: var(--lr-fg-secondary);
+  cursor: pointer;
+}
+
+.db-control-cantidad__decremento:hover,
+.db-control-cantidad__incremento:hover {
+  background: var(--lr-bg-muted);
+  color: var(--lr-fg-primary);
+}
+
+/* ── Campo numérico central ── */
+.db-control-cantidad__valor {
+  border: 0;
+  outline: none;
+  background: transparent;
+  width: 60px;
+  text-align: center;
+  font-family: var(--lr-font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: 16px;
+  font-weight: var(--lr-weight-semi);
+  color: var(--lr-fg-primary);
+}
