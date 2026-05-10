@@ -144,10 +144,31 @@ export function montarCampana(contenedorEl) {
     await actualizarBadge();
   }
 
+  // Overlay invisible que captura cualquier click externo al dropdown.
+  // Aproach probado de bibliotecas (Bootstrap, MUI): inyecta un backdrop
+  // transparente a pantalla completa cuando el dropdown se abre, y lo
+  // quita al cerrar. Imposible que clicks "se escapen".
+  let overlay = null;
+
+  function crearOverlay() {
+    if (overlay) return overlay;
+    overlay = document.createElement("div");
+    overlay.id = "notif-overlay";
+    overlay.style.cssText = [
+      "position:fixed", "inset:0", "z-index:999",
+      "background:transparent", "pointer-events:auto",
+    ].join(";");
+    overlay.addEventListener("click", () => cerrarDropdown());
+    overlay.addEventListener("touchstart", (e) => { e.preventDefault(); cerrarDropdown(); }, { passive: false });
+    return overlay;
+  }
+
   function abrirDropdown() {
     dropdownAbierto = true;
     dropdown.hidden = false;
     btn.setAttribute("aria-expanded", "true");
+    // El dropdown ya tiene z-index: 1000 en su CSS; overlay queda en 999 (debajo)
+    document.body.appendChild(crearOverlay());
     cargarLista();
   }
 
@@ -155,6 +176,7 @@ export function montarCampana(contenedorEl) {
     dropdownAbierto = false;
     dropdown.hidden = true;
     btn.setAttribute("aria-expanded", "false");
+    if (overlay?.parentNode) overlay.parentNode.removeChild(overlay);
   }
 
   // ── Listeners ────────────────────────────────────────────────────────
