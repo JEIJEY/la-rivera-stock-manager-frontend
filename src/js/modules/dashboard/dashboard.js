@@ -21,12 +21,26 @@ import { solicitudesMovimientoApi } from "./shared/solicitudesMovimiento.api.js"
  * Inicializa el Dashboard SPA.
  * Debe llamarse DESPUÉS de que renderDashboard() haya insertado el HTML en el DOM.
  */
+// Guard global: previene doble inicialización del dashboard.
+// Si por cualquier razón (HMR, doble loadRoute, etc.) se intenta inicializar
+// dos veces sobre el mismo DOM, los listeners se acumularían en bell, sidebar,
+// etc. Este flag aborta la segunda inicialización.
+let _dashboardInicializado = false;
+
 export async function inicializarDashboard() {
   const main = document.querySelector(".dashboard-main");
   if (!main) {
     logger.error("❌ Dashboard: no se encontró elemento .dashboard-main");
     return;
   }
+
+  // Si ya está inicializado sobre este mismo `main`, abortar.
+  if (_dashboardInicializado && main.dataset.dashboardInit === "true") {
+    logger.warn("⚠️ Dashboard ya inicializado — se omite re-inicialización");
+    return;
+  }
+  _dashboardInicializado = true;
+  main.dataset.dashboardInit = "true";
 
   const viewManager = new SPAViewManager({
     container: main,
