@@ -89,6 +89,11 @@
         Historial
         <span class="mov-tab__conteo">0</span>
       </button>
+      <button class="mov-tab mov-tab--mis-solicitudes" data-tab="mis-solicitudes">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+        Mis solicitudes
+        <span class="mov-tab__conteo">0</span>
+      </button>
     </nav>
 
     <!-- ─── Panel: Entrada ─────────────────────────────────────────────── -->
@@ -391,6 +396,40 @@
 
     </div>
     <!-- /panel historial -->
+
+    <!-- ─── Panel: Mis solicitudes (solicitante: vendedor o cualquier rol) ── -->
+    <div class="mov-panel" data-panel="mis-solicitudes" hidden>
+      <div class="mov-resumen-tipo">
+        <div class="mov-resumen-tipo__texto">
+          Listado de tus solicitudes de movimiento.
+          <strong>Pendientes</strong> se pueden cancelar desde aquí mientras el admin no las haya procesado.
+        </div>
+      </div>
+
+      <div class="db-tabla-datos__contenedor">
+        <table class="db-tabla-datos">
+          <thead>
+            <tr>
+              <th style="width:64px">ID</th>
+              <th style="width:110px">Tipo</th>
+              <th>Producto</th>
+              <th class="num">Cantidad</th>
+              <th>Estado</th>
+              <th>Fecha solicitud</th>
+              <th>Observación</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="tablaMisSolicitudes"></tbody>
+        </table>
+        <div class="db-tabla-datos__pie">
+          <div class="db-tabla-datos__conteo">
+            <p id="estadoMisSolicitudes" class="movimientos__estado"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /panel mis-solicitudes -->
 
   </div>
   <!-- /db-tarjeta-vista__cuerpo -->

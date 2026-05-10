@@ -111,11 +111,15 @@ export async function inicializarMovimientos() {
   }
 
   // ── Visibilidad de tabs por rol ──────────────────────────────────────
+  // "mis-solicitudes" solo lo ven roles que pueden crear solicitudes
+  // (vendedor, bodeguero, admin). Admin/propietario ven sus propias
+  // solicitudes para auditoría, pero el flujo principal de aprobación
+  // está en la vista #aprobaciones.
   const TABS_POR_ROL = {
-    admin:       ["entrada", "salida", "baja", "historial"],
-    propietario: ["entrada", "salida", "baja", "historial"],
-    bodeguero:   ["entrada", "baja", "historial"],
-    vendedor:    ["salida", "historial"],
+    admin:       ["entrada", "salida", "baja", "historial", "mis-solicitudes"],
+    propietario: ["entrada", "salida", "baja", "historial", "mis-solicitudes"],
+    bodeguero:   ["entrada", "baja", "historial", "mis-solicitudes"],
+    vendedor:    ["salida", "historial", "mis-solicitudes"],
     pendiente:   ["historial"],
   };
 
@@ -216,6 +220,9 @@ export async function inicializarMovimientos() {
   conectarFormulario("formEntrada", "entrada");
   conectarFormulario("formBaja", "baja");
   // formSalida ya no existe — reemplazado por el carrito POS
+
+  // ── Tab "Mis solicitudes" — listado y cancelación ─────────────────────
+  conectarMisSolicitudes();
 
   // ── Scanner para entrada y baja ──────────────────────────────────────
   conectarScannerMovimiento("formEntrada");
@@ -444,6 +451,52 @@ export async function inicializarMovimientos() {
       logger.error({ err }, "Error cargando movimientos");
       movimientosView.setEstado(estado, "💥 Error al conectar con el servidor.");
     }
+  }
+
+  /**
+   * Carga las solicitudes del empleado actual, las renderiza y conecta
+   * el botón "Cancelar" de cada fila pendiente.
+   */
+  function conectarMisSolicitudes() {
+    const tablaSolic = document.getElementById("tablaMisSolicitudes");
+    const estadoSolic = document.getElementById("estadoMisSolicitudes");
+    if (!tablaSolic) return;
+
+    async function cargarMisSolicitudes() {
+      movimientosView.setEstado(estadoSolic, "⏳ Cargando tus solicitudes...");
+      try {
+        const solicitudes = await solicitudesMovimientoApi.getMias();
+        movimientosView.renderMisSolicitudes(solicitudes, tablaSolic, estadoSolic);
+      } catch (err) {
+        logger.error({ err }, "Error cargando mis solicitudes");
+        movimientosView.setEstado(estadoSolic, "💥 No se pudieron cargar tus solicitudes");
+      }
+    }
+
+    // Click delegado sobre el botón Cancelar de cada fila
+    tablaSolic.addEventListener("click", async (e) => {
+      const btn = e.target.closest(".mis-solicitudes__cancelar");
+      if (!btn) return;
+      const id = btn.dataset.id;
+      if (!confirm("¿Cancelar esta solicitud pendiente?")) return;
+      btn.disabled = true;
+      try {
+        await solicitudesMovimientoApi.cancelar(id);
+        toast("✅ Solicitud cancelada", "ok");
+        await cargarMisSolicitudes();
+      } catch (err) {
+        toast(`❌ ${err.message || "No se pudo cancelar"}`, "error");
+        btn.disabled = false;
+      }
+    });
+
+    // Cargar cuando el usuario activa el tab (lazy) o ahora si está activo
+    const tab = document.querySelector('.mov-tab[data-tab="mis-solicitudes"]');
+    if (tab) {
+      tab.addEventListener("click", cargarMisSolicitudes);
+    }
+    // Carga inicial silenciosa para que el conteo del tab esté correcto
+    cargarMisSolicitudes();
   }
 }
 
