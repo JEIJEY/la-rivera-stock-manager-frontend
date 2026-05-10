@@ -164,10 +164,26 @@ export function montarCampana(contenedorEl) {
     else abrirDropdown();
   });
 
-  // Cerrar al hacer click fuera
-  document.addEventListener("click", (e) => {
+  // Cerrar al hacer click/touch fuera del componente.
+  // Usamos `pointerdown` (cubre mouse + touch) en fase de captura para
+  // ejecutarse antes que cualquier otro listener que pueda detener la
+  // propagación. Si el target NO está dentro del contenedor de la campana,
+  // cerramos el dropdown.
+  function cerrarSiClickFuera(e) {
     if (!dropdownAbierto) return;
-    if (!contenedorEl.contains(e.target)) cerrarDropdown();
+    // closest() retorna null si el target no está dentro del contenedor.
+    // Funciona también si el target es un nodo de texto o un elemento
+    // anidado profundo.
+    const dentro = e.target?.closest?.("#" + contenedorEl.id);
+    if (!dentro) cerrarDropdown();
+  }
+  document.addEventListener("pointerdown", cerrarSiClickFuera, true);
+  // Fallback para browsers sin pointer events
+  document.addEventListener("touchstart", cerrarSiClickFuera, true);
+
+  // También cerrar si se presiona Escape
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && dropdownAbierto) cerrarDropdown();
   });
 
   // Click delegado en los items
