@@ -144,68 +144,55 @@ export function montarCampana(contenedorEl) {
     await actualizarBadge();
   }
 
-  // Overlay invisible que captura cualquier click externo al dropdown.
-  // Aproach probado de bibliotecas (Bootstrap, MUI): inyecta un backdrop
-  // transparente a pantalla completa cuando el dropdown se abre, y lo
-  // quita al cerrar. Imposible que clicks "se escapen".
+  // ── Mecanismo de cierre: overlay + listener fresco por apertura ──────
   let overlay = null;
 
-  function crearOverlay() {
-    if (overlay) return overlay;
-    overlay = document.createElement("div");
-    overlay.id = "notif-overlay";
-    overlay.style.cssText = [
-      "position:fixed", "inset:0", "z-index:999",
-      "background:transparent", "pointer-events:auto",
-    ].join(";");
-    overlay.addEventListener("click", () => cerrarDropdown());
-    overlay.addEventListener("touchstart", (e) => { e.preventDefault(); cerrarDropdown(); }, { passive: false });
-    return overlay;
+  function onOverlayClick(e) {
+    e.stopPropagation();
+    cerrarDropdown();
+  }
+  function onDocKeydown(e) {
+    if (e.key === "Escape") cerrarDropdown();
   }
 
   function abrirDropdown() {
+    if (dropdownAbierto) return;
     dropdownAbierto = true;
     dropdown.hidden = false;
     btn.setAttribute("aria-expanded", "true");
-    // El dropdown ya tiene z-index: 1000 en su CSS; overlay queda en 999 (debajo)
-    document.body.appendChild(crearOverlay());
+
+    // Crear overlay full-screen transparente. Captura cualquier click
+    // fuera del dropdown (el dropdown tiene z-index 1000 en CSS, overlay 999).
+    overlay = document.createElement("div");
+    overlay.style.cssText =
+      "position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:999;background:transparent;pointer-events:auto";
+    overlay.addEventListener("mousedown", onOverlayClick);
+    overlay.addEventListener("touchstart", onOverlayClick, { passive: true });
+    document.body.appendChild(overlay);
+
+    document.addEventListener("keydown", onDocKeydown);
+
     cargarLista();
   }
 
   function cerrarDropdown() {
+    if (!dropdownAbierto) return;
     dropdownAbierto = false;
     dropdown.hidden = true;
     btn.setAttribute("aria-expanded", "false");
-    if (overlay?.parentNode) overlay.parentNode.removeChild(overlay);
+
+    if (overlay) {
+      overlay.remove();
+      overlay = null;
+    }
+    document.removeEventListener("keydown", onDocKeydown);
   }
 
-  // ── Listeners ────────────────────────────────────────────────────────
+  // ── Listeners persistentes ───────────────────────────────────────────
   btn.addEventListener("click", (e) => {
     e.stopPropagation();
     if (dropdownAbierto) cerrarDropdown();
     else abrirDropdown();
-  });
-
-  // Cerrar al hacer click/touch fuera del componente.
-  // Usamos `pointerdown` (cubre mouse + touch) en fase de captura para
-  // ejecutarse antes que cualquier otro listener que pueda detener la
-  // propagación. Si el target NO está dentro del contenedor de la campana,
-  // cerramos el dropdown.
-  function cerrarSiClickFuera(e) {
-    if (!dropdownAbierto) return;
-    // closest() retorna null si el target no está dentro del contenedor.
-    // Funciona también si el target es un nodo de texto o un elemento
-    // anidado profundo.
-    const dentro = e.target?.closest?.("#" + contenedorEl.id);
-    if (!dentro) cerrarDropdown();
-  }
-  document.addEventListener("pointerdown", cerrarSiClickFuera, true);
-  // Fallback para browsers sin pointer events
-  document.addEventListener("touchstart", cerrarSiClickFuera, true);
-
-  // También cerrar si se presiona Escape
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && dropdownAbierto) cerrarDropdown();
   });
 
   // Click delegado en los items
