@@ -81,6 +81,7 @@
 @import "./components/dashboard/atoms/_db-campo.css";
 @import "./components/dashboard/molecules/_db-alerts.css";
 @import "./components/dashboard/molecules/_notif-campana.css";
+@import "./components/dashboard/molecules/_pb-buscador.css";
 @import "./components/dashboard/views/_aprobaciones-view.css";
 @import "./components/dashboard/molecules/_db-inventory-item.css";
 /* dashboard molecules — movimientos y empleados */

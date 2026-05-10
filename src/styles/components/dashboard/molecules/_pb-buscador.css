@@ -1,0 +1,152 @@
+/* ============================================================
+ * PRODUCTO BUSCADOR — molecules/_pb-buscador.css
+ * BEM root: .pb-buscador
+ * Componente autocomplete para elegir un producto entre miles.
+ * ============================================================ */
+
+.pb-buscador {
+  position: relative;
+  width: 100%;
+  min-width: 200px;
+}
+
+/* ── Campo (input + ✕) ──────────────────────────────────────── */
+.pb-buscador__campo {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.pb-buscador__input {
+  flex: 1;
+  width: 100%;
+  padding: 8px 36px 8px 12px;  /* derecha: espacio para el ✕ */
+  border: 1px solid var(--lr-border, #d1d5db);
+  border-radius: var(--lr-radius-md, 8px);
+  background: var(--lr-bg-input, #f9fafb);
+  font-size: var(--lr-text-sm, 0.875rem);
+  font-family: inherit;
+  color: var(--lr-fg-primary, #111);
+  outline: none;
+  transition: border-color 0.12s, box-shadow 0.12s;
+}
+
+.pb-buscador__input:focus {
+  border-color: var(--lr-accent, #2563eb);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+.pb-buscador__limpiar {
+  position: absolute;
+  right: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 24px;
+  height: 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 0.85rem;
+  line-height: 1;
+  color: var(--lr-fg-muted, #6b7280);
+  transition: background 0.12s, color 0.12s;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.pb-buscador__limpiar:hover {
+  background: var(--lr-bg-hover, #f3f4f6);
+  color: var(--lr-fg-primary, #111);
+}
+
+/* Hidden input — sin estilos visuales */
+.pb-buscador__valor {
+  display: none;
+}
+
+/* ── Dropdown de resultados ──────────────────────────────────── */
+.pb-buscador__resultados {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  max-height: 280px;
+  overflow-y: auto;
+  margin: 0;
+  padding: 4px 0;
+  list-style: none;
+  background: var(--lr-bg-surface, #fff);
+  border: 1px solid var(--lr-border-subtle, #e5e7eb);
+  border-radius: var(--lr-radius-md, 8px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  z-index: 100;
+}
+
+/* CRÍTICO: hidden debe ganar a position:absolute / display block
+   (misma lección que la campana de notificaciones) */
+.pb-buscador__resultados[hidden] {
+  display: none !important;
+}
+
+/* ── Item del dropdown ───────────────────────────────────────── */
+.pb-buscador__item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: background 0.1s;
+  user-select: none;
+}
+
+.pb-buscador__item--highlight {
+  background: var(--lr-bg-hover, #f3f4f6);
+}
+
+.pb-buscador__item--sin-stock {
+  opacity: 0.55;
+}
+
+.pb-buscador__item-nombre {
+  font-size: var(--lr-text-sm, 0.875rem);
+  font-weight: var(--lr-weight-medium, 500);
+  color: var(--lr-fg-primary, #111);
+  line-height: 1.3;
+}
+
+.pb-buscador__item-meta {
+  font-size: 0.72rem;
+  color: var(--lr-fg-muted, #6b7280);
+  font-family: var(--lr-font-mono, monospace);
+  line-height: 1.3;
+}
+
+/* ── Estado vacío ────────────────────────────────────────────── */
+.pb-buscador__vacio {
+  padding: 14px 12px;
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--lr-fg-muted, #6b7280);
+  font-style: italic;
+}
+
+/* ── Compat: dentro de .mov-selector-producto (flex row) ────── */
+.mov-selector-producto .pb-buscador {
+  flex: 1;
+}
+
+.mov-selector-producto .pb-buscador__input {
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+/* ── Compat: dentro de la barra de filtros (más compacto) ──── */
+.db-barra-filtros__grupo .pb-buscador {
+  min-width: 220px;
+}

@@ -126,9 +126,7 @@
             <div class="db-campo">
               <label class="db-campo__etiqueta">Producto</label>
               <div class="mov-selector-producto">
-                <select class="db-campo__control" name="id_producto" required>
-                  <option value="">Seleccione un producto</option>
-                </select>
+                <div class="pb-buscador" data-buscador-producto></div>
                 <button type="button" class="btn btn--outline btn--sm mov-selector-producto__scan">
                   📷 Escanear
                 </button>
@@ -196,11 +194,7 @@
             📷 Escanear producto
           </button>
           <span class="pos-scan-row__pista">o buscar manualmente:</span>
-          <div class="db-campo pos-busqueda">
-            <select class="db-campo__control" id="posSelectProducto">
-              <option value="">Seleccione un producto…</option>
-            </select>
-          </div>
+          <div class="pb-buscador pos-busqueda" id="buscadorPosSalida"></div>
           <button type="button" class="btn btn--outline btn--sm" id="btnAgregarAlCarrito">
             + Agregar
           </button>
@@ -268,9 +262,7 @@
             <div class="db-campo">
               <label class="db-campo__etiqueta">Producto</label>
               <div class="mov-selector-producto">
-                <select class="db-campo__control" name="id_producto" required>
-                  <option value="">Seleccione un producto</option>
-                </select>
+                <div class="pb-buscador" data-buscador-producto></div>
                 <button type="button" class="btn btn--outline btn--sm mov-selector-producto__scan">
                   📷 Escanear
                 </button>
@@ -337,9 +329,7 @@
         <div class="db-barra-filtros__separador"></div>
         <div class="db-barra-filtros__grupo">
           <span class="db-barra-filtros__etiqueta">Producto</span>
-          <select class="db-campo__control" id="filtroProductoMovimiento">
-            <option value="">Todos</option>
-          </select>
+          <div class="pb-buscador" id="buscadorFiltroProducto"></div>
         </div>
         <div class="db-barra-filtros__separador"></div>
         <div class="db-barra-filtros__grupo">

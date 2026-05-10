@@ -5,6 +5,7 @@ import { crearEscaner } from "../shared/barcodeScanner.js";
 import { barcodeApi } from "../shared/barcodeApi.js";
 import { crearCarrito } from "./pos.carrito.js";
 import { solicitudesMovimientoApi } from "../shared/solicitudesMovimiento.api.js";
+import { crearBuscadorProducto } from "../shared/productoBuscador.js";
 
 import apiClient from "../../../core/apiClient.js";
 
@@ -100,7 +101,8 @@ export async function inicializarMovimientos() {
   const btnAplicar = document.getElementById("btnAplicarFiltros");
   const btnLimpiar = document.getElementById("btnLimpiarFiltros");
   const filtroTipo = document.getElementById("filtroTipoMovimiento");
-  const filtroProducto = document.getElementById("filtroProductoMovimiento");
+  // filtroProducto ahora es un buscador autocomplete (no <select>). Se monta más abajo.
+  const filtroProductoEl = document.getElementById("buscadorFiltroProducto");
   const filtroEmpleado = document.getElementById("filtroEmpleadoMovimiento");
   const filtroDesde = document.getElementById("filtroFechaDesde");
   const filtroHasta = document.getElementById("filtroFechaHasta");
@@ -185,24 +187,58 @@ export async function inicializarMovimientos() {
       : Promise.resolve([]),   // vendedor/bodeguero/pendiente: no consultar el endpoint
   ]);
 
-  // Poblar selects de los formularios y filtros
+  // ── Buscadores de producto (autocomplete) por formulario ────────────
+  // Reemplazo del <select> tradicional. Filtrado en memoria sobre `productos`.
+  const buscadoresProducto = {}; // { entrada: buscador, baja: buscador, ... }
+
   panels.forEach((panel) => {
-    const select = panel.querySelector('select[name="id_producto"]');
-    if (select) {
-      movimientosView.renderProductoSelect(select, productos);
-      select.addEventListener("change", () => {
-        const opt = select.options[select.selectedIndex];
-        const stock = opt ? opt.dataset.stock ?? null : null;
-        movimientosView.setStockActual(panel, stock);
-      });
-    }
+    const cont = panel.querySelector('[data-buscador-producto]');
+    if (!cont) return;
+    const buscador = crearBuscadorProducto({
+      contenedor: cont,
+      productos,
+      placeholder: "Buscar producto por nombre o código…",
+      nombreCampo: "id_producto",
+      conStock: true,
+      onCambio: (prod) => {
+        movimientosView.setStockActual(panel, prod ? prod.stock : null);
+      },
+    });
+    buscadoresProducto[panel.dataset.panel] = buscador;
   });
 
-  if (filtroProducto) {
-    movimientosView.renderProductoSelect(filtroProducto, productos, "Todos");
-  }
+  // Buscador del POS (panel salida)
+  const buscadorPosEl = document.getElementById("buscadorPosSalida");
+  const buscadorPos = buscadorPosEl
+    ? crearBuscadorProducto({
+        contenedor: buscadorPosEl,
+        productos,
+        placeholder: "Buscar producto para agregar…",
+        nombreCampo: "id_producto_pos",
+        conStock: true,
+      })
+    : null;
+
+  // Buscador del filtro de historial
+  const buscadorFiltroProducto = filtroProductoEl
+    ? crearBuscadorProducto({
+        contenedor: filtroProductoEl,
+        productos,
+        placeholder: "Filtrar por producto…",
+        nombreCampo: "filtro_producto",
+        conStock: false,
+      })
+    : null;
+
   if (filtroEmpleado && empleados.length) {
     movimientosView.renderEmpleadoSelect(filtroEmpleado, empleados);
+  }
+
+  /** Refresca el array de productos en todos los buscadores tras un cambio de stock. */
+  function refrescarBuscadoresProducto(nuevos) {
+    Object.values(buscadoresProducto).forEach((b) => b.setProductos(nuevos));
+    buscadorPos?.setProductos(nuevos);
+    buscadorFiltroProducto?.setProductos(nuevos);
   }
 
   // Listeners de historial
@@ -210,7 +246,7 @@ export async function inicializarMovimientos() {
   attach(btnAplicar, "click", cargarMovimientos);
   attach(btnLimpiar, "click", () => {
     if (filtroTipo) filtroTipo.value = "";
-    if (filtroProducto) filtroProducto.value = "";
+    buscadorFiltroProducto?.limpiar();
     if (filtroEmpleado) filtroEmpleado.value = "";
     if (filtroDesde) filtroDesde.value = "";
     if (filtroHasta) filtroHasta.value = "";
@@ -237,12 +273,8 @@ export async function inicializarMovimientos() {
   const posBtnLimpiar   = document.getElementById("posBtnLimpiar");
   const btnScanearCarrito   = document.getElementById("btnScanearCarrito");
   const btnAgregarAlCarrito = document.getElementById("btnAgregarAlCarrito");
-  const posSelectProducto   = document.getElementById("posSelectProducto");
 
-  if (posCarritoBody && posSelectProducto) {
-    // Poblar select manual del carrito
-    movimientosView.renderProductoSelect(posSelectProducto, productos);
-
+  if (posCarritoBody && buscadorPos) {
     const carrito = crearCarrito({
       bodyEl:  posCarritoBody,
       vacioEl: posCarritoVacio,
@@ -252,16 +284,11 @@ export async function inicializarMovimientos() {
       },
     });
 
-    // Agregar manualmente desde el select
+    // Agregar manualmente desde el buscador
     attach(btnAgregarAlCarrito, "click", () => {
-      const opt = posSelectProducto.options[posSelectProducto.selectedIndex];
-      if (!opt?.value) {
-        toast("⚠️ Primero seleccioná un producto del dropdown", "warn");
-        return;
-      }
-      const prod = productos.find((p) => p.id_producto === Number(opt.value));
+      const prod = buscadorPos.getProducto();
       if (!prod) {
-        toast("❌ Producto no encontrado en la lista local", "error");
+        toast("⚠️ Primero seleccioná un producto del buscador", "warn");
         return;
       }
       if (Number(prod.stock ?? 0) <= 0) {
@@ -270,7 +297,7 @@ export async function inicializarMovimientos() {
       }
       carrito.agregar(prod);
       toast(`✅ ${prod.nombre} agregado al carrito`);
-      posSelectProducto.value = "";
+      buscadorPos.limpiar();
     });
 
     // Escanear → agregar al carrito
@@ -323,16 +350,11 @@ export async function inicializarMovimientos() {
 
       carrito.limpiar();
 
-      // Refrescar stocks
+      // Refrescar stocks: actualizar todos los buscadores en sus arrays internos
       const prods = await movimientosService.getProductos().catch(() => []);
       productos = prods;
-      movimientosView.renderProductoSelect(posSelectProducto, prods);
-      panels.forEach((p) => {
-        const sel = p.querySelector('select[name="id_producto"]');
-        if (sel) movimientosView.renderProductoSelect(sel, prods);
-        movimientosView.setStockActual(p, null);
-      });
-      if (filtroProducto) movimientosView.renderProductoSelect(filtroProducto, prods, "Todos");
+      refrescarBuscadoresProducto(prods);
+      panels.forEach((p) => movimientosView.setStockActual(p, null));
       await cargarMovimientos();
     });
   }
@@ -456,17 +478,11 @@ export async function inicializarMovimientos() {
         );
         form.reset();
 
-        // Refrescar productos (los stocks cambiaron) y movimientos
+        // Refrescar productos (los stocks cambiaron) en todos los buscadores
         const prods = await movimientosService.getProductos().catch(() => []);
         productos = prods;
-        panels.forEach((p) => {
-          const sel = p.querySelector('select[name="id_producto"]');
-          if (sel) movimientosView.renderProductoSelect(sel, prods);
-          movimientosView.setStockActual(p, null);
-        });
-        if (filtroProducto) {
-          movimientosView.renderProductoSelect(filtroProducto, prods, "Todos");
-        }
+        refrescarBuscadoresProducto(prods);
+        panels.forEach((p) => movimientosView.setStockActual(p, null));
         await cargarMovimientos();
       } catch (err) {
         toast(`❌ ${err.message || "Error al registrar"}`, "error");
@@ -478,7 +494,7 @@ export async function inicializarMovimientos() {
     movimientosView.setEstado(estado, "⏳ Cargando movimientos...");
     try {
       const filtros = {
-        id_producto: filtroProducto?.value,
+        id_producto: buscadorFiltroProducto?.getValor() ?? "",
         tipo: filtroTipo?.value,
         id_empleado: filtroEmpleado?.value,
         fecha_desde: filtroDesde?.value,
