@@ -203,7 +203,6 @@ export function montarCampana(contenedorEl) {
       cerrarDropdown();
     };
     btnCerrar.addEventListener("click", cerrarHandler);
-    btnCerrar.addEventListener("mousedown", cerrarHandler);
     btnCerrar.addEventListener("touchstart", cerrarHandler, { passive: false });
   }
 

@@ -79,6 +79,11 @@
   overflow: hidden;
 }
 
+/* CRÍTICO: el atributo `hidden` debe ganar sobre `display: flex` */
+.notif-dropdown[hidden] {
+  display: none !important;
+}
+
 .notif-dropdown__cabecera {
   display: flex;
   align-items: center;
