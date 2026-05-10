@@ -1,6 +1,6 @@
 // apiClient.js — Wrapper completo para peticiones API con autenticación
 class ApiClient {
-    constructor(baseURL = "http://localhost:3001/api/v1") {
+    constructor(baseURL = "/api/v1") {
         this.baseURL = baseURL;
     }
 

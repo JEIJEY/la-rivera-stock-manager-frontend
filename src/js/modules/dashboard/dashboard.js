@@ -105,7 +105,27 @@ export async function inicializarDashboard() {
   });
 
   logger.info("Cargando vista inicial...");
-  await viewManager.load("inventario");
+  const esVistaValida = (v) =>
+    v && viewManager.registry.has(v) && !seccionesOcultas.includes(v);
+
+  const vistaHash = viewManager.leerHashActual();
+
+  let vistaInicial;
+  if (rolActual === "vendedor") {
+    // Vendedor: Movimientos es SU vista principal — solo un hash explícito lo cambia
+    vistaInicial = esVistaValida(vistaHash) ? vistaHash : "movimientos";
+  } else {
+    // Otros roles: hash → última vista guardada → default
+    const vistaUltima = (() => {
+      try { return localStorage.getItem("dashboard:ultimaVista"); } catch { return null; }
+    })();
+    vistaInicial =
+      (esVistaValida(vistaHash) && vistaHash) ||
+      (esVistaValida(vistaUltima) && vistaUltima) ||
+      "inventario";
+  }
+
+  await viewManager.load(vistaInicial);
   initLogoutButton();
   initTheme();        // Aplica tema guardado al cargar dashboard
   initThemeToggle();  // Adjunta listener al toggle del header

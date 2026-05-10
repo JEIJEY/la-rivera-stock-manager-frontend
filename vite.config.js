@@ -1,6 +1,7 @@
 import { defineConfig } from "vite";
 import path from "path";
 import fs from "fs";
+import basicSsl from "@vitejs/plugin-basic-ssl";
 
 const MIME = {
   ".png": "image/png", ".jpg": "image/jpeg", ".jpeg": "image/jpeg",
@@ -10,6 +11,16 @@ const MIME = {
 };
 
 export default defineConfig({
+  server: {
+    host: true, // expone en la red local (0.0.0.0)
+    proxy: {
+      "/api": {
+        target: "http://localhost:3001",
+        changeOrigin: true,
+        secure: false, // permite proxy HTTPS → HTTP backend
+      },
+    },
+  },
   resolve: {
     alias: {
       "@": "/src",
@@ -21,6 +32,7 @@ export default defineConfig({
     },
   },
   plugins: [
+    basicSsl(),
     {
       name: "serve-src-assets",
       configureServer(server) {

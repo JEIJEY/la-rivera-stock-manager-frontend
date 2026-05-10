@@ -1,0 +1,168 @@
+/* ============================================================
+ * BARCODE SCANNER MODAL — molecules/_bc-scanner.css
+ * BEM root: .bc-modal
+ * ============================================================ */
+
+.bc-modal {
+  border: none;
+  border-radius: var(--lr-radius-lg, 12px);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+  padding: 0;
+  width: min(480px, 95vw);
+  max-height: 90vh;
+  overflow: hidden;
+  background: var(--lr-bg-surface, #fff);
+}
+
+.bc-modal::backdrop {
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(3px);
+}
+
+.bc-modal__cabecera {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--lr-border-subtle, #e5e7eb);
+}
+
+.bc-modal__titulo {
+  margin: 0;
+  font-size: var(--lr-text-base, 1rem);
+  font-weight: var(--lr-weight-semibold, 600);
+  color: var(--lr-fg-primary, #111);
+}
+
+.bc-modal__cerrar {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.1rem;
+  color: var(--lr-fg-muted, #6b7280);
+  padding: 4px 8px;
+  border-radius: var(--lr-radius-sm, 6px);
+  line-height: 1;
+  transition: background 0.15s;
+}
+
+.bc-modal__cerrar:hover {
+  background: var(--lr-bg-hover, #f3f4f6);
+}
+
+/* ── Tabs ── */
+
+.bc-modal__tabs {
+  display: flex;
+  border-bottom: 1px solid var(--lr-border-subtle, #e5e7eb);
+}
+
+.bc-modal__tab {
+  flex: 1;
+  padding: 10px 16px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: var(--lr-text-sm, 0.875rem);
+  color: var(--lr-fg-muted, #6b7280);
+  border-bottom: 2px solid transparent;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.bc-modal__tab:hover {
+  color: var(--lr-fg-primary, #111);
+}
+
+.bc-modal__tab.is-active {
+  border-bottom-color: var(--lr-accent, #2563eb);
+  color: var(--lr-fg-primary, #111);
+  font-weight: var(--lr-weight-medium, 500);
+}
+
+/* ── Cuerpo ── */
+
+.bc-modal__cuerpo {
+  padding: 16px 20px;
+}
+
+/* Cámara */
+.bc-camara {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  background: #000;
+  display: block;
+  border-radius: var(--lr-radius-sm, 6px);
+  object-fit: cover;
+}
+
+/* USB input — invisible, solo captura teclado */
+.bc-usb__input {
+  display: block;
+  width: 100%;
+  padding: 10px 12px;
+  margin-top: 12px;
+  font-size: 1rem;
+  text-align: center;
+  letter-spacing: 0.05em;
+  border: 1px solid var(--lr-border-subtle, #e5e7eb);
+  border-radius: var(--lr-radius-sm, 6px);
+  background: var(--lr-bg-input, #f9fafb);
+  color: var(--lr-fg-primary, #111);
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+.bc-usb__input:focus {
+  border-color: var(--lr-accent, #2563eb);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+/* Estado / mensajes */
+.bc-estado {
+  font-size: var(--lr-text-sm, 0.875rem);
+  color: var(--lr-fg-muted, #6b7280);
+  text-align: center;
+  margin-top: 10px;
+  min-height: 1.4em;
+}
+
+.bc-estado--error {
+  color: var(--lr-danger-fg, #dc2626);
+}
+
+.bc-estado--ok {
+  color: var(--lr-success-fg, #16a34a);
+}
+
+/* ── Campo barras en formulario de producto ── */
+
+.bc-campo-barras {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.bc-campo-barras input {
+  flex: 1;
+  padding: 8px 12px;
+  border: 1px solid var(--lr-border-subtle, #e5e7eb);
+  border-radius: var(--lr-radius-sm, 6px);
+  background: var(--lr-bg-input, #f9fafb);
+  font-size: var(--lr-text-sm, 0.875rem);
+  color: var(--lr-fg-primary, #111);
+}
+
+.bc-campo-barras input:focus {
+  outline: none;
+  border-color: var(--lr-accent, #2563eb);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+/* ── Pie ── */
+
+.bc-modal__pie {
+  display: flex;
+  justify-content: flex-end;
+  padding: 12px 20px;
+  border-top: 1px solid var(--lr-border-subtle, #e5e7eb);
+}

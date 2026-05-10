@@ -1,6 +1,7 @@
 import logger from "../../../core/logger.js";
 import { productosService } from "./productos.service.js";
 import { productosView } from "./productos.view.js";
+import { crearEscaner } from "../shared/barcodeScanner.js";
 
 export async function inicializarInventario() {
   logger.info("Inicializando vista de productos...");
@@ -105,12 +106,28 @@ function conectarModal(modal, onSuccess) {
     if (e.target === modal) productosView.ocultarModal(modal);
   });
 
+  // ── Escáner para asignar código de barras al producto ──────────────
+  const btnEscanearProducto = document.getElementById("btnEscanearProducto");
+  if (btnEscanearProducto && !btnEscanearProducto.dataset.listener) {
+    btnEscanearProducto.dataset.listener = "true";
+    const escanerProducto = crearEscaner({
+      onScan: (codigo) => {
+        const input = document.getElementById("codigoBarras");
+        if (input) input.value = codigo;
+        escanerProducto.cerrar();
+      },
+      onError: (msg) => logger.warn(msg),
+    });
+    btnEscanearProducto.addEventListener("click", () => escanerProducto.abrir());
+  }
+
   if (form && !form.dataset.listener) {
     form.dataset.listener = "true";
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
       const data = {
         nombre: document.getElementById("nombre").value.trim(),
+        codigo_barras: document.getElementById("codigoBarras")?.value.trim() || null,
         descripcion: document.getElementById("descripcion").value.trim(),
         stock: parseInt(document.getElementById("stock").value || 0),
         unidad_medida: document.getElementById("unidad").value.trim(),

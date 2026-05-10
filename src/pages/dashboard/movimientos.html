@@ -58,10 +58,6 @@
       </div>
     </div>
     <div class="db-tarjeta-vista__acciones">
-      <button class="btn btn--outline btn--sm">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-        Exportar
-      </button>
       <button class="btn btn--outline btn--sm" id="btnRecargarMovimientos">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
         Recargar
@@ -128,6 +124,9 @@
                 <select class="db-campo__control" name="id_producto" required>
                   <option value="">Seleccione un producto</option>
                 </select>
+                <button type="button" class="btn btn--outline btn--sm mov-selector-producto__scan">
+                  📷 Escanear
+                </button>
                 <span class="mov-selector-producto__stock">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16.5 9.4l-9-5.19M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
                   Stock: <strong style="color:var(--lr-fg-primary)" data-stock-actual>—</strong>
@@ -136,15 +135,7 @@
             </div>
             <div class="db-campo">
               <label class="db-campo__etiqueta">Cantidad</label>
-              <div class="db-control-cantidad">
-                <button type="button" class="db-control-cantidad__decremento" onclick="this.parentElement.querySelector('input').stepDown()">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px"><line x1="5" y1="12" x2="19" y2="12"/></svg>
-                </button>
-                <input type="number" class="db-control-cantidad__valor" name="cantidad" value="1" step="0.01" min="0.01" required />
-                <button type="button" class="db-control-cantidad__incremento" onclick="this.parentElement.querySelector('input').stepUp()">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-                </button>
-              </div>
+              <input type="number" class="db-campo__control" name="cantidad" value="" step="1" min="1" inputmode="numeric" placeholder="Ingresa la cantidad" required />
             </div>
             <div class="db-campo">
               <label class="db-campo__etiqueta">Observación <span style="color:var(--lr-fg-muted);font-weight:400">(opcional)</span></label>
@@ -187,59 +178,58 @@
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 7v14"/><path d="m6 13 6-6 6 6"/><path d="M19 3H5"/></svg>
             </div>
             <div>
-              <h2 class="mov-tarjeta-registro__titulo">Registrar salida</h2>
-              <p class="mov-tarjeta-registro__subtitulo">Resta producto por venta o entrega.</p>
+              <h2 class="mov-tarjeta-registro__titulo">Registrar salida / Venta</h2>
+              <p class="mov-tarjeta-registro__subtitulo">Escanea o selecciona productos y regístralos todos de un golpe.</p>
             </div>
           </div>
           <span class="db-etiqueta db-etiqueta--salida"><span class="db-etiqueta__punto"></span>Resta stock</span>
         </header>
 
-        <form id="formSalida">
-          <div class="mov-cuadricula-campos">
-            <div class="db-campo">
-              <label class="db-campo__etiqueta">Producto</label>
-              <div class="mov-selector-producto">
-                <select class="db-campo__control" name="id_producto" required>
-                  <option value="">Seleccione un producto</option>
-                </select>
-                <span class="mov-selector-producto__stock">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16.5 9.4l-9-5.19M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
-                  Stock: <strong style="color:var(--lr-fg-primary)" data-stock-actual>—</strong>
-                </span>
-              </div>
-            </div>
-            <div class="db-campo">
-              <label class="db-campo__etiqueta">Cantidad</label>
-              <div class="db-control-cantidad">
-                <button type="button" class="db-control-cantidad__decremento" onclick="this.parentElement.querySelector('input').stepDown()">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px"><line x1="5" y1="12" x2="19" y2="12"/></svg>
-                </button>
-                <input type="number" class="db-control-cantidad__valor" name="cantidad" value="1" step="0.01" min="0.01" required />
-                <button type="button" class="db-control-cantidad__incremento" onclick="this.parentElement.querySelector('input').stepUp()">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-                </button>
-              </div>
-            </div>
-            <div class="db-campo">
-              <label class="db-campo__etiqueta">Observación <span style="color:var(--lr-fg-muted);font-weight:400">(opcional)</span></label>
-              <input class="db-campo__control" type="text" name="observacion" maxlength="255" placeholder="Ej: Venta mostrador" />
-            </div>
+        <!-- Fila de escaneo -->
+        <div class="pos-scan-row">
+          <button type="button" class="btn btn--outline btn--sm" id="btnScanearCarrito">
+            📷 Escanear producto
+          </button>
+          <span class="pos-scan-row__pista">o buscar manualmente:</span>
+          <div class="db-campo pos-busqueda">
+            <select class="db-campo__control" id="posSelectProducto">
+              <option value="">Seleccione un producto…</option>
+            </select>
           </div>
+          <button type="button" class="btn btn--outline btn--sm" id="btnAgregarAlCarrito">
+            + Agregar
+          </button>
+        </div>
 
-          <footer class="mov-tarjeta-registro__pie">
-            <span class="mov-tarjeta-registro__pista">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-              El stock se actualiza al guardar.
-            </span>
-            <div style="display:flex;align-items:center;gap:8px">
-              <button type="reset" class="btn btn--ghost">Limpiar</button>
-              <button type="submit" class="btn btn-success">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px"><polyline points="20 6 9 17 4 12"/></svg>
-                Registrar salida
-              </button>
-            </div>
-          </footer>
-        </form>
+        <!-- Carrito -->
+        <div class="pos-carrito" id="posCarrito">
+          <table class="pos-carrito__tabla">
+            <thead>
+              <tr>
+                <th>Producto</th>
+                <th class="num">Stock</th>
+                <th class="num" style="width:140px">Cantidad</th>
+                <th style="width:44px"></th>
+              </tr>
+            </thead>
+            <tbody id="posCarritoBody"></tbody>
+          </table>
+          <p class="pos-carrito__vacio" id="posCarritoVacio">
+            Escanea o selecciona productos para agregarlos al carrito.
+          </p>
+        </div>
+
+        <!-- Footer del carrito -->
+        <footer class="mov-tarjeta-registro__pie">
+          <span class="pos-total" id="posTotalItems">0 productos en el carrito</span>
+          <div class="pos-footer__acciones">
+            <button type="button" class="btn btn--ghost" id="posBtnLimpiar">Limpiar</button>
+            <button type="button" class="btn btn-success" id="posBtnRegistrar" disabled>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px"><polyline points="20 6 9 17 4 12"/></svg>
+              Registrar todo
+            </button>
+          </div>
+        </footer>
       </article>
     </div>
 
@@ -276,6 +266,9 @@
                 <select class="db-campo__control" name="id_producto" required>
                   <option value="">Seleccione un producto</option>
                 </select>
+                <button type="button" class="btn btn--outline btn--sm mov-selector-producto__scan">
+                  📷 Escanear
+                </button>
                 <span class="mov-selector-producto__stock">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16.5 9.4l-9-5.19M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
                   Stock: <strong style="color:var(--lr-fg-primary)" data-stock-actual>—</strong>
@@ -284,15 +277,7 @@
             </div>
             <div class="db-campo">
               <label class="db-campo__etiqueta">Cantidad</label>
-              <div class="db-control-cantidad">
-                <button type="button" class="db-control-cantidad__decremento" onclick="this.parentElement.querySelector('input').stepDown()">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px"><line x1="5" y1="12" x2="19" y2="12"/></svg>
-                </button>
-                <input type="number" class="db-control-cantidad__valor" name="cantidad" value="1" step="0.01" min="0.01" required />
-                <button type="button" class="db-control-cantidad__incremento" onclick="this.parentElement.querySelector('input').stepUp()">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-                </button>
-              </div>
+              <input type="number" class="db-campo__control" name="cantidad" value="" step="1" min="1" inputmode="numeric" placeholder="Ingresa la cantidad" required />
             </div>
             <div class="db-campo">
               <label class="db-campo__etiqueta">Motivo</label>

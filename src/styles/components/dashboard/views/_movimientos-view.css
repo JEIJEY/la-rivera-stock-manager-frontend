@@ -4,7 +4,7 @@
  * Solo composición de layout y elementos únicos de esta vista.
  *
  * Los átomos y moléculas usados en esta vista están definidos en:
- *   atoms/  → _db-indicador.css, _db-etiqueta.css, _db-campo.css, _db-control-cantidad.css
+ *   atoms/  → _db-indicador.css, _db-etiqueta.css, _db-campo.css
  *   molecules/ → _db-barra-filtros.css, _db-tabla-datos.css, _db-delta-stock.css
  *   organisms/ → _db-tarjeta-vista.css
  *   shared/atoms/ → _buttons.css (.btn, .btn-success, .btn--ghost, .btn--outline, .btn--sm)
@@ -226,10 +226,10 @@
 
 .mov-cuadricula-campos--completa { grid-template-columns: 1fr; }
 
-/* ── Selector de producto (select + indicador de stock inline) ── */
+/* ── Selector de producto (select + botón escanear + indicador de stock) ── */
 .mov-selector-producto {
-  display: grid;
-  grid-template-columns: 1fr auto;
+  display: flex;
+  align-items: stretch;
   gap: 0;
   border: 1px solid var(--lr-border);
   border-radius: var(--lr-radius-md);
@@ -237,11 +237,33 @@
   overflow: hidden;
 }
 
-/* El select interno no tiene borde propio */
+/* El select ocupa el espacio restante */
 .mov-selector-producto .db-campo__control {
+  flex: 1;
   border: 0;
   box-shadow: none;
   border-radius: 0;
+}
+
+/* Botón de escáner integrado en el selector */
+.mov-selector-producto__scan {
+  flex-shrink: 0;
+  border: none;
+  border-left: 1px solid var(--lr-border);
+  border-right: 1px solid var(--lr-border);
+  border-radius: 0;
+  background: var(--lr-bg-card-hi);
+  color: var(--lr-fg-secondary);
+  padding: 0 12px;
+  font-size: var(--lr-text-sm, 0.875rem);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.15s, color 0.15s;
+}
+
+.mov-selector-producto__scan:hover {
+  background: var(--lr-bg-hover);
+  color: var(--lr-fg-primary);
 }
 
 /* Indicador de stock actual */

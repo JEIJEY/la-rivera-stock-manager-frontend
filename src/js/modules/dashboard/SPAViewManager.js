@@ -21,11 +21,33 @@ export default class SPAViewManager {
     this.pagesBase = pagesBase;
     this.registry = new Map();
     this.currentView = null;
+    this._actualizandoHash = false;  // bandera para evitar bucles hashchange
 
     // Loader global opcional
     this.loader = document.getElementById("spaLoader");
 
+    // Hash routing: navegar al vuelo cuando el usuario usa atrás/adelante
+    window.addEventListener("hashchange", () => {
+      if (this._actualizandoHash) { this._actualizandoHash = false; return; }
+      const vista = this.leerHashActual();
+      if (vista && this.registry.has(vista) && vista !== this.currentView) {
+        this.load(vista);
+      }
+    });
+
     console.log("🧭 SPAViewManager inicializado correctamente");
+  }
+
+  /** Lee la vista actual desde el hash de la URL (#movimientos → "movimientos") */
+  leerHashActual() {
+    return (window.location.hash || "").replace(/^#/, "").trim() || null;
+  }
+
+  /** Actualiza el hash sin disparar el listener de hashchange */
+  _setHashSilencioso(name) {
+    if (this.leerHashActual() === name) return;
+    this._actualizandoHash = true;
+    window.location.hash = name;
   }
 
   // ======================================================
@@ -125,6 +147,8 @@ export default class SPAViewManager {
 
       await initFn();
       this.currentView = name;
+      this._setHashSilencioso(name);
+      try { localStorage.setItem("dashboard:ultimaVista", name); } catch (_) {}
 
       await this.fadeIn(this.container);
 

@@ -1,0 +1,159 @@
+/* ============================================================
+ * POS CARRITO — molecules/_pos-carrito.css
+ * BEM root: .pos-*
+ * ============================================================ */
+
+/* ── Fila de escaneo ── */
+
+.pos-scan-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.pos-scan-row__pista {
+  font-size: var(--lr-text-sm, 0.875rem);
+  color: var(--lr-fg-muted, #6b7280);
+  white-space: nowrap;
+}
+
+.pos-scan-row .pos-busqueda {
+  flex: 1;
+  min-width: 160px;
+  margin-bottom: 0;
+}
+
+/* ── Carrito ── */
+
+.pos-carrito {
+  border: 1px solid var(--lr-border-subtle, #e5e7eb);
+  border-radius: var(--lr-radius-md, 8px);
+  overflow: hidden;
+  margin-bottom: 16px;
+  min-height: 80px;
+}
+
+.pos-carrito__tabla {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.pos-carrito__tabla th,
+.pos-carrito__tabla td {
+  padding: 8px 12px;
+  text-align: left;
+  font-size: var(--lr-text-sm, 0.875rem);
+  border-bottom: 1px solid var(--lr-border-subtle, #e5e7eb);
+}
+
+.pos-carrito__tabla th {
+  background: var(--lr-bg-subtle, #f9fafb);
+  font-weight: var(--lr-weight-medium, 500);
+  color: var(--lr-fg-secondary, #374151);
+}
+
+.pos-carrito__tabla td.num,
+.pos-carrito__tabla th.num {
+  text-align: right;
+}
+
+.pos-carrito__tabla tr:last-child td {
+  border-bottom: none;
+}
+
+.pos-carrito__tabla tr:hover td {
+  background: var(--lr-bg-hover, #f3f4f6);
+}
+
+/* Fila con stock insuficiente */
+.pos-fila--sin-stock td {
+  color: var(--lr-danger-fg, #dc2626);
+}
+
+/* ── Vacío ── */
+
+.pos-carrito__vacio {
+  text-align: center;
+  color: var(--lr-fg-muted, #6b7280);
+  font-size: var(--lr-text-sm, 0.875rem);
+  padding: 24px;
+  margin: 0;
+}
+
+/* ── Control de cantidad inline ── */
+
+.pos-qty-control {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.pos-qty-control__btn {
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--lr-border-subtle, #e5e7eb);
+  border-radius: var(--lr-radius-sm, 4px);
+  background: var(--lr-bg-surface, #fff);
+  cursor: pointer;
+  font-size: 1.1rem;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--lr-fg-secondary, #374151);
+  transition: background 0.12s;
+  touch-action: manipulation; /* evita doble-tap zoom en móvil */
+  -webkit-tap-highlight-color: transparent;
+}
+
+.pos-qty-control__btn:hover,
+.pos-qty-control__btn:active {
+  background: var(--lr-bg-hover, #f3f4f6);
+}
+
+/* Botón que muestra la cantidad — abre diálogo al tocar */
+.pos-qty-control__display {
+  min-width: 44px;
+  height: 36px;
+  padding: 0 10px;
+  text-align: center;
+  border: 1px solid var(--lr-border-subtle, #e5e7eb);
+  border-radius: var(--lr-radius-sm, 4px);
+  background: var(--lr-bg-input, #f9fafb);
+  font-size: var(--lr-text-sm, 0.875rem);
+  font-weight: var(--lr-weight-medium, 500);
+  color: var(--lr-fg-primary, #111);
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.pos-qty-control__display:hover,
+.pos-qty-control__display:active {
+  background: var(--lr-accent-light, #eff6ff);
+  border-color: var(--lr-accent, #2563eb);
+  color: var(--lr-accent, #2563eb);
+}
+
+/* ── Footer del carrito ── */
+
+.pos-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.pos-total {
+  font-size: var(--lr-text-sm, 0.875rem);
+  color: var(--lr-fg-secondary, #374151);
+}
+
+.pos-footer__acciones {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}

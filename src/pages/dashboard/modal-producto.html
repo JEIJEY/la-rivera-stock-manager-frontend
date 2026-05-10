@@ -9,6 +9,19 @@
       <label for="nombre">Nombre del producto</label>
       <input type="text" id="nombre" name="nombre" placeholder="Ejemplo: Leche entera" required />
 
+      <label for="codigoBarras">
+        Código de barras
+        <span style="font-weight:400;color:var(--lr-fg-muted,#6b7280);font-size:0.85em">(opcional)</span>
+      </label>
+      <div class="bc-campo-barras">
+        <input type="text" id="codigoBarras" name="codigo_barras"
+               maxlength="50" placeholder="Ej: 7790895000143"
+               autocomplete="off" />
+        <button type="button" class="btn btn--outline btn--sm" id="btnEscanearProducto">
+          📷 Escanear
+        </button>
+      </div>
+
       <label for="descripcion">Descripción</label>
       <textarea id="descripcion" name="descripcion" placeholder="Detalles del producto"></textarea>
 

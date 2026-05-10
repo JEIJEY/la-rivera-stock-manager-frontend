@@ -1,6 +1,92 @@
 import logger from "../../../core/logger.js";
 import { movimientosService } from "./movimientos.service.js";
 import { movimientosView } from "./movimientos.view.js";
+import { crearEscaner } from "../shared/barcodeScanner.js";
+import { barcodeApi } from "../shared/barcodeApi.js";
+import { crearCarrito } from "./pos.carrito.js";
+
+import apiClient from "../../../core/apiClient.js";
+
+/** Toast no-bloqueante — reemplaza alert() en flujos de escaneo */
+function toast(msg, tipo = "ok", duracion = 4000) {
+  const id = "bc-toast-global";
+  let el = document.getElementById(id);
+  if (!el) {
+    el = document.createElement("div");
+    el.id = id;
+    el.style.cssText = [
+      "position:fixed", "top:16px", "left:50%", "transform:translateX(-50%)",
+      "padding:14px 22px", "border-radius:10px", "font-size:15px", "font-weight:600",
+      "box-shadow:0 8px 24px rgba(0,0,0,0.25)", "z-index:2147483647",
+      "transition:opacity 0.25s", "pointer-events:none",
+      "max-width:90vw", "text-align:center",
+    ].join(";");
+    document.body.appendChild(el);
+  }
+  el.textContent = msg;
+  el.style.background = tipo === "ok" ? "#16a34a" : tipo === "warn" ? "#d97706" : "#dc2626";
+  el.style.color = "#fff";
+  el.style.opacity = "1";
+  clearTimeout(el._t);
+  el._t = setTimeout(() => { el.style.opacity = "0"; }, duracion);
+}
+
+/**
+ * Cuando un código no está registrado, muestra un diálogo para asignarlo
+ * a un producto existente y guarda el vínculo en la DB.
+ * Retorna el producto asignado o null si el usuario cancela.
+ */
+function asignarCodigo(codigo, productos) {
+  return new Promise((resolve) => {
+    // Defensa: nunca abrir el diálogo con código vacío
+    const codigoLimpio = String(codigo || "").trim();
+    if (!codigoLimpio) { resolve(null); return; }
+
+    const DIALOG_ID = "bc-asignar-dialog";
+    let dlg = document.getElementById(DIALOG_ID);
+    if (dlg) dlg.remove();
+
+    dlg = document.createElement("dialog");
+    dlg.id = DIALOG_ID;
+    dlg.style.cssText = "border:none;border-radius:12px;padding:24px;width:min(400px,95vw);box-shadow:0 20px 60px rgba(0,0,0,0.3)";
+    dlg.innerHTML = `
+      <h3 style="margin:0 0 8px;font-size:1rem;font-weight:600">Código no registrado</h3>
+      <p style="margin:0 0 16px;font-size:0.875rem;color:#6b7280">
+        Código leído: <strong style="color:#111;font-family:monospace">${codigoLimpio}</strong><br>
+        Seleccioná el producto al que pertenece:
+      </p>
+      <select id="bcAsignarSelect" style="width:100%;padding:8px 12px;border:1px solid #e5e7eb;border-radius:6px;font-size:0.875rem;margin-bottom:16px">
+        <option value="">-- Seleccionar producto --</option>
+        ${productos.map(p => `<option value="${p.id_producto}">${p.nombre}</option>`).join("")}
+      </select>
+      <div style="display:flex;justify-content:flex-end;gap:8px">
+        <button id="bcAsignarCancelar" style="padding:8px 16px;border:1px solid #e5e7eb;border-radius:6px;background:#fff;cursor:pointer;font-size:0.875rem">Cancelar</button>
+        <button id="bcAsignarConfirmar" style="padding:8px 16px;border:none;border-radius:6px;background:#2563eb;color:#fff;cursor:pointer;font-size:0.875rem;font-weight:500">Asignar y continuar</button>
+      </div>
+    `;
+    document.body.appendChild(dlg);
+    dlg.showModal();
+
+    dlg.querySelector("#bcAsignarCancelar").onclick = () => { dlg.close(); resolve(null); };
+    dlg.querySelector("#bcAsignarConfirmar").onclick = async () => {
+      const id = dlg.querySelector("#bcAsignarSelect").value;
+      if (!id) return;
+      const producto = productos.find(p => p.id_producto === Number(id));
+      if (!producto) return;
+      try {
+        await apiClient.put(`/productos/${id}`, { ...producto, codigo_barras: codigoLimpio });
+        producto.codigo_barras = codigoLimpio; // actualiza el objeto local
+        dlg.close();
+        toast(`✅ Código asignado a ${producto.nombre}`);
+        resolve(producto);
+      } catch {
+        toast("❌ No se pudo guardar el código", "error");
+        dlg.close();
+        resolve(null);
+      }
+    };
+  });
+}
 
 export async function inicializarMovimientos() {
   logger.info("Inicializando vista de movimientos...");
@@ -34,6 +120,22 @@ export async function inicializarMovimientos() {
 
   const rol            = obtenerRolDesdeToken();
   const tabsPermitidas = TABS_POR_ROL[rol] ?? ["historial"];
+
+  // Vendedor: ocultar "Recargar" del header (la app refresca sola tras cada acción)
+  if (rol === "vendedor" && btnRecargar) btnRecargar.style.display = "none";
+
+  // Vendedor: ocultar filtros que no le aportan (Tipo y Empleado)
+  if (rol === "vendedor") {
+    document.querySelectorAll(".db-barra-filtros__grupo").forEach((grupo) => {
+      const select = grupo.querySelector("select");
+      if (select?.id === "filtroTipoMovimiento" || select?.id === "filtroEmpleadoMovimiento") {
+        grupo.style.display = "none";
+        // También ocultar el separador siguiente si existe
+        const sep = grupo.nextElementSibling;
+        if (sep?.classList.contains("db-barra-filtros__separador")) sep.style.display = "none";
+      }
+    });
+  }
 
   // Ocultar tabs y paneles no permitidos para este rol
   // Nota: style.display en lugar de hidden porque el CSS .mov-tab { display: inline-flex }
@@ -109,12 +211,158 @@ export async function inicializarMovimientos() {
     cargarMovimientos();
   });
 
-  // Submit handlers para los 3 formularios
+  // Submit handlers para formularios de entrada y baja
   conectarFormulario("formEntrada", "entrada");
-  conectarFormulario("formSalida", "salida");
   conectarFormulario("formBaja", "baja");
+  // formSalida ya no existe — reemplazado por el carrito POS
+
+  // ── Scanner para entrada y baja ──────────────────────────────────────
+  conectarScannerMovimiento("formEntrada");
+  conectarScannerMovimiento("formBaja");
+
+  // ── Carrito POS (panel salida) ───────────────────────────────────────
+  const posCarritoBody  = document.getElementById("posCarritoBody");
+  const posCarritoVacio = document.getElementById("posCarritoVacio");
+  const posTotalItems   = document.getElementById("posTotalItems");
+  const posBtnRegistrar = document.getElementById("posBtnRegistrar");
+  const posBtnLimpiar   = document.getElementById("posBtnLimpiar");
+  const btnScanearCarrito   = document.getElementById("btnScanearCarrito");
+  const btnAgregarAlCarrito = document.getElementById("btnAgregarAlCarrito");
+  const posSelectProducto   = document.getElementById("posSelectProducto");
+
+  if (posCarritoBody && posSelectProducto) {
+    // Poblar select manual del carrito
+    movimientosView.renderProductoSelect(posSelectProducto, productos);
+
+    const carrito = crearCarrito({
+      bodyEl:  posCarritoBody,
+      vacioEl: posCarritoVacio,
+      totalEl: posTotalItems,
+      onCambio: (items) => {
+        if (posBtnRegistrar) posBtnRegistrar.disabled = items.length === 0;
+      },
+    });
+
+    // Agregar manualmente desde el select
+    attach(btnAgregarAlCarrito, "click", () => {
+      const opt = posSelectProducto.options[posSelectProducto.selectedIndex];
+      if (!opt?.value) return;
+      const prod = productos.find((p) => p.id_producto === Number(opt.value));
+      if (prod) {
+        carrito.agregar(prod);
+        toast(`✅ ${prod.nombre} agregado al carrito`);
+      }
+      posSelectProducto.value = "";
+    });
+
+    // Escanear → agregar al carrito
+    const escanerCarrito = crearEscaner({
+      onScan: async (codigo) => {
+        try {
+          let producto = await barcodeApi.getByBarcode(codigo).catch(() => null);
+          if (!producto) {
+            producto = await asignarCodigo(codigo, productos);
+            if (!producto) return;
+          }
+          const local = productos.find((p) => p.id_producto === producto.id_producto) ?? producto;
+          carrito.agregar(local);
+          toast(`✅ ${local.nombre} agregado al carrito`);
+        } catch {
+          toast(`❌ Error al procesar el código: ${codigo}`, "error");
+        }
+      },
+      onError: (msg) => logger.warn(msg),
+    });
+    attach(btnScanearCarrito, "click", () => escanerCarrito.abrir());
+
+    // Limpiar carrito
+    attach(posBtnLimpiar, "click", () => carrito.limpiar());
+
+    // Registrar todo — secuencial para respetar SELECT FOR UPDATE del backend
+    attach(posBtnRegistrar, "click", async () => {
+      const items = carrito.getItems();
+      if (!items.length) return;
+      posBtnRegistrar.disabled = true;
+
+      const errores = [];
+      for (const item of items) {
+        try {
+          await movimientosService.registrar("salida", {
+            id_producto: item.id_producto,
+            cantidad: item.cantidad,
+            observacion: "Venta POS (múltiple)",
+          });
+        } catch (err) {
+          errores.push(`${item.nombre}: ${err.message}`);
+        }
+      }
+
+      if (errores.length) {
+        alert(`⚠️ Algunos artículos fallaron:\n\n${errores.join("\n")}`);
+      } else {
+        alert(`✅ ${items.length} salida(s) registradas correctamente`);
+      }
+
+      carrito.limpiar();
+
+      // Refrescar stocks
+      const prods = await movimientosService.getProductos().catch(() => []);
+      productos = prods;
+      movimientosView.renderProductoSelect(posSelectProducto, prods);
+      panels.forEach((p) => {
+        const sel = p.querySelector('select[name="id_producto"]');
+        if (sel) movimientosView.renderProductoSelect(sel, prods);
+        movimientosView.setStockActual(p, null);
+      });
+      if (filtroProducto) movimientosView.renderProductoSelect(filtroProducto, prods, "Todos");
+      await cargarMovimientos();
+    });
+  }
 
   await cargarMovimientos();
+
+  // ── Escáner para selector de producto (entrada / baja) ───────────────
+  function conectarScannerMovimiento(formId) {
+    const form    = document.getElementById(formId);
+    const btnScan = form?.querySelector(".mov-selector-producto__scan");
+    const select  = form?.querySelector('select[name="id_producto"]');
+    if (!btnScan || !select) return;
+
+    const escaner = crearEscaner({
+      onScan: async (codigo) => {
+        try {
+          const producto = await barcodeApi.getByBarcode(codigo);
+          const opt = Array.from(select.options).find(
+            (o) => Number(o.value) === producto.id_producto
+          );
+          if (opt) {
+            select.value = opt.value;
+            select.dispatchEvent(new Event("change"));
+            toast(`✅ ${producto.nombre} seleccionado`);
+          } else {
+            toast(`⚠️ ${producto.nombre} no está disponible en esta lista.`, "warn");
+          }
+        } catch {
+          // Código no registrado → ofrecer asignarlo
+          const productosList = Array.from(select.options)
+            .filter(o => o.value)
+            .map(o => ({ id_producto: Number(o.value), nombre: o.text }));
+          const asignado = await asignarCodigo(codigo, productosList);
+          if (asignado) {
+            const opt = Array.from(select.options).find(o => Number(o.value) === asignado.id_producto);
+            if (opt) {
+              select.value = opt.value;
+              select.dispatchEvent(new Event("change"));
+              toast(`✅ ${asignado.nombre} seleccionado`);
+            }
+          }
+        }
+      },
+      onError: (msg) => logger.warn(msg),
+    });
+
+    btnScan.addEventListener("click", () => escaner.abrir());
+  }
 
   function conectarFormulario(formId, tipo) {
     const form = document.getElementById(formId);
@@ -161,6 +409,9 @@ export async function inicializarMovimientos() {
       const movimientos = await movimientosService.getAll(filtros);
       movimientosView.renderTabla(movimientos, tabla, estado);
       movimientosView.renderKPIs(movimientos, productos);
+      // Actualizar contador de la tab Historial con la cantidad real cargada
+      const conteoTab = document.querySelector('.mov-tab--historial .mov-tab__conteo');
+      if (conteoTab) conteoTab.textContent = String(movimientos.length);
     } catch (err) {
       logger.error({ err }, "Error cargando movimientos");
       movimientosView.setEstado(estado, "💥 Error al conectar con el servidor.");

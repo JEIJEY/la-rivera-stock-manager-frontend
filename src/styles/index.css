@@ -78,7 +78,6 @@
 @import "./components/dashboard/atoms/_db-indicador.css";
 @import "./components/dashboard/atoms/_db-etiqueta.css";
 @import "./components/dashboard/atoms/_db-avatar-empleado.css";
-@import "./components/dashboard/atoms/_db-control-cantidad.css";
 @import "./components/dashboard/atoms/_db-campo.css";
 @import "./components/dashboard/molecules/_db-alerts.css";
 @import "./components/dashboard/molecules/_db-inventory-item.css";
@@ -87,6 +86,8 @@
 @import "./components/dashboard/molecules/_db-tabla-datos.css";
 @import "./components/dashboard/molecules/_db-celda-empleado.css";
 @import "./components/dashboard/molecules/_db-delta-stock.css";
+@import "./components/dashboard/molecules/_bc-scanner.css";
+@import "./components/dashboard/molecules/_pos-carrito.css";
 @import "./components/dashboard/organisms/_db-layout.css";
 @import "./components/dashboard/organisms/_db-header.css";
 @import "./components/dashboard/organisms/_db-sidebar.css";
