@@ -32,13 +32,29 @@
 
 const MAX_RESULTADOS = 30;
 
-/** Normaliza string: lowercase, sin acentos */
+/** Normaliza string: lowercase, sin acentos, sin espacios extra */
 function normalizar(s) {
   return String(s ?? "")
     .normalize("NFD")
-    .replace(/[̀-ͯ]/g, "")
+    .replace(/[̀-ͯ]/g, "") // diacríticos (acentos, tildes)
     .toLowerCase()
     .trim();
+}
+
+/** Resalta las ocurrencias de `query` dentro de `texto` con un <mark>. */
+function resaltar(texto, query) {
+  const t = String(texto ?? "");
+  if (!query) return escapeHtml(t);
+  const qN = normalizar(query);
+  const tN = normalizar(t);
+  const idx = tN.indexOf(qN);
+  if (idx < 0) return escapeHtml(t);
+  // Devolver texto original con la sección coincidente envuelta en <mark>
+  return (
+    escapeHtml(t.substring(0, idx)) +
+    "<mark>" + escapeHtml(t.substring(idx, idx + query.length)) + "</mark>" +
+    escapeHtml(t.substring(idx + query.length))
+  );
 }
 
 function escapeHtml(v) {
@@ -94,9 +110,14 @@ export function crearBuscadorProducto({
   contenedor.classList.add("pb-buscador");
   contenedor.innerHTML = `
     <div class="pb-buscador__campo">
+      <svg class="pb-buscador__lupa" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+           stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+      </svg>
       <input type="text" class="pb-buscador__input db-campo__control"
              placeholder="${escapeHtml(placeholder)}"
-             autocomplete="off" spellcheck="false" />
+             autocomplete="off" spellcheck="false"
+             inputmode="search" />
       <button type="button" class="pb-buscador__limpiar" hidden aria-label="Limpiar selección">✕</button>
       <input type="hidden" class="pb-buscador__valor" name="${escapeHtml(nombreCampo)}" />
     </div>
@@ -141,21 +162,32 @@ export function crearBuscadorProducto({
     if (e.key === "Escape") cerrarDropdown();
   }
 
+  /** Query actual usado para resaltar coincidencias en los resultados */
+  let queryActual = "";
+
   function renderResultados() {
     if (resultadosActuales.length === 0) {
       resultados.innerHTML = `<li class="pb-buscador__vacio">No se encontraron coincidencias</li>`;
       return;
     }
-    resultados.innerHTML = resultadosActuales
+    const header = queryActual
+      ? `<li class="pb-buscador__header">${resultadosActuales.length} resultado(s) para "<strong>${escapeHtml(queryActual)}</strong>"</li>`
+      : "";
+    resultados.innerHTML = header + resultadosActuales
       .map((p, i) => {
         const sinStock = Number(p.stock ?? 0) <= 0;
+        const nombreHtml = resaltar(p.nombre || `#${p.id_producto}`, queryActual);
         const meta = [];
         if (conStock) meta.push(`stock: ${Number(p.stock ?? 0)}`);
-        if (p.codigo_barras) meta.push(`código: ${escapeHtml(p.codigo_barras)}`);
+        if (p.codigo_barras) {
+          // Resaltar también el código si la query lo matchea
+          const codigoHtml = resaltar(p.codigo_barras, queryActual);
+          meta.push(`código: ${codigoHtml}`);
+        }
         return `
           <li class="pb-buscador__item ${sinStock ? "pb-buscador__item--sin-stock" : ""} ${i === indiceHighlight ? "pb-buscador__item--highlight" : ""}"
               data-id="${p.id_producto}" data-index="${i}" role="option">
-            <span class="pb-buscador__item-nombre">${escapeHtml(p.nombre || `#${p.id_producto}`)}</span>
+            <span class="pb-buscador__item-nombre">${nombreHtml}</span>
             ${meta.length ? `<span class="pb-buscador__item-meta">${meta.join(" · ")}</span>` : ""}
           </li>`;
       })
@@ -177,7 +209,8 @@ export function crearBuscadorProducto({
   }
 
   function recargar(query = "") {
-    resultadosActuales = filtrarYOrdenar(lista, query);
+    queryActual = String(query ?? "").trim();
+    resultadosActuales = filtrarYOrdenar(lista, queryActual);
     indiceHighlight = resultadosActuales.length > 0 ? 0 : -1;
     renderResultados();
   }
@@ -217,8 +250,12 @@ export function crearBuscadorProducto({
   });
 
   input.addEventListener("focus", () => {
-    // Si hay selección, no abrir (ya está completo). Si no, mostrar opciones.
-    if (productoSeleccionado) return;
+    // Si hay un producto seleccionado, seleccionar todo el texto del input
+    // para que el usuario pueda escribir y reemplazar fácilmente (UX común
+    // de barras de búsqueda).
+    if (productoSeleccionado) {
+      input.select();
+    }
     recargar(input.value);
     abrirDropdown();
   });

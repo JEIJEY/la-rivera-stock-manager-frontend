@@ -10,17 +10,28 @@
   min-width: 200px;
 }
 
-/* ── Campo (input + ✕) ──────────────────────────────────────── */
+/* ── Campo (lupa + input + ✕) ───────────────────────────────── */
 .pb-buscador__campo {
   position: relative;
   display: flex;
   align-items: center;
 }
 
+.pb-buscador__lupa {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
+  color: var(--lr-fg-muted, #6b7280);
+  pointer-events: none;
+}
+
 .pb-buscador__input {
   flex: 1;
   width: 100%;
-  padding: 8px 36px 8px 12px;  /* derecha: espacio para el ✕ */
+  padding: 8px 36px 8px 34px;  /* izq: espacio lupa; der: espacio ✕ */
   border: 1px solid var(--lr-border, #d1d5db);
   border-radius: var(--lr-radius-md, 8px);
   background: var(--lr-bg-input, #f9fafb);
@@ -125,6 +136,32 @@
   line-height: 1.3;
 }
 
+/* ── Header con conteo de resultados ─────────────────────────── */
+.pb-buscador__header {
+  padding: 6px 12px;
+  font-size: 0.72rem;
+  color: var(--lr-fg-muted, #6b7280);
+  background: var(--lr-bg-card-hi, #f9fafb);
+  border-bottom: 1px solid var(--lr-border-subtle, #e5e7eb);
+  font-family: var(--lr-font-mono, monospace);
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  pointer-events: none;
+}
+
+.pb-buscador__header strong {
+  color: var(--lr-accent, #2563eb);
+}
+
+/* Resaltado de la subcadena que coincide con la búsqueda */
+.pb-buscador__item mark {
+  background: rgba(37, 99, 235, 0.18);
+  color: inherit;
+  padding: 0 1px;
+  border-radius: 2px;
+  font-weight: var(--lr-weight-semi, 600);
+}
+
 /* ── Estado vacío ────────────────────────────────────────────── */
 .pb-buscador__vacio {
   padding: 14px 12px;
@@ -144,6 +181,14 @@
   border-radius: 0;
   background: transparent;
   box-shadow: none;
+}
+
+.mov-selector-producto .pb-buscador__input:focus {
+  box-shadow: none;
+}
+
+.mov-selector-producto .pb-buscador__lupa {
+  left: 8px;
 }
 
 /* ── Compat: dentro de la barra de filtros (más compacto) ──── */
