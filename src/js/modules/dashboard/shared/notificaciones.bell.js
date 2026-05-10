@@ -66,7 +66,10 @@ export function montarCampana(contenedorEl) {
     <div class="notif-dropdown" hidden>
       <div class="notif-dropdown__cabecera">
         <span class="notif-dropdown__titulo">Notificaciones</span>
-        <button type="button" class="notif-dropdown__leer-todas">Marcar todas como leídas</button>
+        <div class="notif-dropdown__acciones-cabecera">
+          <button type="button" class="notif-dropdown__leer-todas">Marcar todas leídas</button>
+          <button type="button" class="notif-dropdown__cerrar" aria-label="Cerrar">✕</button>
+        </div>
       </div>
       <ul class="notif-dropdown__lista">
         <li class="notif-dropdown__vacio">Sin notificaciones</li>
@@ -79,6 +82,7 @@ export function montarCampana(contenedorEl) {
   const dropdown = contenedorEl.querySelector(".notif-dropdown");
   const lista = contenedorEl.querySelector(".notif-dropdown__lista");
   const btnLeerTodas = contenedorEl.querySelector(".notif-dropdown__leer-todas");
+  const btnCerrar = contenedorEl.querySelector(".notif-dropdown__cerrar");
 
   // ── Estado ───────────────────────────────────────────────────────────
   let pollTimer = null;
@@ -144,14 +148,24 @@ export function montarCampana(contenedorEl) {
     await actualizarBadge();
   }
 
-  // ── Mecanismo de cierre: overlay + listener fresco por apertura ──────
-  let overlay = null;
+  // ── Lógica de abrir/cerrar — MÍNIMA Y ROBUSTA ────────────────────────
+  //
+  // Estrategia:
+  // 1. Botón ✕ visible en el dropdown — cierre garantizado al click
+  // 2. Click en cualquier parte del documento fuera del dropdown — cierra
+  // 3. Tecla Escape — cierra
+  // 4. Click en el bell — toggle
+  // 5. El listener "click fuera" se REGISTRA con setTimeout para evitar
+  //    que el mismo click que abrió el dropdown lo cierre inmediatamente
+  // 6. El listener se REMUEVE al cerrar (no se acumulan)
 
-  function onOverlayClick(e) {
-    e.stopPropagation();
+  function onClickFuera(e) {
+    // Si el click fue dentro de la campana O dentro del dropdown, ignorar
+    if (contenedorEl.contains(e.target)) return;
     cerrarDropdown();
   }
-  function onDocKeydown(e) {
+
+  function onKeyDown(e) {
     if (e.key === "Escape") cerrarDropdown();
   }
 
@@ -160,19 +174,14 @@ export function montarCampana(contenedorEl) {
     dropdownAbierto = true;
     dropdown.hidden = false;
     btn.setAttribute("aria-expanded", "true");
-
-    // Crear overlay full-screen transparente. Captura cualquier click
-    // fuera del dropdown (el dropdown tiene z-index 1000 en CSS, overlay 999).
-    overlay = document.createElement("div");
-    overlay.style.cssText =
-      "position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:999;background:transparent;pointer-events:auto";
-    overlay.addEventListener("mousedown", onOverlayClick);
-    overlay.addEventListener("touchstart", onOverlayClick, { passive: true });
-    document.body.appendChild(overlay);
-
-    document.addEventListener("keydown", onDocKeydown);
-
     cargarLista();
+    // Registrar listeners DESPUÉS del frame actual para que el click
+    // que abrió el dropdown no lo cierre inmediatamente.
+    setTimeout(() => {
+      if (!dropdownAbierto) return; // pudo haberse cerrado ya
+      document.addEventListener("click", onClickFuera);
+      document.addEventListener("keydown", onKeyDown);
+    }, 0);
   }
 
   function cerrarDropdown() {
@@ -180,12 +189,8 @@ export function montarCampana(contenedorEl) {
     dropdownAbierto = false;
     dropdown.hidden = true;
     btn.setAttribute("aria-expanded", "false");
-
-    if (overlay) {
-      overlay.remove();
-      overlay = null;
-    }
-    document.removeEventListener("keydown", onDocKeydown);
+    document.removeEventListener("click", onClickFuera);
+    document.removeEventListener("keydown", onKeyDown);
   }
 
   // ── Listeners persistentes ───────────────────────────────────────────
@@ -193,6 +198,12 @@ export function montarCampana(contenedorEl) {
     e.stopPropagation();
     if (dropdownAbierto) cerrarDropdown();
     else abrirDropdown();
+  });
+
+  // Botón ✕ explícito en el dropdown
+  btnCerrar?.addEventListener("click", (e) => {
+    e.stopPropagation();
+    cerrarDropdown();
   });
 
   // Click delegado en los items

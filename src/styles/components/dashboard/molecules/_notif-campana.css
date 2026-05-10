@@ -95,6 +95,12 @@
   color: var(--lr-fg-primary, #111);
 }
 
+.notif-dropdown__acciones-cabecera {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
 .notif-dropdown__leer-todas {
   background: none;
   border: none;
@@ -108,6 +114,25 @@
 
 .notif-dropdown__leer-todas:hover {
   background: rgba(37, 99, 235, 0.08);
+}
+
+.notif-dropdown__cerrar {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  line-height: 1;
+  color: var(--lr-fg-muted, #6b7280);
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: background 0.12s, color 0.12s;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.notif-dropdown__cerrar:hover {
+  background: var(--lr-bg-hover, #f3f4f6);
+  color: var(--lr-fg-primary, #111);
 }
 
 /* ── Lista de notificaciones ─────────────────────────────────── */
