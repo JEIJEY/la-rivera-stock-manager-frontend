@@ -255,12 +255,21 @@ export async function inicializarMovimientos() {
     // Agregar manualmente desde el select
     attach(btnAgregarAlCarrito, "click", () => {
       const opt = posSelectProducto.options[posSelectProducto.selectedIndex];
-      if (!opt?.value) return;
-      const prod = productos.find((p) => p.id_producto === Number(opt.value));
-      if (prod) {
-        carrito.agregar(prod);
-        toast(`✅ ${prod.nombre} agregado al carrito`);
+      if (!opt?.value) {
+        toast("⚠️ Primero seleccioná un producto del dropdown", "warn");
+        return;
       }
+      const prod = productos.find((p) => p.id_producto === Number(opt.value));
+      if (!prod) {
+        toast("❌ Producto no encontrado en la lista local", "error");
+        return;
+      }
+      if (Number(prod.stock ?? 0) <= 0) {
+        toast(`⚠️ ${prod.nombre} sin stock disponible`, "warn");
+        return;
+      }
+      carrito.agregar(prod);
+      toast(`✅ ${prod.nombre} agregado al carrito`);
       posSelectProducto.value = "";
     });
 
