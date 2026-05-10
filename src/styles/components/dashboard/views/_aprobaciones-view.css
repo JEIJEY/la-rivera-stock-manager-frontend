@@ -1,0 +1,176 @@
+/* ============================================================
+ * APROBACIONES — views/_aprobaciones-view.css
+ * BEM root: .aprob-vista (raíz), .aprob-card (cada solicitud)
+ * Vista solo para admin / propietario
+ * ============================================================ */
+
+.aprob-vista {
+  /* Hereda layout de .db-tarjeta-vista */
+}
+
+.aprob-vista__kpis {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+/* ── Lista de cards ───────────────────────────────────────────── */
+.aprob-lista {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 14px;
+}
+
+.aprob-lista__estado,
+.aprob-lista__vacio {
+  grid-column: 1 / -1;
+  padding: 32px 16px;
+  text-align: center;
+  color: var(--lr-fg-muted, #6b7280);
+  font-size: 0.95rem;
+}
+
+.aprob-lista__vacio {
+  background: var(--lr-bg-card-hi, #f9fafb);
+  border: 1px dashed var(--lr-border-subtle, #e5e7eb);
+  border-radius: var(--lr-radius-md, 8px);
+}
+
+/* ── Card de solicitud ────────────────────────────────────────── */
+.aprob-card {
+  background: var(--lr-bg-card, #fff);
+  border: 1px solid var(--lr-border-subtle, #e5e7eb);
+  border-radius: var(--lr-radius-md, 10px);
+  padding: 16px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  transition: box-shadow 0.15s, transform 0.15s;
+}
+
+.aprob-card:hover {
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+  transform: translateY(-1px);
+}
+
+/* Borde lateral coloreado por tipo */
+.aprob-card::before {
+  content: "";
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 3px;
+  border-radius: var(--lr-radius-md, 10px) 0 0 var(--lr-radius-md, 10px);
+}
+
+.aprob-card--entrada::before { background: var(--lr-mov-entrada, #16a34a); }
+.aprob-card--baja::before    { background: var(--lr-mov-baja, #dc2626); }
+.aprob-card--salida::before  { background: var(--lr-mov-salida, #d97706); }
+
+/* ── Cabecera de card ─────────────────────────────────────────── */
+.aprob-card__cabecera {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.aprob-card__tipo {
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--lr-fg-secondary, #374151);
+}
+
+.aprob-card__tiempo {
+  font-size: 0.72rem;
+  color: var(--lr-fg-muted, #6b7280);
+  font-family: var(--lr-font-mono, monospace);
+}
+
+/* ── Producto ─────────────────────────────────────────────────── */
+.aprob-card__producto {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--lr-fg-primary, #111);
+}
+
+/* ── Cantidad destacada ───────────────────────────────────────── */
+.aprob-card__cantidad {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  padding: 8px 0;
+  border-top: 1px solid var(--lr-border-subtle, #e5e7eb);
+  border-bottom: 1px solid var(--lr-border-subtle, #e5e7eb);
+}
+
+.aprob-card__valor {
+  font-size: 1.5rem;
+  font-weight: 700;
+  font-family: var(--lr-font-mono, monospace);
+  color: var(--lr-fg-primary, #111);
+}
+
+.aprob-card__unidad {
+  font-size: 0.8rem;
+  color: var(--lr-fg-muted, #6b7280);
+}
+
+/* ── Preview de stock ─────────────────────────────────────────── */
+.aprob-card__stock-preview {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.8rem;
+  color: var(--lr-fg-secondary, #374151);
+  background: var(--lr-bg-card-hi, #f9fafb);
+  padding: 8px 10px;
+  border-radius: var(--lr-radius-sm, 6px);
+  font-family: var(--lr-font-mono, monospace);
+}
+
+.aprob-card__stock-preview strong {
+  color: var(--lr-fg-primary, #111);
+}
+
+.aprob-card__flecha {
+  color: var(--lr-fg-muted, #6b7280);
+}
+
+/* ── Campos secundarios ───────────────────────────────────────── */
+.aprob-card__campo {
+  font-size: 0.82rem;
+  color: var(--lr-fg-secondary, #374151);
+  line-height: 1.4;
+}
+
+.aprob-card__solicitante {
+  font-size: 0.78rem;
+  color: var(--lr-fg-muted, #6b7280);
+  padding-top: 4px;
+  border-top: 1px dashed var(--lr-border-subtle, #e5e7eb);
+}
+
+.aprob-card__solicitante strong {
+  color: var(--lr-fg-secondary, #374151);
+}
+
+/* ── Acciones (botones aprobar/rechazar) ──────────────────────── */
+.aprob-card__acciones {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+  padding-top: 4px;
+}
+
+.aprob-card__btn-aprobar,
+.aprob-card__btn-rechazar {
+  min-width: 110px;
+}
+
+.aprob-card__btn-aprobar:disabled,
+.aprob-card__btn-rechazar:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

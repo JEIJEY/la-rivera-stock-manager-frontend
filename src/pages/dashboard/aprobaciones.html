@@ -1,0 +1,62 @@
+<!-- ============================================================
+     Aprobaciones de Solicitudes de Movimiento — vista SPA
+     BEM root: .aprob-vista
+     Solo visible para admin / propietario
+     ============================================================ -->
+
+<section class="db-tarjeta-vista aprob-vista">
+  <header class="db-tarjeta-vista__encabezado">
+    <div class="db-tarjeta-vista__grupo-titulo">
+      <div class="db-tarjeta-vista__icono">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="20 6 9 17 4 12"/>
+        </svg>
+      </div>
+      <div>
+        <h1 class="db-tarjeta-vista__titulo">Aprobaciones pendientes</h1>
+        <p class="db-tarjeta-vista__subtitulo">
+          Revisa entradas y bajas solicitadas por vendedores. Solo al aprobar se afecta el stock.
+        </p>
+      </div>
+    </div>
+    <div class="db-tarjeta-vista__acciones">
+      <button class="btn btn--outline btn--sm" id="btnRecargarAprobaciones">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+             style="width:14px;height:14px">
+          <polyline points="23 4 23 10 17 10"/>
+          <polyline points="1 20 1 14 7 14"/>
+          <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/>
+        </svg>
+        Recargar
+      </button>
+    </div>
+  </header>
+
+  <div class="db-tarjeta-vista__cuerpo">
+    <!-- KPIs -->
+    <div class="aprob-vista__kpis mov-fila-indicadores" style="margin-bottom:16px">
+      <div class="db-indicador db-indicador--warning">
+        <span class="db-indicador__etiqueta">Pendientes</span>
+        <span class="db-indicador__valor" id="kpiPendientes">—</span>
+        <span class="db-indicador__delta">esperan revisión</span>
+      </div>
+      <div class="db-indicador db-indicador--entrada">
+        <span class="db-indicador__etiqueta">De entrada</span>
+        <span class="db-indicador__valor" id="kpiEntradas">—</span>
+        <span class="db-indicador__delta">solicitudes de entrada</span>
+      </div>
+      <div class="db-indicador db-indicador--baja">
+        <span class="db-indicador__etiqueta">De baja</span>
+        <span class="db-indicador__valor" id="kpiBajas">—</span>
+        <span class="db-indicador__delta">solicitudes de baja</span>
+      </div>
+    </div>
+
+    <!-- Lista de cards -->
+    <div id="aprobacionesLista" class="aprob-lista">
+      <p class="aprob-lista__estado" id="estadoAprobaciones">⏳ Cargando solicitudes pendientes...</p>
+    </div>
+  </div>
+</section>

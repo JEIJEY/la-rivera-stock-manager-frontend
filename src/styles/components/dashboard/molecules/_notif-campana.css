@@ -1,0 +1,208 @@
+/* ============================================================
+ * NOTIFICACIONES — molecules/_notif-campana.css
+ * BEM roots: .notif-campana (botón) / .notif-dropdown (panel)
+ * ============================================================ */
+
+/* Contenedor relativo para posicionar el dropdown debajo del botón */
+.dashboard-header__notif {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+/* ── Botón campana ────────────────────────────────────────────── */
+.notif-campana {
+  position: relative;
+  background: transparent;
+  border: 1px solid var(--lr-border-subtle, #e5e7eb);
+  border-radius: var(--lr-radius-md, 8px);
+  width: 38px;
+  height: 38px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--lr-fg-secondary, #374151);
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.notif-campana:hover,
+.notif-campana[aria-expanded="true"] {
+  background: var(--lr-bg-hover, #f3f4f6);
+  color: var(--lr-fg-primary, #111);
+  border-color: var(--lr-border, #d1d5db);
+}
+
+.notif-campana__icono {
+  width: 18px;
+  height: 18px;
+}
+
+/* Badge contador rojo */
+.notif-campana__badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: 9px;
+  background: var(--lr-danger-fg, #dc2626);
+  color: #fff;
+  font-size: 10.5px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  font-family: var(--lr-font-mono, monospace);
+  box-shadow: 0 0 0 2px var(--lr-bg-surface, #fff);
+}
+
+/* ── Dropdown panel ───────────────────────────────────────────── */
+.notif-dropdown {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  width: 360px;
+  max-width: 92vw;
+  max-height: 70vh;
+  background: var(--lr-bg-surface, #fff);
+  border: 1px solid var(--lr-border-subtle, #e5e7eb);
+  border-radius: var(--lr-radius-lg, 10px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.18);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.notif-dropdown__cabecera {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--lr-border-subtle, #e5e7eb);
+  background: var(--lr-bg-card-hi, #f9fafb);
+}
+
+.notif-dropdown__titulo {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--lr-fg-primary, #111);
+}
+
+.notif-dropdown__leer-todas {
+  background: none;
+  border: none;
+  color: var(--lr-accent, #2563eb);
+  font-size: 0.78rem;
+  cursor: pointer;
+  padding: 4px 6px;
+  border-radius: 4px;
+  transition: background 0.12s;
+}
+
+.notif-dropdown__leer-todas:hover {
+  background: rgba(37, 99, 235, 0.08);
+}
+
+/* ── Lista de notificaciones ─────────────────────────────────── */
+.notif-dropdown__lista {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.notif-dropdown__vacio {
+  padding: 24px 16px;
+  text-align: center;
+  color: var(--lr-fg-muted, #6b7280);
+  font-size: 0.85rem;
+}
+
+/* ── Item de notificación ────────────────────────────────────── */
+.notif-item {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 10px;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--lr-border-subtle, #e5e7eb);
+  cursor: pointer;
+  transition: background 0.12s;
+  align-items: flex-start;
+}
+
+.notif-item:last-child {
+  border-bottom: none;
+}
+
+.notif-item:hover {
+  background: var(--lr-bg-hover, #f3f4f6);
+}
+
+.notif-item--no-leida {
+  background: rgba(37, 99, 235, 0.06);
+}
+
+.notif-item--no-leida:hover {
+  background: rgba(37, 99, 235, 0.12);
+}
+
+.notif-item__icono {
+  font-size: 1.1rem;
+  line-height: 1.2;
+  margin-top: 2px;
+}
+
+.notif-item__cuerpo {
+  min-width: 0; /* permite truncado */
+}
+
+.notif-item__titulo {
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: var(--lr-fg-primary, #111);
+  margin-bottom: 2px;
+}
+
+.notif-item__mensaje {
+  font-size: 0.8rem;
+  color: var(--lr-fg-secondary, #374151);
+  line-height: 1.35;
+  margin-bottom: 4px;
+  /* Truncar a 2 líneas */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.notif-item__tiempo {
+  font-size: 0.72rem;
+  color: var(--lr-fg-muted, #6b7280);
+  font-family: var(--lr-font-mono, monospace);
+}
+
+/* ── Badge contador en sidebar (item Aprobaciones) ───────────── */
+.sidebar-menu__badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 6px;
+  margin-left: auto;
+  background: var(--lr-danger-fg, #dc2626);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  font-family: var(--lr-font-mono, monospace);
+  border-radius: 10px;
+  line-height: 1;
+}

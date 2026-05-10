@@ -80,6 +80,8 @@
 @import "./components/dashboard/atoms/_db-avatar-empleado.css";
 @import "./components/dashboard/atoms/_db-campo.css";
 @import "./components/dashboard/molecules/_db-alerts.css";
+@import "./components/dashboard/molecules/_notif-campana.css";
+@import "./components/dashboard/views/_aprobaciones-view.css";
 @import "./components/dashboard/molecules/_db-inventory-item.css";
 /* dashboard molecules — movimientos y empleados */
 @import "./components/dashboard/molecules/_db-barra-filtros.css";

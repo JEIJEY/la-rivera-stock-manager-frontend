@@ -12,7 +12,10 @@ import * as usuariosModule from "./usuarios/usuarios.entry.js";
 import * as reportesModule from "./reportes/reportes.entry.js";
 import * as movimientosModule from "./movimientos/movimientos.entry.js";
 import * as configuracionModule from "./configuracion/configuracion.entry.js";
+import * as aprobacionesModule from "./aprobaciones/aprobaciones.entry.js";
 import { inicializarABC } from "./abc/abc.entry.js";
+import { montarCampana } from "./shared/notificaciones.bell.js";
+import { solicitudesMovimientoApi } from "./shared/solicitudesMovimiento.api.js";
 
 /**
  * Inicializa el Dashboard SPA.
@@ -75,6 +78,12 @@ export async function inicializarDashboard() {
     initExport: "inicializarConfiguracion",
   });
 
+  viewManager.register("aprobaciones", {
+    html: "aprobaciones.html",
+    module: aprobacionesModule,
+    initExport: "inicializarAprobaciones",
+  });
+
   document.querySelectorAll(".sidebar-menu__link").forEach((link) => {
     link.addEventListener("click", (e) => {
       e.preventDefault();
@@ -92,10 +101,11 @@ export async function inicializarDashboard() {
   actualizarPerfilSidebar();
 
   // ── Ocultar secciones del sidebar según rol ──────────────────────────
+  // Aprobaciones: solo admin/propietario lo ven
   const SECCIONES_OCULTAS_POR_ROL = {
-    vendedor:  ["usuarios", "reportes", "configuracion"],
-    bodeguero: ["usuarios", "configuracion"],
-    pendiente: ["usuarios", "reportes", "configuracion"],
+    vendedor:  ["usuarios", "reportes", "configuracion", "aprobaciones"],
+    bodeguero: ["usuarios", "configuracion", "aprobaciones"],
+    pendiente: ["usuarios", "reportes", "configuracion", "aprobaciones"],
   };
   const rolActual = obtenerRolDesdeToken();
   const seccionesOcultas = SECCIONES_OCULTAS_POR_ROL[rolActual] ?? [];
@@ -130,10 +140,48 @@ export async function inicializarDashboard() {
   initTheme();        // Aplica tema guardado al cargar dashboard
   initThemeToggle();  // Adjunta listener al toggle del header
 
+  // ── Campana de notificaciones (todos los roles autenticados) ─────────
+  const contenedorCampana = document.getElementById("campanaNotificaciones");
+  if (contenedorCampana) montarCampana(contenedorCampana);
+
+  // ── Badge de pendientes en sidebar (solo admin/propietario) ─────────
+  if (rolActual === "admin" || rolActual === "propietario") {
+    iniciarBadgeAprobaciones();
+  }
+
   // Adjuntar listeners después de que todo esté inicializado
   appEvents.on("vista-cargada", (vista) => {
     logger.info({ vista }, "Vista activa");
     inicializarToggleInventario();
+  });
+}
+
+/** Polling del conteo de aprobaciones pendientes (solo para admin/propietario). */
+function iniciarBadgeAprobaciones() {
+  const badge = document.getElementById("badgeAprobaciones");
+  if (!badge) return;
+
+  const actualizar = async () => {
+    try {
+      const pendientes = await solicitudesMovimientoApi.getPendientes();
+      const n = Array.isArray(pendientes) ? pendientes.length : 0;
+      if (n > 0) {
+        badge.textContent = n > 99 ? "99+" : String(n);
+        badge.hidden = false;
+      } else {
+        badge.hidden = true;
+      }
+    } catch (_) {
+      // silencioso — endpoint puede no estar disponible
+    }
+  };
+
+  actualizar();
+  // Polling cada 30s, pausa cuando la pestaña está oculta
+  let timer = setInterval(actualizar, 30_000);
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden) { clearInterval(timer); timer = null; }
+    else if (!timer) { actualizar(); timer = setInterval(actualizar, 30_000); }
   });
 }
 

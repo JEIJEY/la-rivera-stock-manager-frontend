@@ -29,6 +29,12 @@
               </li>
             </ul>
           </li>
+          <li class="sidebar-menu__item db-sidebar__nav-item" data-rol="admin propietario">
+            <a href="#aprobaciones" class="sidebar-menu__link db-sidebar__nav-link" data-seccion="aprobaciones">
+              ✅ Aprobaciones
+              <span class="sidebar-menu__badge" id="badgeAprobaciones" hidden>0</span>
+            </a>
+          </li>
           <li class="sidebar-menu__item db-sidebar__nav-item">
             <a href="#" class="sidebar-menu__link db-sidebar__nav-link" data-seccion="usuarios">👥 Usuarios</a>
           </li>
@@ -83,6 +89,9 @@
 
       <!-- Acciones del header -->
       <div class="dashboard-header__actions db-encabezado__acciones">
+        <!-- Campana de notificaciones (se monta dinámicamente) -->
+        <div id="campanaNotificaciones" class="dashboard-header__notif"></div>
+
         <!-- Neo Toggle: Dark / Light -->
         <div class="neo-toggle-container neo-toggle-container--header" title="Cambiar tema">
           <input type="checkbox" id="headerThemeToggle" class="neo-toggle-input" />

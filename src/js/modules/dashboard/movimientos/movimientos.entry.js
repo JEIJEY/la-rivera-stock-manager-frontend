@@ -4,6 +4,7 @@ import { movimientosView } from "./movimientos.view.js";
 import { crearEscaner } from "../shared/barcodeScanner.js";
 import { barcodeApi } from "../shared/barcodeApi.js";
 import { crearCarrito } from "./pos.carrito.js";
+import { solicitudesMovimientoApi } from "../shared/solicitudesMovimiento.api.js";
 
 import apiClient from "../../../core/apiClient.js";
 
@@ -374,13 +375,40 @@ export async function inicializarMovimientos() {
       const fd = new FormData(form);
       const data = Object.fromEntries(fd.entries());
 
+      // Vendedor en entrada/baja → crear Solicitud (workflow de aprobación)
+      // En salida → flujo normal (las ventas no requieren aprobación)
+      const requiereAprobacion =
+        rol === "vendedor" && (tipo === "entrada" || tipo === "baja");
+
       try {
+        if (requiereAprobacion) {
+          await solicitudesMovimientoApi.crear({
+            id_producto: Number(data.id_producto),
+            tipo,
+            cantidad: Number(data.cantidad),
+            motivo: data.motivo || undefined,
+            observacion: data.observacion || undefined,
+          });
+          toast(
+            `📋 ${tipo === "entrada" ? "Entrada" : "Baja"} enviada para aprobación del administrador`,
+            "warn",
+            4500
+          );
+          form.reset();
+          return;
+        }
+
+        // Flujo directo (admin/bodeguero registran al instante)
         const resp = await movimientosService.registrar(tipo, data);
-        alert(`✅ ${resp.mensaje}\nStock: ${resp.stock_anterior} → ${resp.stock_nuevo}`);
+        toast(
+          `✅ ${resp.mensaje} · Stock: ${resp.stock_anterior} → ${resp.stock_nuevo}`,
+          "ok"
+        );
         form.reset();
+
         // Refrescar productos (los stocks cambiaron) y movimientos
         const prods = await movimientosService.getProductos().catch(() => []);
-        productos = prods; // actualiza closure para que renderKPIs use el stock nuevo
+        productos = prods;
         panels.forEach((p) => {
           const sel = p.querySelector('select[name="id_producto"]');
           if (sel) movimientosView.renderProductoSelect(sel, prods);
@@ -391,7 +419,7 @@ export async function inicializarMovimientos() {
         }
         await cargarMovimientos();
       } catch (err) {
-        alert(`❌ ${err.message}`);
+        toast(`❌ ${err.message || "Error al registrar"}`, "error");
       }
     });
   }
