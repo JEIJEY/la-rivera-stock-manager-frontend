@@ -85,8 +85,8 @@ export function montarCampana(contenedorEl) {
   const btnCerrar = contenedorEl.querySelector(".notif-dropdown__cerrar");
 
   // ── Estado ───────────────────────────────────────────────────────────
+  // Toda la lógica de abierto/cerrado lee `dropdown.hidden` directamente.
   let pollTimer = null;
-  let dropdownAbierto = false;
 
   // ── Helpers de actualización ─────────────────────────────────────────
   async function actualizarBadge() {
@@ -148,19 +148,17 @@ export function montarCampana(contenedorEl) {
     await actualizarBadge();
   }
 
-  // ── Lógica de abrir/cerrar — MÍNIMA Y ROBUSTA ────────────────────────
-  //
-  // Estrategia:
-  // 1. Botón ✕ visible en el dropdown — cierre garantizado al click
-  // 2. Click en cualquier parte del documento fuera del dropdown — cierra
-  // 3. Tecla Escape — cierra
-  // 4. Click en el bell — toggle
-  // 5. El listener "click fuera" se REGISTRA con setTimeout para evitar
-  //    que el mismo click que abrió el dropdown lo cierre inmediatamente
-  // 6. El listener se REMUEVE al cerrar (no se acumulan)
+  // ── Abrir/cerrar — usa el DOM como fuente de verdad (sin closures stale) ─
+  // Cualquier handler mira directamente `dropdown.hidden`. Si la función se
+  // ejecuta desde un closure viejo, igual cierra el dropdown correcto porque
+  // referencia el mismo elemento DOM.
+
+  function estaAbierto() {
+    return dropdown && !dropdown.hidden;
+  }
 
   function onClickFuera(e) {
-    // Si el click fue dentro de la campana O dentro del dropdown, ignorar
+    if (!estaAbierto()) return;
     if (contenedorEl.contains(e.target)) return;
     cerrarDropdown();
   }
@@ -170,23 +168,20 @@ export function montarCampana(contenedorEl) {
   }
 
   function abrirDropdown() {
-    if (dropdownAbierto) return;
-    dropdownAbierto = true;
+    if (estaAbierto()) return;
     dropdown.hidden = false;
     btn.setAttribute("aria-expanded", "true");
     cargarLista();
-    // Registrar listeners DESPUÉS del frame actual para que el click
-    // que abrió el dropdown no lo cierre inmediatamente.
+    // Registrar listeners DESPUÉS del frame actual
     setTimeout(() => {
-      if (!dropdownAbierto) return; // pudo haberse cerrado ya
+      if (!estaAbierto()) return;
       document.addEventListener("click", onClickFuera);
       document.addEventListener("keydown", onKeyDown);
     }, 0);
   }
 
   function cerrarDropdown() {
-    if (!dropdownAbierto) return;
-    dropdownAbierto = false;
+    // SIN early return — cerrar siempre, idempotente.
     dropdown.hidden = true;
     btn.setAttribute("aria-expanded", "false");
     document.removeEventListener("click", onClickFuera);
@@ -196,15 +191,21 @@ export function montarCampana(contenedorEl) {
   // ── Listeners persistentes ───────────────────────────────────────────
   btn.addEventListener("click", (e) => {
     e.stopPropagation();
-    if (dropdownAbierto) cerrarDropdown();
+    if (estaAbierto()) cerrarDropdown();
     else abrirDropdown();
   });
 
-  // Botón ✕ explícito en el dropdown
-  btnCerrar?.addEventListener("click", (e) => {
-    e.stopPropagation();
-    cerrarDropdown();
-  });
+  // Botón ✕ explícito — múltiples tipos de evento por máxima compatibilidad
+  if (btnCerrar) {
+    const cerrarHandler = (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      cerrarDropdown();
+    };
+    btnCerrar.addEventListener("click", cerrarHandler);
+    btnCerrar.addEventListener("mousedown", cerrarHandler);
+    btnCerrar.addEventListener("touchstart", cerrarHandler, { passive: false });
+  }
 
   // Click delegado en los items
   lista.addEventListener("click", (e) => {
