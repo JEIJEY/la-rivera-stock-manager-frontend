@@ -111,15 +111,16 @@ export async function inicializarMovimientos() {
   }
 
   // ── Visibilidad de tabs por rol ──────────────────────────────────────
-  // "mis-solicitudes" solo lo ven roles que pueden crear solicitudes
-  // (vendedor, bodeguero, admin). Admin/propietario ven sus propias
-  // solicitudes para auditoría, pero el flujo principal de aprobación
-  // está en la vista #aprobaciones.
+  // Vendedor ve TODOS los tabs operativos: registra ventas directas (salida),
+  // y crea solicitudes para entrada/baja cuando recibe pedidos o reporta daños.
+  // El submit del form detecta el rol y envía a /solicitudes-movimiento en lugar
+  // de aplicar al stock directamente.
+  // "mis-solicitudes" lo ven todos los roles que pueden crear solicitudes.
   const TABS_POR_ROL = {
     admin:       ["entrada", "salida", "baja", "historial", "mis-solicitudes"],
     propietario: ["entrada", "salida", "baja", "historial", "mis-solicitudes"],
     bodeguero:   ["entrada", "baja", "historial", "mis-solicitudes"],
-    vendedor:    ["salida", "historial", "mis-solicitudes"],
+    vendedor:    ["entrada", "salida", "baja", "historial", "mis-solicitudes"],
     pendiente:   ["historial"],
   };
 
@@ -376,6 +377,39 @@ export async function inicializarMovimientos() {
     const form = document.getElementById(formId);
     if (!form || form.dataset.listener) return;
     form.dataset.listener = "true";
+
+    // UX para vendedor: si es entrada/baja, dejar claro que va a aprobación
+    if (rol === "vendedor" && (tipo === "entrada" || tipo === "baja")) {
+      // 1) Cambiar texto del botón submit
+      const btnSubmit = form.querySelector('button[type="submit"]');
+      if (btnSubmit) {
+        const label = tipo === "entrada" ? "Solicitar entrada" : "Solicitar baja";
+        const texto = Array.from(btnSubmit.childNodes).find(
+          (n) => n.nodeType === Node.TEXT_NODE && n.textContent.trim()
+        );
+        if (texto) texto.textContent = ` ${label} `;
+        else btnSubmit.append(` ${label}`);
+        btnSubmit.title = "Esta acción se envía a aprobación del administrador";
+      }
+
+      // 2) Banner informativo arriba del formulario
+      const panel = form.closest(".mov-panel");
+      if (panel && !panel.querySelector(".mov-aviso-aprobacion")) {
+        const aviso = document.createElement("div");
+        aviso.className = "mov-aviso-aprobacion";
+        aviso.style.cssText =
+          "background:#fef3c7;border-left:4px solid #d97706;padding:10px 14px;margin-bottom:12px;border-radius:6px;font-size:0.875rem;color:#78350f;display:flex;align-items:center;gap:8px";
+        aviso.innerHTML = `
+          <span style="font-size:1.1rem">⚠️</span>
+          <span>Como vendedor, tu ${tipo === "entrada" ? "entrada" : "baja"}
+          quedará <strong>pendiente de aprobación</strong> del administrador.
+          El stock no se actualiza hasta que la apruebe.</span>
+        `;
+        const resumen = panel.querySelector(".mov-resumen-tipo");
+        if (resumen) resumen.insertAdjacentElement("afterend", aviso);
+        else panel.prepend(aviso);
+      }
+    }
 
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
